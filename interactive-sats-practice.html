@@ -1748,7 +1748,7 @@
                     </div>
                 </div>
             </div>
-            <div class="level-badge" id="userLevel" onclick="showLevelProgress()" title="Click to see level progress">Level 1</div>
+            <div class="level-badge" id="userLevel" onclick="showLevelProgress()" title="Click to see quest progress">🌟 Apprentice Scholar</div>
         </div>
 
         <!-- Daily Challenge -->
@@ -2557,6 +2557,32 @@
             dailyStreak: 0
         };
 
+        // Quest Rank System
+        function getQuestRank(level) {
+            const ranks = {
+                1: "🌟 Apprentice Scholar",
+                2: "⚔️ Brave Questor", 
+                3: "🛡️ Skilled Explorer",
+                4: "👑 Master Adventurer",
+                5: "🏆 SATs Champion"
+            };
+            
+            if (level <= 5) {
+                return ranks[level];
+            } else {
+                return `🌟 Legendary Scholar ${level - 5}`;
+            }
+        }
+        
+        function getNextQuestRank(level) {
+            const nextLevel = level + 1;
+            if (nextLevel <= 5) {
+                return getQuestRank(nextLevel);
+            } else {
+                return `🌟 Legendary Scholar ${nextLevel - 5}`;
+            }
+        }
+
         // Smart Greeting System
         function getSmartGreeting(userData) {
             const name = userData.name;
@@ -2731,7 +2757,7 @@
             
             // Level and progress
             userData.level = Math.floor(userData.totalPoints / 100) + 1;
-            document.getElementById('userLevel').textContent = `Level ${userData.level}`;
+            document.getElementById('userLevel').textContent = getQuestRank(userData.level);
             
             const progressToNextLevel = (userData.totalPoints % 100);
             document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
@@ -3416,11 +3442,12 @@
             const pointsInCurrentLevel = currentPoints % 100;
             const pointsToNextLevel = 100 - pointsInCurrentLevel;
             
-            let message = `🎓 Level ${currentLevel}\n\n`;
-            message += `📊 Progress: ${pointsInCurrentLevel}/100 points\n`;
-            message += `🎯 ${pointsToNextLevel} points to Level ${currentLevel + 1}\n\n`;
-            message += `💡 Earn points by completing quizzes!\n`;
-            message += `🏆 Each correct answer = 10 points`;
+            let message = `${getQuestRank(currentLevel)}\n\n`;
+            message += `⚡ Quest Progress: ${pointsInCurrentLevel}/100 adventure points\n`;
+            message += `🗡️ Next: ${getNextQuestRank(currentLevel)}\n`;
+            message += `🎯 ${pointsToNextLevel} more adventure points needed!\n\n`;
+            message += `🎁 Advance your quest by completing challenges!\n`;
+            message += `✨ Each correct answer = 10 adventure points`;
             
             alert(message);
             playSound('click');
@@ -3511,7 +3538,7 @@
             
             // Level and progress
             userData.level = Math.floor(userData.totalPoints / 100) + 1;
-            document.getElementById('userLevel').textContent = `Level ${userData.level}`;
+            document.getElementById('userLevel').textContent = getQuestRank(userData.level);
             
             const progressToNextLevel = (userData.totalPoints % 100);
             document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
