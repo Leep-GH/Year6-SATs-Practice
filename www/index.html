@@ -662,26 +662,23 @@
             border-radius: 20px;
             padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 20px;
             color: white;
+            flex: 1;
+            min-width: 0;
         }
 
-        .user-avatar {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
+
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
         }
 
         .user-details h2 {
@@ -699,19 +696,40 @@
         .level-badge {
             background: linear-gradient(135deg, #8b5cf6, #a855f7);
             color: white;
-            padding: 12px 20px;
-            border-radius: 15px;
+            padding: 8px 16px;
+            border-radius: 12px;
             font-weight: 600;
+            font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .level-badge:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
             background: linear-gradient(135deg, #9333ea, #a855f7);
+        }
+        
+        /* Responsive adjustments for long names */
+        @media (max-width: 480px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .user-info {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .level-badge {
+                align-self: flex-end;
+            }
         }
 
         .stats-grid {
@@ -1887,8 +1905,8 @@
     <!-- Welcome Screen -->
     <div id="welcomeScreen" class="welcome-screen">
         <div class="welcome-logo">🎓</div>
-        <h1 class="welcome-title">SATs Practice Pro</h1>
-        <p class="welcome-subtitle">Your personalized journey to SATs success with AI-powered hints and progress tracking</p>
+        <h1 class="welcome-title">SATs Quest</h1>
+        <p class="welcome-subtitle">Your exciting adventure to master Year 6 SATs with helpful hints and fun challenges!</p>
         
         <div class="name-input-container glass-card">
             <input type="text" id="userName" class="name-input" placeholder="Enter your name here">
@@ -1903,12 +1921,10 @@
     <div id="dashboard" class="container dashboard">
         <div class="dashboard-header glass-card">
             <div class="user-info">
-                <div class="user-avatar" id="userAvatar"></div>
                 <div class="user-details">
                     <h2 id="userName-display">Hi there!</h2>
                     <div class="user-stats">
-                        <span id="totalQuizzes">0 quizzes completed</span> • 
-                        <span id="averageScore">0% average score</span>
+                        <span id="totalQuizzes">Ready to start your quest! ✨</span>
                     </div>
                 </div>
             </div>
@@ -2285,51 +2301,51 @@
                 ],
                 pack2: [
                     // PACK 2: Development (Silver) - Intermediate Skills
-                    {
-                        question: "Calculate: 2,847 + 1,596",
-                        type: "input",
-                        answer: "4443",
-                        hint: "Set up the numbers in columns and add from right to left. What should you do when a column adds to 10 or more?"
-                    },
-                    {
-                        question: "What is 3/8 × 24?",
-                        type: "multiple",
-                        options: ["6", "9", "12", "15"],
-                        answer: "9",
-                        hint: "When multiplying a fraction by a whole number, think about what the fraction means. How could you break this calculation into two simpler steps?"
-                    },
-                    {
-                        question: "Calculate: 7,204 - 2,847",
-                        type: "input",
-                        answer: "4357",
-                        hint: "Line up the numbers by place value. What strategy can you use when the top digit is smaller than the bottom digit?"
-                    },
-                    {
-                        question: "Calculate: 156 ÷ 12",
-                        type: "input",
-                        answer: "13",
-                        hint: "Think: how many groups of 12 can you make from 156? What's a good estimate to start with?"
-                    },
-                    {
-                        question: "What is 2.8 × 15?",
-                        type: "multiple",
-                        options: ["28", "32", "42", "52"],
-                        answer: "42",
-                        hint: "How can you work with decimals more easily? Think about what happens if you multiply by 10 first, then adjust later."
-                    },
-                    {
-                        question: "What is 5/6 of 72?",
-                        type: "multiple",
-                        options: ["48", "54", "60", "66"],
-                        answer: "60",
-                        hint: "To find 5/6 of something, think about breaking it into steps. How could finding 1/6 first help you?"
-                    },
-                    {
-                        question: "Calculate: 4.7 + 2.85 + 1.6",
-                        type: "input",
-                        answer: "9.15",
-                        hint: "When adding decimals, what's the most important thing to remember about lining up the numbers? How can adding zeros help?"
-                    },
+                {
+                    question: "Calculate: 2,847 + 1,596",
+                    type: "input",
+                    answer: "4443",
+                    hint: "Set up the numbers in columns and add from right to left. What should you do when a column adds to 10 or more?"
+                },
+                {
+                    question: "What is 3/8 × 24?",
+                    type: "multiple",
+                    options: ["6", "9", "12", "15"],
+                    answer: "9",
+                    hint: "When multiplying a fraction by a whole number, think about what the fraction means. How could you break this calculation into two simpler steps?"
+                },
+                {
+                    question: "Calculate: 7,204 - 2,847",
+                    type: "input",
+                    answer: "4357",
+                    hint: "Line up the numbers by place value. What strategy can you use when the top digit is smaller than the bottom digit?"
+                },
+                {
+                    question: "Calculate: 156 ÷ 12",
+                    type: "input",
+                    answer: "13",
+                    hint: "Think: how many groups of 12 can you make from 156? What's a good estimate to start with?"
+                },
+                {
+                    question: "What is 2.8 × 15?",
+                    type: "multiple",
+                    options: ["28", "32", "42", "52"],
+                    answer: "42",
+                    hint: "How can you work with decimals more easily? Think about what happens if you multiply by 10 first, then adjust later."
+                },
+                {
+                    question: "What is 5/6 of 72?",
+                    type: "multiple",
+                    options: ["48", "54", "60", "66"],
+                    answer: "60",
+                    hint: "To find 5/6 of something, think about breaking it into steps. How could finding 1/6 first help you?"
+                },
+                {
+                    question: "Calculate: 4.7 + 2.85 + 1.6",
+                    type: "input",
+                    answer: "9.15",
+                    hint: "When adding decimals, what's the most important thing to remember about lining up the numbers? How can adding zeros help?"
+                },
                     {
                         question: "What is 40% of 175?",
                         type: "multiple",
@@ -2366,12 +2382,12 @@
                         answer: "4753",
                         hint: "When subtracting from a number with zeros, what borrowing strategy do you need? Work through each column carefully."
                     },
-                    {
-                        question: "What is 18% of 250?",
-                        type: "multiple",
-                        options: ["36", "45", "54", "63"],
-                        answer: "45",
-                        hint: "What does 18% mean as a fraction? Once you know that, how would you calculate 18% of any number?"
+                {
+                    question: "What is 18% of 250?",
+                    type: "multiple",
+                    options: ["36", "45", "54", "63"],
+                    answer: "45",
+                    hint: "What does 18% mean as a fraction? Once you know that, how would you calculate 18% of any number?"
                     },
                     {
                         question: "Calculate: (4.7 × 6) + (3.8 × 4)",
@@ -2491,56 +2507,56 @@
                 ],
                 pack2: [
                     // PACK 2: Development (Silver) - Intermediate Place Value
-                    {
-                        question: "What is the value of the digit 7 in the number 37,642?",
-                        type: "multiple",
-                        options: ["7", "70", "700", "7000"],
-                        answer: "7000",
-                        hint: "Look at which column the 7 is in. Count the places from right to left. What do we call each position?"
-                    },
-                    {
-                        question: "Round 4,567 to the nearest hundred.",
-                        type: "input",
-                        answer: "4600",
-                        hint: "Look at the digit in the tens place to decide whether to round up or down. What's the rule for rounding?"
-                    },
-                    {
-                        question: "What is 6,000 + 400 + 50 + 3 in standard form?",
-                        type: "input",
-                        answer: "6453",
-                        hint: "In standard form, we write numbers as one number without showing place values. How would you combine these parts?"
-                    },
-                    {
-                        question: "What is the value of the digit 5 in 85,432?",
-                        type: "multiple",
-                        options: ["5", "50", "500", "5000"],
-                        answer: "5000",
-                        hint: "Count the places from right to left. Once you know which place the 5 is in, what is its value?"
-                    },
-                    {
-                        question: "Round 7,389 to the nearest thousand.",
-                        type: "input",
-                        answer: "7000",
-                        hint: "When rounding to the nearest thousand, which digit should you look at? What's the rounding rule?"
-                    },
-                    {
-                        question: "What is 50,000 + 3,000 + 800 + 20 + 7?",
-                        type: "input",
-                        answer: "53827",
-                        hint: "When adding numbers in expanded form, work systematically from largest to smallest place values. What's your strategy?"
-                    },
-                    {
-                        question: "In the number 92,856, which digit is in the tens place?",
-                        type: "multiple",
-                        options: ["2", "5", "6", "8"],
-                        answer: "5",
-                        hint: "Remember that place values go from right to left. Start counting from the ones place. Which digit is in the tens position?"
-                    },
-                    {
-                        question: "Round 2,847 to the nearest ten.",
-                        type: "input",
-                        answer: "2850",
-                        hint: "When rounding to the nearest ten, which digit should you look at? What does the rounding rule tell you to do?"
+                {
+                    question: "What is the value of the digit 7 in the number 37,642?",
+                    type: "multiple",
+                    options: ["7", "70", "700", "7000"],
+                    answer: "7000",
+                    hint: "Look at which column the 7 is in. Count the places from right to left. What do we call each position?"
+                },
+                {
+                    question: "Round 4,567 to the nearest hundred.",
+                    type: "input",
+                    answer: "4600",
+                    hint: "Look at the digit in the tens place to decide whether to round up or down. What's the rule for rounding?"
+                },
+                {
+                    question: "What is 6,000 + 400 + 50 + 3 in standard form?",
+                    type: "input",
+                    answer: "6453",
+                    hint: "In standard form, we write numbers as one number without showing place values. How would you combine these parts?"
+                },
+                {
+                    question: "What is the value of the digit 5 in 85,432?",
+                    type: "multiple",
+                    options: ["5", "50", "500", "5000"],
+                    answer: "5000",
+                    hint: "Count the places from right to left. Once you know which place the 5 is in, what is its value?"
+                },
+                {
+                    question: "Round 7,389 to the nearest thousand.",
+                    type: "input",
+                    answer: "7000",
+                    hint: "When rounding to the nearest thousand, which digit should you look at? What's the rounding rule?"
+                },
+                {
+                    question: "What is 50,000 + 3,000 + 800 + 20 + 7?",
+                    type: "input",
+                    answer: "53827",
+                    hint: "When adding numbers in expanded form, work systematically from largest to smallest place values. What's your strategy?"
+                },
+                {
+                    question: "In the number 92,856, which digit is in the tens place?",
+                    type: "multiple",
+                    options: ["2", "5", "6", "8"],
+                    answer: "5",
+                    hint: "Remember that place values go from right to left. Start counting from the ones place. Which digit is in the tens position?"
+                },
+                {
+                    question: "Round 2,847 to the nearest ten.",
+                    type: "input",
+                    answer: "2850",
+                    hint: "When rounding to the nearest ten, which digit should you look at? What does the rounding rule tell you to do?"
                     },
                     {
                         question: "What is the value of the digit 9 in 298,456?",
@@ -2699,66 +2715,66 @@
                 ],
                 pack2: [
                     // PACK 2: Development (Silver) - Intermediate Operations
-                    {
-                        question: "What is 1/2 + 1/4?",
-                        type: "multiple",
-                        options: ["2/6", "3/4", "1/6", "2/4"],
-                        answer: "3/4",
-                        hint: "To add fractions, you need the same denominator. Look at the denominators - how can you make them the same?"
-                    },
-                    {
-                        question: "Convert 0.6 to a fraction in its simplest form.",
-                        type: "multiple",
-                        options: ["6/10", "3/5", "60/100", "6/100"],
-                        answer: "3/5",
-                        hint: "What does 0.6 mean in terms of tenths? Once you have a fraction, how can you simplify it?"
-                    },
-                    {
-                        question: "What is 3/5 as a percentage?",
-                        type: "input",
-                        answer: "60",
-                        hint: "To convert a fraction to a percentage, you can first convert to a decimal, then multiply by 100."
-                    },
-                    {
-                        question: "Which fraction is equivalent to 0.25?",
-                        type: "multiple",
-                        options: ["1/2", "1/4", "2/5", "3/8"],
-                        answer: "1/4",
-                        hint: "Think about what 0.25 means in terms of hundredths. How can you write this as a fraction and then simplify it?"
-                    },
-                    {
-                        question: "What is 2/3 - 1/6?",
-                        type: "multiple",
-                        options: ["1/6", "1/2", "1/3", "2/9"],
-                        answer: "1/2",
-                        hint: "To subtract fractions, you need the same denominator. Look at both denominators - which one can be converted to match the other?"
-                    },
-                    {
-                        question: "What is 40% as a fraction in simplest form?",
-                        type: "multiple",
-                        options: ["4/10", "2/5", "40/100", "8/20"],
-                        answer: "2/5",
-                        hint: "What does 40% mean as a fraction? Once you have that fraction, how can you simplify it?"
-                    },
-                    {
-                        question: "What is 1/3 + 1/6?",
-                        type: "multiple",
-                        options: ["2/9", "1/2", "2/6", "1/4"],
-                        answer: "1/2",
-                        hint: "To add these fractions, convert 1/3 to sixths. What's 1/3 equivalent to in sixths?"
-                    },
-                    {
-                        question: "Convert 0.8 to a percentage.",
-                        type: "input",
-                        answer: "80",
-                        hint: "To convert a decimal to a percentage, what operation do you need to do? Think about the relationship between decimals and percentages."
-                    },
-                    {
-                        question: "Which is larger: 3/4 or 0.7?",
-                        type: "multiple",
-                        options: ["3/4", "0.7", "They are equal", "Cannot tell"],
-                        answer: "3/4",
-                        hint: "To compare a fraction and a decimal, convert them to the same form. Which would be easier to convert?"
+                {
+                    question: "What is 1/2 + 1/4?",
+                    type: "multiple",
+                    options: ["2/6", "3/4", "1/6", "2/4"],
+                    answer: "3/4",
+                    hint: "To add fractions, you need the same denominator. Look at the denominators - how can you make them the same?"
+                },
+                {
+                    question: "Convert 0.6 to a fraction in its simplest form.",
+                    type: "multiple",
+                    options: ["6/10", "3/5", "60/100", "6/100"],
+                    answer: "3/5",
+                    hint: "What does 0.6 mean in terms of tenths? Once you have a fraction, how can you simplify it?"
+                },
+                {
+                    question: "What is 3/5 as a percentage?",
+                    type: "input",
+                    answer: "60",
+                    hint: "To convert a fraction to a percentage, you can first convert to a decimal, then multiply by 100."
+                },
+                {
+                    question: "Which fraction is equivalent to 0.25?",
+                    type: "multiple",
+                    options: ["1/2", "1/4", "2/5", "3/8"],
+                    answer: "1/4",
+                    hint: "Think about what 0.25 means in terms of hundredths. How can you write this as a fraction and then simplify it?"
+                },
+                {
+                    question: "What is 2/3 - 1/6?",
+                    type: "multiple",
+                    options: ["1/6", "1/2", "1/3", "2/9"],
+                    answer: "1/2",
+                    hint: "To subtract fractions, you need the same denominator. Look at both denominators - which one can be converted to match the other?"
+                },
+                {
+                    question: "What is 40% as a fraction in simplest form?",
+                    type: "multiple",
+                    options: ["4/10", "2/5", "40/100", "8/20"],
+                    answer: "2/5",
+                    hint: "What does 40% mean as a fraction? Once you have that fraction, how can you simplify it?"
+                },
+                {
+                    question: "What is 1/3 + 1/6?",
+                    type: "multiple",
+                    options: ["2/9", "1/2", "2/6", "1/4"],
+                    answer: "1/2",
+                    hint: "To add these fractions, convert 1/3 to sixths. What's 1/3 equivalent to in sixths?"
+                },
+                {
+                    question: "Convert 0.8 to a percentage.",
+                    type: "input",
+                    answer: "80",
+                    hint: "To convert a decimal to a percentage, what operation do you need to do? Think about the relationship between decimals and percentages."
+                },
+                {
+                    question: "Which is larger: 3/4 or 0.7?",
+                    type: "multiple",
+                    options: ["3/4", "0.7", "They are equal", "Cannot tell"],
+                    answer: "3/4",
+                    hint: "To compare a fraction and a decimal, convert them to the same form. Which would be easier to convert?"
                     },
                     {
                         question: "What is 5/8 as a decimal?",
@@ -2859,12 +2875,12 @@
                         answer: "Pentagon",
                         hint: "Think about the prefix 'pent-'. What does it mean? Like a pentagram."
                     },
-                    {
-                        question: "How many sides does a hexagon have?",
-                        type: "input",
-                        answer: "6",
-                        hint: "Think about the prefix 'hex-'. What other words do you know that start with this prefix? What does it mean?"
-                    },
+                {
+                    question: "How many sides does a hexagon have?",
+                    type: "input",
+                    answer: "6",
+                    hint: "Think about the prefix 'hex-'. What other words do you know that start with this prefix? What does it mean?"
+                },
                     {
                         question: "Which shape is completely round?",
                         type: "multiple",
@@ -2907,46 +2923,46 @@
                 ],
                 pack2: [
                     // PACK 2: Development (Silver) - Properties & Measurements
-                    {
-                        question: "What is the sum of angles in a triangle?",
-                        type: "multiple",
-                        options: ["90°", "180°", "270°", "360°"],
-                        answer: "180°",
-                        hint: "This is a fundamental property of triangles. All triangles, regardless of their shape, have the same angle sum. What do you think it is?"
-                    },
-                    {
-                        question: "A square has a perimeter of 20cm. What is the length of one side?",
-                        type: "input",
-                        answer: "5",
-                        hint: "What's the relationship between perimeter and side length in a square? If you know the total perimeter, how would you find one side?"
-                    },
-                    {
-                        question: "Which shape has parallel sides that are equal in length?",
-                        type: "multiple",
-                        options: ["Triangle", "Pentagon", "Rectangle", "Circle"],
-                        answer: "Rectangle",
-                        hint: "Think about the properties of different shapes. Which shape has two pairs of parallel sides that are equal?"
-                    },
-                    {
-                        question: "How many lines of symmetry does a rectangle have?",
-                        type: "input",
-                        answer: "2",
-                        hint: "Think about lines of symmetry. How many ways can you fold a rectangle so that both halves match perfectly?"
-                    },
-                    {
-                        question: "What is the area of a rectangle with length 8cm and width 5cm?",
-                        type: "multiple",
-                        options: ["13 cm²", "26 cm²", "40 cm²", "20 cm²"],
-                        answer: "40 cm²",
-                        hint: "What's the formula for finding the area of a rectangle? How would you use the given measurements?"
-                    },
-                    {
-                        question: "How many vertices does a cube have?",
-                        type: "input",
-                        answer: "8",
-                        hint: "Think about the structure of a cube. How many corners does each face have? How many faces touch at each corner?"
-                    },
-                    {
+                {
+                    question: "What is the sum of angles in a triangle?",
+                    type: "multiple",
+                    options: ["90°", "180°", "270°", "360°"],
+                    answer: "180°",
+                    hint: "This is a fundamental property of triangles. All triangles, regardless of their shape, have the same angle sum. What do you think it is?"
+                },
+                {
+                    question: "A square has a perimeter of 20cm. What is the length of one side?",
+                    type: "input",
+                    answer: "5",
+                    hint: "What's the relationship between perimeter and side length in a square? If you know the total perimeter, how would you find one side?"
+                },
+                {
+                    question: "Which shape has parallel sides that are equal in length?",
+                    type: "multiple",
+                    options: ["Triangle", "Pentagon", "Rectangle", "Circle"],
+                    answer: "Rectangle",
+                    hint: "Think about the properties of different shapes. Which shape has two pairs of parallel sides that are equal?"
+                },
+                {
+                    question: "How many lines of symmetry does a rectangle have?",
+                    type: "input",
+                    answer: "2",
+                    hint: "Think about lines of symmetry. How many ways can you fold a rectangle so that both halves match perfectly?"
+                },
+                {
+                    question: "What is the area of a rectangle with length 8cm and width 5cm?",
+                    type: "multiple",
+                    options: ["13 cm²", "26 cm²", "40 cm²", "20 cm²"],
+                    answer: "40 cm²",
+                    hint: "What's the formula for finding the area of a rectangle? How would you use the given measurements?"
+                },
+                {
+                    question: "How many vertices does a cube have?",
+                    type: "input",
+                    answer: "8",
+                    hint: "Think about the structure of a cube. How many corners does each face have? How many faces touch at each corner?"
+                },
+                {
                         question: "What is the perimeter of a triangle with sides 3cm, 4cm, and 5cm?",
                         type: "input",
                         answer: "12",
@@ -2954,7 +2970,7 @@
                     },
                     {
                         question: "How many faces does a cube have?",
-                        type: "input",
+                    type: "input",
                         answer: "6",
                         hint: "Think about a dice. Count all the flat surfaces (faces) of a cube."
                     },
@@ -2973,12 +2989,12 @@
                 ],
                 pack3: [
                     // PACK 3: Mastery (Gold) - Advanced Geometry
-                    {
-                        question: "Which 3D shape has 6 faces, 12 edges and 8 vertices?",
-                        type: "multiple",
-                        options: ["Pyramid", "Cylinder", "Cube", "Sphere"],
-                        answer: "Cube",
-                        hint: "Think about a familiar cube-shaped object like a dice. Count the faces, edges, and corners. What pattern do you notice?"
+                {
+                    question: "Which 3D shape has 6 faces, 12 edges and 8 vertices?",
+                    type: "multiple",
+                    options: ["Pyramid", "Cylinder", "Cube", "Sphere"],
+                    answer: "Cube",
+                    hint: "Think about a familiar cube-shaped object like a dice. Count the faces, edges, and corners. What pattern do you notice?"
                     },
                     {
                         question: "What is the area of a triangle with base 10cm and height 6cm?",
@@ -3329,6 +3345,78 @@
             dailyStreak: 0
         };
 
+        // Smart Greeting System
+        function getSmartGreeting(userData) {
+            const name = userData.name;
+            const quizzes = userData.quizzesCompleted;
+            const averageScore = userData.totalPoints > 0 ? Math.round((userData.totalPoints / (quizzes * 10)) * 100) : 0;
+            const daysSinceLastLogin = userData.lastLoginDate ? 
+                Math.floor((Date.now() - new Date(userData.lastLoginDate).getTime()) / (1000 * 60 * 60 * 24)) : 0;
+            
+            // First time user
+            if (quizzes === 0) {
+                return `Hi ${name}! 🌟`;
+            }
+            
+            // Returning after break (more than 3 days)
+            if (daysSinceLastLogin > 3) {
+                return `Welcome back, ${name}! 👋`;
+            }
+            
+            // High achiever (90%+ average)
+            if (averageScore >= 90 && quizzes >= 3) {
+                return `Amazing work, ${name}! 🏆`;
+            }
+            
+            // Good progress (75%+ average)
+            if (averageScore >= 75 && quizzes >= 3) {
+                return `Great job, ${name}! 🌟`;
+            }
+            
+            // Early progress (1-5 quizzes)
+            if (quizzes <= 5) {
+                return `Nice start, ${name}! 🚀`;
+            }
+            
+            // Regular user
+            return `Hi ${name}! 👍`;
+        }
+
+        function getSmartStats(userData) {
+            const quizzes = userData.quizzesCompleted;
+            const averageScore = userData.totalPoints > 0 ? Math.round((userData.totalPoints / (quizzes * 10)) * 100) : 0;
+            const daysSinceLastLogin = userData.lastLoginDate ? 
+                Math.floor((Date.now() - new Date(userData.lastLoginDate).getTime()) / (1000 * 60 * 60 * 24)) : 0;
+            
+            // First time user
+            if (quizzes === 0) {
+                return "Ready to start your quest! ✨";
+            }
+            
+            // Returning after break
+            if (daysSinceLastLogin > 3) {
+                return `${quizzes} quizzes completed • Ready to continue?`;
+            }
+            
+            // High achiever
+            if (averageScore >= 90 && quizzes >= 3) {
+                return `${quizzes} quizzes • ${averageScore}% average! Outstanding! 🎉`;
+            }
+            
+            // Good progress
+            if (averageScore >= 75 && quizzes >= 3) {
+                return `${quizzes} quizzes completed • ${averageScore}% average 📈`;
+            }
+            
+            // Early progress
+            if (quizzes <= 5) {
+                return `${quizzes} quizzes completed • Keep going! 💪`;
+            }
+            
+            // Regular display
+            return `${quizzes} quizzes completed • ${averageScore}% average`;
+        }
+
         // Quiz State
         let currentTopic = '';
         let currentQuestions = [];
@@ -3371,6 +3459,10 @@
             if (savedData) {
                 userData = { ...userData, ...JSON.parse(savedData) };
             }
+            
+            // Update last login date for returning user tracking
+            userData.lastLoginDate = new Date().toISOString();
+            saveUserData();
         }
 
         // Save User Data to localStorage
@@ -3416,18 +3508,14 @@
         // Update Dashboard with User Data
         function updateDashboard() {
             // User info
-            document.getElementById('userName-display').textContent = `Hi ${userData.name}!`;
-            document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+            document.getElementById('userName-display').textContent = getSmartGreeting(userData);
+            // Avatar removed for better layout
             
             // Stats
             document.getElementById('totalPoints').textContent = userData.totalPoints;
             document.getElementById('bestStreak').textContent = userData.bestStreak;
-            document.getElementById('totalQuizzes').textContent = `${userData.quizzesCompleted} quizzes completed`;
-            
-            // Calculate average score
-            const avgScore = userData.quizzesCompleted > 0 ? 
-                Math.round(Object.values(userData.topicScores).reduce((a, b) => a + (b || 0), 0) / Object.keys(userData.topicScores).length) : 0;
-            document.getElementById('averageScore').textContent = `${avgScore}% average score`;
+            document.getElementById('totalQuizzes').textContent = getSmartStats(userData);
+            document.getElementById('averageScore').textContent = ``;
             
             // Level and progress
             userData.level = Math.floor(userData.totalPoints / 100) + 1;
@@ -4376,19 +4464,14 @@
         // Enhanced update dashboard with animations
         function updateDashboard() {
             // User info
-            document.getElementById('userName-display').textContent = `Hi ${userData.name}!`;
-            document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+            document.getElementById('userName-display').textContent = getSmartGreeting(userData);
+            // Avatar removed for better layout
             
             // Animate stats
             setTimeout(() => animateNumber(document.getElementById('totalPoints'), 0, userData.totalPoints), 300);
             setTimeout(() => animateNumber(document.getElementById('bestStreak'), 0, userData.bestStreak), 600);
             
-            document.getElementById('totalQuizzes').textContent = `${userData.quizzesCompleted} quizzes completed`;
-            
-            // Calculate average score
-            const avgScore = userData.quizzesCompleted > 0 ? 
-                Math.round(Object.values(userData.topicScores).reduce((a, b) => a + (b || 0), 0) / Object.keys(userData.topicScores).length) : 0;
-            document.getElementById('averageScore').textContent = `${avgScore}% average score`;
+            document.getElementById('totalQuizzes').textContent = getSmartStats(userData);
             
             // Level and progress
             userData.level = Math.floor(userData.totalPoints / 100) + 1;

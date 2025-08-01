@@ -662,28 +662,25 @@
             border-radius: 20px;
             padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 20px;
             color: white;
+            flex: 1;
+            min-width: 0;
         }
 
-        .user-avatar {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-        }
 
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
         .user-details h2 {
             font-size: 1.8rem;
             font-weight: 600;
@@ -699,19 +696,40 @@
         .level-badge {
             background: linear-gradient(135deg, #8b5cf6, #a855f7);
             color: white;
-            padding: 12px 20px;
-            border-radius: 15px;
+            padding: 8px 16px;
+            border-radius: 12px;
             font-weight: 600;
+            font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .level-badge:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
             background: linear-gradient(135deg, #9333ea, #a855f7);
+        }
+        
+        /* Responsive adjustments for long names */
+        @media (max-width: 480px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .user-info {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .level-badge {
+                align-self: flex-end;
+            }
         }
 
         .stats-grid {
@@ -1707,8 +1725,8 @@
     <!-- Welcome Screen -->
     <div id="welcomeScreen" class="welcome-screen">
         <div class="welcome-logo">🎓</div>
-        <h1 class="welcome-title">SATs Practice Pro</h1>
-        <p class="welcome-subtitle">Your personalized journey to SATs success with AI-powered hints and progress tracking</p>
+        <h1 class="welcome-title">SATs Quest</h1>
+        <p class="welcome-subtitle">Your exciting adventure to master Year 6 SATs with helpful hints and fun challenges!</p>
         
         <div class="name-input-container glass-card">
             <input type="text" id="userName" class="name-input" placeholder="Enter your name here">
@@ -1723,12 +1741,10 @@
     <div id="dashboard" class="container dashboard">
         <div class="dashboard-header glass-card">
             <div class="user-info">
-                <div class="user-avatar" id="userAvatar"></div>
                 <div class="user-details">
                     <h2 id="userName-display">Hi there!</h2>
                     <div class="user-stats">
-                        <span id="totalQuizzes">0 quizzes completed</span> • 
-                        <span id="averageScore">0% average score</span>
+                        <span id="totalQuizzes">Ready to start your quest! ✨</span>
                     </div>
                 </div>
             </div>
@@ -2541,6 +2557,78 @@
             dailyStreak: 0
         };
 
+        // Smart Greeting System
+        function getSmartGreeting(userData) {
+            const name = userData.name;
+            const quizzes = userData.quizzesCompleted;
+            const averageScore = userData.totalPoints > 0 ? Math.round((userData.totalPoints / (quizzes * 10)) * 100) : 0;
+            const daysSinceLastLogin = userData.lastLoginDate ? 
+                Math.floor((Date.now() - new Date(userData.lastLoginDate).getTime()) / (1000 * 60 * 60 * 24)) : 0;
+            
+            // First time user
+            if (quizzes === 0) {
+                return `Hi ${name}! 🌟`;
+            }
+            
+            // Returning after break (more than 3 days)
+            if (daysSinceLastLogin > 3) {
+                return `Welcome back, ${name}! 👋`;
+            }
+            
+            // High achiever (90%+ average)
+            if (averageScore >= 90 && quizzes >= 3) {
+                return `Amazing work, ${name}! 🏆`;
+            }
+            
+            // Good progress (75%+ average)
+            if (averageScore >= 75 && quizzes >= 3) {
+                return `Great job, ${name}! 🌟`;
+            }
+            
+            // Early progress (1-5 quizzes)
+            if (quizzes <= 5) {
+                return `Nice start, ${name}! 🚀`;
+            }
+            
+            // Regular user
+            return `Hi ${name}! 👍`;
+        }
+
+        function getSmartStats(userData) {
+            const quizzes = userData.quizzesCompleted;
+            const averageScore = userData.totalPoints > 0 ? Math.round((userData.totalPoints / (quizzes * 10)) * 100) : 0;
+            const daysSinceLastLogin = userData.lastLoginDate ? 
+                Math.floor((Date.now() - new Date(userData.lastLoginDate).getTime()) / (1000 * 60 * 60 * 24)) : 0;
+            
+            // First time user
+            if (quizzes === 0) {
+                return "Ready to start your quest! ✨";
+            }
+            
+            // Returning after break
+            if (daysSinceLastLogin > 3) {
+                return `${quizzes} quizzes completed • Ready to continue?`;
+            }
+            
+            // High achiever
+            if (averageScore >= 90 && quizzes >= 3) {
+                return `${quizzes} quizzes • ${averageScore}% average! Outstanding! 🎉`;
+            }
+            
+            // Good progress
+            if (averageScore >= 75 && quizzes >= 3) {
+                return `${quizzes} quizzes completed • ${averageScore}% average 📈`;
+            }
+            
+            // Early progress
+            if (quizzes <= 5) {
+                return `${quizzes} quizzes completed • Keep going! 💪`;
+            }
+            
+            // Regular display
+            return `${quizzes} quizzes completed • ${averageScore}% average`;
+        }
+
         // Quiz State
         let currentTopic = '';
         let currentQuestions = [];
@@ -2579,6 +2667,10 @@
             if (savedData) {
                 userData = { ...userData, ...JSON.parse(savedData) };
             }
+            
+            // Update last login date for returning user tracking
+            userData.lastLoginDate = new Date().toISOString();
+            saveUserData();
         }
 
         // Save User Data to localStorage
@@ -2624,13 +2716,13 @@
         // Update Dashboard with User Data
         function updateDashboard() {
             // User info
-            document.getElementById('userName-display').textContent = `Hi ${userData.name}!`;
-            document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+            document.getElementById('userName-display').textContent = getSmartGreeting(userData);
+            // Avatar removed for better layout
             
             // Stats
             document.getElementById('totalPoints').textContent = userData.totalPoints;
             document.getElementById('bestStreak').textContent = userData.bestStreak;
-            document.getElementById('totalQuizzes').textContent = `${userData.quizzesCompleted} quizzes completed`;
+            document.getElementById('totalQuizzes').textContent = getSmartStats(userData);
             
             // Calculate average score
             const avgScore = userData.quizzesCompleted > 0 ? 
@@ -3403,14 +3495,14 @@
         // Enhanced update dashboard with animations
         function updateDashboard() {
             // User info
-            document.getElementById('userName-display').textContent = `Hi ${userData.name}!`;
-            document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+            document.getElementById('userName-display').textContent = getSmartGreeting(userData);
+            // Avatar removed for better layout
             
             // Animate stats
             setTimeout(() => animateNumber(document.getElementById('totalPoints'), 0, userData.totalPoints), 300);
             setTimeout(() => animateNumber(document.getElementById('bestStreak'), 0, userData.bestStreak), 600);
             
-            document.getElementById('totalQuizzes').textContent = `${userData.quizzesCompleted} quizzes completed`;
+            document.getElementById('totalQuizzes').textContent = getSmartStats(userData);
             
             // Calculate average score
             const avgScore = userData.quizzesCompleted > 0 ? 
