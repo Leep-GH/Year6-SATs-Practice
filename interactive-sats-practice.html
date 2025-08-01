@@ -1,0 +1,3446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive SATs Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=OpenDyslexic:wght@400;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Custom Properties for Themes */
+        :root {
+            /* Modern Color Palette */
+            --orange-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --teal-gradient: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --pink-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --blue-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --coral-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            --gold-gradient: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            --emerald-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            
+            /* Core Theme */
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #d946ef;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: #e5e7eb;
+            --font-family: 'Inter', sans-serif;
+            --font-size: 16px;
+            --line-height: 1.6;
+        }
+
+        /* High Contrast Theme */
+        [data-theme="high-contrast"] {
+            --primary-color: #000000;
+            --secondary-color: #000000;
+            --accent-color: #000000;
+            --success-color: #008000;
+            --warning-color: #ff8c00;
+            --error-color: #ff0000;
+            --text-color: #000000;
+            --text-light: #000000;
+            --background: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #000000;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --primary-color: #818cf8;
+            --secondary-color: #a78bfa;
+            --accent-color: #f472b6;
+            --success-color: #34d399;
+            --warning-color: #fbbf24;
+            --error-color: #f87171;
+            --text-color: #f9fafb;
+            --text-light: #d1d5db;
+            --background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
+            --card-bg: rgba(31, 41, 55, 0.95);
+            --border-color: #4b5563;
+        }
+
+        /* Font Family Classes */
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-dyslexic { font-family: 'OpenDyslexic', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .font-system { font-family: system-ui, -apple-system, sans-serif; }
+
+        /* Font Size Classes */
+        .text-small { font-size: 14px; }
+        .text-normal { font-size: 16px; }
+        .text-large { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-xxl { font-size: 24px; }
+
+        /* Line Height Classes */
+        .leading-normal { line-height: 1.5; }
+        .leading-relaxed { line-height: 1.625; }
+        .leading-loose { line-height: 2; }
+
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size);
+            line-height: var(--line-height);
+            color: var(--text-color);
+            background: var(--background);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Premium 3D Floating Elements */
+        .background-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            font-size: 2rem;
+            animation: elementFloat 8s infinite ease-in-out;
+            transform-style: preserve-3d;
+            opacity: 0.7;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .floating-element.book { left: 8%; top: 15%; animation-delay: 0s; }
+        .floating-element.calculator { right: 12%; top: 25%; animation-delay: 1s; }
+        .floating-element.globe { left: 15%; bottom: 30%; animation-delay: 2s; }
+        .floating-element.pencil { right: 8%; bottom: 20%; animation-delay: 3s; }
+        .floating-element.star { left: 25%; top: 35%; animation-delay: 4s; font-size: 1.5rem; }
+        .floating-element.trophy { right: 25%; top: 45%; animation-delay: 5s; }
+        .floating-element.lightbulb { left: 5%; top: 60%; animation-delay: 1.5s; }
+        .floating-element.medal { right: 5%; top: 70%; animation-delay: 2.5s; }
+
+        @keyframes elementFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotateY(0deg) rotateX(0deg); 
+                opacity: 0.6; 
+            }
+            25% { 
+                transform: translateY(-20px) rotateY(90deg) rotateX(10deg); 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: translateY(-40px) rotateY(180deg) rotateX(0deg); 
+                opacity: 1; 
+            }
+            75% { 
+                transform: translateY(-20px) rotateY(270deg) rotateX(-10deg); 
+                opacity: 0.8; 
+            }
+        }
+
+        /* Sparkle Effects */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            animation: sparkleAnimation 3s infinite ease-in-out;
+        }
+
+        .sparkle:nth-child(1) { left: 20%; top: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { right: 30%; top: 40%; animation-delay: 1s; }
+        .sparkle:nth-child(3) { left: 60%; bottom: 25%; animation-delay: 2s; }
+        .sparkle:nth-child(4) { right: 15%; bottom: 40%; animation-delay: 0.5s; }
+        .sparkle:nth-child(5) { left: 80%; top: 60%; animation-delay: 1.5s; }
+
+        @keyframes sparkleAnimation {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+
+        /* Skip Link for Screen Readers */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Focus Indicators */
+        *:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        input:focus,
+        .option:focus {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Creative Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+
+
+        /* Settings Panel */
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: var(--card-bg);
+            border-left: 2px solid var(--border-color);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .settings-panel.open {
+            right: 0;
+        }
+
+        .settings-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .settings-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .settings-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .setting-group {
+            margin-bottom: 25px;
+        }
+
+        .setting-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .setting-options {
+            display: grid;
+            gap: 8px;
+        }
+
+        .setting-option {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            text-align: left;
+        }
+
+        .setting-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .setting-option.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .volume-slider {
+            flex: 1;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            outline: none;
+            appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Sound Effects Toggle */
+        .sound-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sound-toggle:hover {
+            border-color: var(--primary-color);
+        }
+
+        .sound-toggle.active {
+            border-color: var(--success-color);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background: var(--border-color);
+            border-radius: 25px;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--success-color);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(25px);
+        }
+
+        /* Daily Challenge Card - Compact */
+        .daily-challenge {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daily-challenge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20px;
+            width: 100px;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0%, 100% { transform: rotate(45deg) translateX(-100px); }
+            50% { transform: rotate(45deg) translateX(100px); }
+        }
+
+        .challenge-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .challenge-description {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .challenge-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .challenge-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+
+        .challenge-fill {
+            height: 100%;
+            background: white;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Streak Counter - Compact */
+        .streak-counter {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .streak-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .streak-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .streak-fire {
+            font-size: 1.5rem;
+            animation: flicker 1.5s infinite alternate;
+            position: static;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); }
+            100% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .welcome-logo {
+            width: 140px;
+            height: 140px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            animation: logoFloat 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-logo::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: conic-gradient(from 0deg, #6366f1, #8b5cf6, #d946ef, #6366f1);
+            border-radius: 50%;
+            z-index: -1;
+            animation: logoSpin 4s linear infinite;
+            opacity: 0.8;
+        }
+
+        .welcome-logo:hover {
+            transform: scale(1.1) rotateY(15deg);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.4);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes logoSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mascot Character */
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: mascotBounce 2s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .mascot:hover {
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
+        }
+
+        @keyframes mascotBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .mascot::after {
+            content: attr(data-message);
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .mascot:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .name-input-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .name-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            background: white;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .name-input:focus {
+            outline: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user-details h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .user-stats {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #d946ef);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Animated Counter Numbers */
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-value.counting {
+            animation: numberPulse 0.6s ease;
+        }
+
+        @keyframes numberPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); color: #6366f1; }
+            100% { transform: scale(1); }
+        }
+
+        .stat-card h3 {
+            color: #6366f1;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .progress-ring {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+        }
+
+        .progress-ring-bg,
+        .progress-ring-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid;
+        }
+
+        .progress-ring-bg {
+            border-color: #e5e7eb;
+        }
+
+        .progress-ring-fill {
+            border-color: #8b5cf6;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            transform: rotate(-90deg);
+            transition: transform 0.3s ease;
+        }
+
+        .progress-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8b5cf6;
+        }
+
+        .progress-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Topic Selection */
+        .topics-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            text-align: center;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .subject-section {
+            margin-bottom: 40px;
+        }
+
+        .subject-title {
+            font-size: 1.6rem;
+            color: #6366f1;
+            margin-bottom: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subject-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .topic-card {
+            border: none;
+            border-radius: 24px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: left;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Individual Topic Colors */
+        .topic-card[data-topic="arithmetic"] {
+            background: var(--orange-gradient);
+            box-shadow: 0 8px 32px rgba(255, 107, 53, 0.25);
+        }
+
+        .topic-card[data-topic="number-place-value"] {
+            background: var(--teal-gradient);
+            box-shadow: 0 8px 32px rgba(78, 205, 196, 0.25);
+        }
+
+        .topic-card[data-topic="fractions-decimals"] {
+            background: var(--purple-gradient);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.25);
+        }
+
+        .topic-card[data-topic="geometry"] {
+            background: var(--pink-gradient);
+            box-shadow: 0 8px 32px rgba(240, 147, 251, 0.25);
+        }
+
+        .topic-card[data-topic="measurement"] {
+            background: var(--blue-gradient);
+            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.25);
+        }
+
+        .topic-card[data-topic="grammar-punctuation"] {
+            background: var(--coral-gradient);
+            box-shadow: 0 8px 32px rgba(250, 112, 154, 0.25);
+        }
+
+        .topic-card[data-topic="spelling"] {
+            background: var(--dark-gradient);
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.25);
+        }
+
+        .topic-card[data-topic="reading-comprehension"] {
+            background: var(--gold-gradient);
+            box-shadow: 0 8px 32px rgba(247, 151, 30, 0.25);
+        }
+
+        /* Modern Hover Effects */
+        .topic-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .topic-card:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* Completion Badge */
+        .completion-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            opacity: 0.8;
+        }
+
+        .completion-badge.completed {
+            background: rgba(16, 185, 129, 0.9);
+            border-color: rgba(16, 185, 129, 1);
+            color: white;
+            opacity: 1;
+        }
+
+        /* Topic Icons */
+        .topic-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        /* Interactive Ripple Effect */
+        .topic-card {
+            position: relative;
+        }
+
+        .topic-card .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: rippleEffect 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .topic-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .topic-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .topic-best-score {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* Quiz Interface */
+        .quiz-container {
+            display: none;
+        }
+
+        .quiz-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .quiz-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            flex: 1;
+        }
+
+        .hint-btn {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .hint-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #10b981, #059669);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-weight: 600;
+            min-width: 120px;
+            text-align: right;
+        }
+
+        .question-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .question-number {
+            color: #6366f1;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        .hint-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .hint-box.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hint-icon {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .hint-text {
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .options-container {
+            margin-bottom: 30px;
+        }
+
+        .option {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+        }
+
+        .option:hover {
+            border-color: #6366f1;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #6366f1;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            background: #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .option.selected .option-letter {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .nav-btn:hover {
+            background: #5856eb;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .finish-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .finish-btn:hover {
+            background: linear-gradient(135deg, #047857, #065f46);
+        }
+
+        /* Results Screen */
+        .results-container {
+            display: none;
+        }
+
+        .results-header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .results-score {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-message {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .results-summary {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .summary-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .result-item {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #e2e8f0;
+        }
+
+        .result-item.correct {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+        }
+
+        .result-item.incorrect {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2, #fef7f7);
+        }
+
+        .result-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .result-answers {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .result-answer {
+            font-weight: 500;
+        }
+
+        .correct-answer {
+            color: #059669;
+        }
+
+        .incorrect-answer {
+            color: #dc2626;
+        }
+
+        .results-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+        }
+
+        .action-btn.secondary {
+            background: linear-gradient(135deg, #64748b, #475569);
+        }
+
+        /* Achievements */
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .achievement-popup.show {
+            display: block;
+            animation: achievementPop 0.5s ease;
+        }
+
+        @keyframes achievementPop {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .achievement-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .achievement-description {
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .quiz-title {
+                order: -1;
+            }
+
+            .quiz-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .results-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .results-score {
+                font-size: 3rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Premium 3D Floating Elements -->
+    <div class="background-particles">
+        <div class="floating-element book">📚</div>
+        <div class="floating-element calculator">🧮</div>
+        <div class="floating-element globe">🌍</div>
+        <div class="floating-element pencil">✏️</div>
+        <div class="floating-element star">⭐</div>
+        <div class="floating-element trophy">🏆</div>
+        <div class="floating-element lightbulb">💡</div>
+        <div class="floating-element medal">🥇</div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+    </div>
+
+    <!-- Mascot Character -->
+    <div class="mascot" data-message="Hi! I'm here to help! 🎉" onclick="mascotClick()">
+        🐶
+    </div>
+
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Settings Toggle Button -->
+    <button class="settings-toggle" onclick="toggleSettings()" aria-label="Open settings menu" title="Settings">
+        ⚙️
+    </button>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settingsPanel" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+        <h2 id="settings-title" class="settings-title">Settings</h2>
+        
+        <div class="setting-group">
+            <label class="setting-label">Font Family</label>
+            <div class="setting-options">
+                <button class="setting-option active" onclick="changeFontFamily('inter')" data-font="inter">
+                    Inter (Default)
+                </button>
+                <button class="setting-option" onclick="changeFontFamily('dyslexic')" data-font="dyslexic">
+                    OpenDyslexic
+                </button>
+                <button class="setting-option" onclick="changeFontFamily('comic')" data-font="comic">
+                    Comic Neue
+                </button>
+                <button class="setting-option" onclick="changeFontFamily('system')" data-font="system">
+                    System Font
+                </button>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Font Size</label>
+            <div class="setting-options">
+                <button class="setting-option" onclick="changeFontSize('small')" data-size="small">
+                    Small (14px)
+                </button>
+                <button class="setting-option active" onclick="changeFontSize('normal')" data-size="normal">
+                    Normal (16px)
+                </button>
+                <button class="setting-option" onclick="changeFontSize('large')" data-size="large">
+                    Large (18px)
+                </button>
+                <button class="setting-option" onclick="changeFontSize('xl')" data-size="xl">
+                    Extra Large (20px)
+                </button>
+                <button class="setting-option" onclick="changeFontSize('xxl')" data-size="xxl">
+                    XXL (24px)
+                </button>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Line Spacing</label>
+            <div class="setting-options">
+                <button class="setting-option" onclick="changeLineHeight('normal')" data-height="normal">
+                    Normal (1.5)
+                </button>
+                <button class="setting-option active" onclick="changeLineHeight('relaxed')" data-height="relaxed">
+                    Relaxed (1.625)
+                </button>
+                <button class="setting-option" onclick="changeLineHeight('loose')" data-height="loose">
+                    Loose (2.0)
+                </button>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Theme</label>
+            <div class="setting-options">
+                <button class="setting-option active" onclick="changeTheme('default')" data-theme="default">
+                    Default
+                </button>
+                <button class="setting-option" onclick="changeTheme('dark')" data-theme="dark">
+                    Dark Mode
+                </button>
+                <button class="setting-option" onclick="changeTheme('high-contrast')" data-theme="high-contrast">
+                    High Contrast
+                </button>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Sound Effects</label>
+            <div class="sound-toggle" onclick="toggleSounds()" role="button" tabindex="0" aria-pressed="true">
+                <span>Enable Sound Effects</span>
+                <div class="toggle-switch active" id="soundToggle"></div>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Volume</label>
+            <div class="volume-control">
+                <span>🔊</span>
+                <input type="range" class="volume-slider" min="0" max="100" value="50" id="volumeSlider" 
+                       oninput="changeVolume(this.value)" aria-label="Volume control">
+                <span id="volumeValue">50%</span>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Reset Progress</label>
+            <button class="setting-option" onclick="resetApp()" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border-color: #ef4444;">
+                🔄 Restart & Change Name
+            </button>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 8px;">
+                This will clear all progress and let you enter a new name
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-logo">🎓</div>
+        <h1 class="welcome-title">SATs Practice Pro</h1>
+        <p class="welcome-subtitle">Your personalized journey to SATs success with AI-powered hints and progress tracking</p>
+        
+        <div class="name-input-container glass-card">
+            <input type="text" id="userName" class="name-input" placeholder="Enter your name here">
+            <br>
+            <button id="startJourney" class="start-btn" onclick="startJourney()">
+                Begin Your Journey
+            </button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="container dashboard">
+        <div class="dashboard-header glass-card">
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar"></div>
+                <div class="user-details">
+                    <h2 id="userName-display">Hi there!</h2>
+                    <div class="user-stats">
+                        <span id="totalQuizzes">0 quizzes completed</span> • 
+                        <span id="averageScore">0% average score</span>
+                    </div>
+                </div>
+            </div>
+            <div class="level-badge" id="userLevel">Level 1</div>
+        </div>
+
+        <!-- Daily Challenge -->
+        <div class="daily-challenge" id="dailyChallenge">
+            <h3 class="challenge-title">📅 Daily Challenge</h3>
+            <p class="challenge-description" id="challengeDescription">Complete 5 arithmetic questions today!</p>
+            <div class="challenge-progress">
+                <div class="challenge-bar">
+                    <div class="challenge-fill" id="challengeFill" style="width: 0%"></div>
+                </div>
+                <span id="challengeCount">0/5</span>
+            </div>
+        </div>
+
+        <!-- Current Streak -->
+        <div class="streak-counter">
+            <div class="streak-fire">🔥</div>
+            <div class="streak-number" id="currentStreak">0</div>
+            <div class="streak-label">Day Streak</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Points</h3>
+                <div class="stat-value" id="totalPoints">0</div>
+                <div class="stat-label">points earned</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Best Streak</h3>
+                <div class="stat-value" id="bestStreak">0</div>
+                <div class="stat-label">correct answers in a row</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Progress</h3>
+                <div class="progress-ring">
+                    <div class="progress-ring-bg"></div>
+                    <div class="progress-ring-fill" id="progressRing"></div>
+                    <div class="progress-center">
+                        <div class="progress-value" id="progressValue">0%</div>
+                        <div class="progress-label">Complete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="topics-section glass-card">
+            <h2 class="section-title">Choose Your Practice Topic</h2>
+            
+            <div class="subject-section">
+                <h3 class="subject-title">
+                    <div class="subject-icon">📐</div>
+                    Mathematics
+                </h3>
+                <div class="topic-grid">
+                    <button class="topic-card" data-topic="arithmetic" onclick="startQuiz('arithmetic')">
+                        <div class="completion-badge" id="arithmetic-badge">NEW</div>
+                        <div class="topic-icon">🧮</div>
+                        <div class="topic-title">Arithmetic</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="arithmetic-score">Best: -</span>
+                        </div>
+                    </button>
+                    <button class="topic-card" data-topic="number-place-value" onclick="startQuiz('number-place-value')">
+                        <div class="completion-badge" id="number-place-value-badge">NEW</div>
+                        <div class="topic-icon">🔢</div>
+                        <div class="topic-title">Number and Place Value</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="number-place-value-score">Best: -</span>
+                        </div>
+                    </button>
+                    <button class="topic-card" data-topic="fractions-decimals" onclick="startQuiz('fractions-decimals')">
+                        <div class="completion-badge" id="fractions-decimals-badge">NEW</div>
+                        <div class="topic-icon">🍕</div>
+                        <div class="topic-title">Fractions, Decimals & %</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="fractions-decimals-score">Best: -</span>
+                        </div>
+                    </button>
+                    <button class="topic-card" data-topic="geometry" onclick="startQuiz('geometry')">
+                        <div class="completion-badge" id="geometry-badge">NEW</div>
+                        <div class="topic-icon">📐</div>
+                        <div class="topic-title">Geometry</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="geometry-score">Best: -</span>
+                        </div>
+                    </button>
+                    <button class="topic-card" data-topic="measurement" onclick="startQuiz('measurement')">
+                        <div class="completion-badge" id="measurement-badge">NEW</div>
+                        <div class="topic-icon">📏</div>
+                        <div class="topic-title">Measurement</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="measurement-score">Best: -</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="subject-section">
+                <h3 class="subject-title">
+                    <div class="subject-icon">📚</div>
+                    English
+                </h3>
+                <div class="topic-grid">
+                    <button class="topic-card" data-topic="grammar-punctuation" onclick="startQuiz('grammar-punctuation')">
+                        <div class="completion-badge" id="grammar-punctuation-badge">NEW</div>
+                        <div class="topic-icon">✏️</div>
+                        <div class="topic-title">Grammar & Punctuation</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="grammar-punctuation-score">Best: -</span>
+                        </div>
+                    </button>
+                    <button class="topic-card" data-topic="spelling" onclick="startQuiz('spelling')">
+                        <div class="completion-badge" id="spelling-badge">NEW</div>
+                        <div class="topic-icon">🔤</div>
+                        <div class="topic-title">Spelling</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="spelling-score">Best: -</span>
+                        </div>
+                    </button>
+                    <button class="topic-card" data-topic="reading-comprehension" onclick="startQuiz('reading-comprehension')">
+                        <div class="completion-badge" id="reading-comprehension-badge">NEW</div>
+                        <div class="topic-icon">📖</div>
+                        <div class="topic-title">Reading Comprehension</div>
+                        <div class="topic-stats">
+                            <span>10 questions</span>
+                            <span class="topic-best-score" id="reading-comprehension-score">Best: -</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Interface -->
+    <div id="quizContainer" class="container quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-nav">
+                <button class="back-btn" onclick="backToDashboard()">← Back</button>
+                <h2 class="quiz-title" id="quizTitle"></h2>
+                <button class="hint-btn" onclick="showHint()" id="hintBtn">💡 Hint</button>
+            </div>
+            
+            <div class="quiz-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="quizProgressFill"></div>
+                </div>
+                <div class="progress-text" id="quizProgressText">Question 1 of 10</div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <div class="question-number" id="questionNumber">Question 1</div>
+            <div class="question-text" id="questionText"></div>
+            
+            <div class="hint-box" id="hintBox">
+                <span class="hint-icon">💡</span>
+                <span class="hint-text" id="hintText"></span>
+            </div>
+            
+            <div class="options-container" id="optionsContainer"></div>
+        </div>
+
+        <div class="quiz-navigation">
+            <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+            <button class="nav-btn finish-btn" id="finishBtn" onclick="finishQuiz()" style="display: none;">Finish Quiz</button>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsContainer" class="container results-container">
+        <div class="results-header">
+            <div class="results-score" id="finalScore">8/10</div>
+            <div class="results-message" id="resultsMessage">Excellent work!</div>
+            <div class="results-stats">
+                <div class="result-stat">
+                    <div class="result-stat-value" id="pointsEarned">80</div>
+                    <div class="result-stat-label">Points Earned</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-value" id="timeSpent">5:30</div>
+                    <div class="result-stat-label">Time Spent</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-value" id="accuracy">80%</div>
+                    <div class="result-stat-label">Accuracy</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-summary">
+            <h3 class="summary-title">Question Review</h3>
+            <div id="questionReview"></div>
+        </div>
+
+        <div class="results-actions">
+            <button class="action-btn" onclick="retryQuiz()">Try Again</button>
+            <button class="action-btn secondary" onclick="backToDashboard()">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Achievement Popup -->
+    <div id="achievementPopup" class="achievement-popup">
+        <div class="achievement-icon" id="achievementIcon">🏆</div>
+        <div class="achievement-title" id="achievementTitle">Achievement Unlocked!</div>
+        <div class="achievement-description" id="achievementDescription">You've earned a new badge!</div>
+    </div>
+    </main>
+
+    <script>
+        // Enhanced JavaScript with Accessibility, Settings, and Updated SATs Questions (2024-2025)
+        
+        // Audio Context for Sound Effects
+        let audioContext;
+        let soundsEnabled = true;
+        let volume = 0.5;
+
+        // Settings Management
+        let settings = {
+            fontFamily: 'inter',
+            fontSize: 'normal', 
+            lineHeight: 'relaxed',
+            theme: 'default',
+            soundsEnabled: true,
+            volume: 50
+        };
+
+        // Daily Challenges
+        const dailyChallenges = [
+            { topic: 'arithmetic', target: 5, description: 'Complete 5 arithmetic questions today!' },
+            { topic: 'fractions-decimals', target: 3, description: 'Master 3 fractions questions today!' },
+            { topic: 'geometry', target: 4, description: 'Solve 4 geometry problems today!' },
+            { topic: 'grammar-punctuation', target: 5, description: 'Perfect 5 grammar questions today!' },
+            { topic: 'spelling', target: 6, description: 'Spell 6 words correctly today!' }
+        ];
+
+        // Updated Question Bank with 2024-2025 SATs Style Questions
+        const questionBank = {
+            'arithmetic': [
+                {
+                    question: "Calculate: 2,847 + 1,596",
+                    type: "input",
+                    answer: "4443",
+                    hint: "Set up the numbers in columns and add from right to left. Remember to carry when your sum is 10 or more!"
+                },
+                {
+                    question: "What is 3/8 × 24?",
+                    type: "multiple",
+                    options: ["6", "9", "12", "15"],
+                    answer: "9",
+                    hint: "Think about finding 1/8 of 24 first, then multiply that result by 3. What's 24 divided by 8?"
+                },
+                {
+                    question: "Calculate: 7,204 - 2,847",
+                    type: "input",
+                    answer: "4357",
+                    hint: "Line up the numbers by place value. When you can't subtract, try borrowing from the next column."
+                },
+                {
+                    question: "What is 35% of 140?",
+                    type: "multiple",
+                    options: ["35", "49", "70", "105"],
+                    answer: "49",
+                    hint: "Remember that 35% means 35 out of 100. You can multiply 140 by 35, then divide by 100."
+                },
+                {
+                    question: "Calculate: 156 ÷ 12",
+                    type: "input",
+                    answer: "13",
+                    hint: "Think: how many groups of 12 can you make from 156? Try starting with 10 groups of 12."
+                },
+                {
+                    question: "What is 2.8 × 15?",
+                    type: "multiple",
+                    options: ["28", "32", "42", "52"],
+                    answer: "42",
+                    hint: "Try thinking of 2.8 as 28 ÷ 10. Multiply first, then adjust for the decimal."
+                },
+                {
+                    question: "Calculate: 8,000 - 3,247",
+                    type: "input",
+                    answer: "4753",
+                    hint: "Since you're subtracting from 8,000, you'll need to borrow across several zeros. Take your time!"
+                },
+                {
+                    question: "What is 5/6 of 72?",
+                    type: "multiple",
+                    options: ["48", "54", "60", "66"],
+                    answer: "60",
+                    hint: "To find 5/6 of something, first find 1/6 of it, then multiply by 5. What's 72 ÷ 6?"
+                },
+                {
+                    question: "Calculate: 4.7 + 2.85 + 1.6",
+                    type: "input",
+                    answer: "9.15",
+                    hint: "Make sure to line up the decimal points carefully. You might want to add zeros to make all numbers have 2 decimal places."
+                },
+                {
+                    question: "What is 18% of 250?",
+                    type: "multiple",
+                    options: ["36", "45", "54", "63"],
+                    answer: "45",
+                    hint: "18% means 18 out of every 100. Try multiplying 250 by 18, then think about where the decimal should go."
+                }
+            ],
+            'number-place-value': [
+                {
+                    question: "What is the value of the digit 7 in the number 37,642?",
+                    type: "multiple",
+                    options: ["7", "70", "700", "7000"],
+                    answer: "7000",
+                    hint: "Look at which column the 7 is in. Count the places from right to left: ones, tens, hundreds, thousands..."
+                },
+                {
+                    question: "Round 4,567 to the nearest hundred.",
+                    type: "input",
+                    answer: "4600",
+                    hint: "Look at the digit in the tens place to decide whether to round up or down. What's the rule for rounding?"
+                },
+                {
+                    question: "Which number is largest?",
+                    type: "multiple",
+                    options: ["0.7", "0.07", "0.707", "0.077"],
+                    answer: "0.707",
+                    hint: "Try adding zeros to make all numbers have the same number of decimal places, then compare."
+                },
+                {
+                    question: "What is 6,000 + 400 + 50 + 3 in standard form?",
+                    type: "input",
+                    answer: "6453",
+                    hint: "In standard form, we write numbers without showing the place values. Just combine all the parts together."
+                },
+                {
+                    question: "What is the value of the digit 5 in 85,432?",
+                    type: "multiple",
+                    options: ["5", "50", "500", "5000"],
+                    answer: "5000",
+                    hint: "Count the places: the 5 is in the thousands place, so 5 × 1000 = 5000"
+                },
+                {
+                    question: "Round 7,389 to the nearest thousand.",
+                    type: "input",
+                    answer: "7000",
+                    hint: "Look at the hundreds digit (3). Since 3 < 5, round down: 7,389 becomes 7,000"
+                },
+                {
+                    question: "Which is the smallest number?",
+                    type: "multiple",
+                    options: ["0.4", "0.04", "0.404", "0.044"],
+                    answer: "0.04",
+                    hint: "0.04 = 0.040, which is smaller than all others when you align decimal places"
+                },
+                {
+                    question: "What is 50,000 + 3,000 + 800 + 20 + 7?",
+                    type: "input",
+                    answer: "53827",
+                    hint: "Add from left to right: 50,000 + 3,000 = 53,000, then +800 = 53,800, then +20 = 53,820, then +7 = 53,827"
+                },
+                {
+                    question: "In the number 92,856, which digit is in the tens place?",
+                    type: "multiple",
+                    options: ["2", "5", "6", "8"],
+                    answer: "5",
+                    hint: "Count from right: 6 (ones), 5 (tens), 8 (hundreds), 2 (thousands), 9 (ten thousands)"
+                },
+                {
+                    question: "Round 2,847 to the nearest ten.",
+                    type: "input",
+                    answer: "2850",
+                    hint: "Look at the units digit (7). Since 7 ≥ 5, round up: 2,847 becomes 2,850"
+                }
+            ],
+            'fractions-decimals': [
+                {
+                    question: "What is 1/2 + 1/4?",
+                    type: "multiple",
+                    options: ["2/6", "3/4", "1/6", "2/4"],
+                    answer: "3/4",
+                    hint: "To add fractions, you need the same denominator. Try converting 1/2 to fourths."
+                },
+                {
+                    question: "Convert 0.6 to a fraction in its simplest form.",
+                    type: "multiple",
+                    options: ["6/10", "3/5", "60/100", "6/100"],
+                    answer: "3/5",
+                    hint: "First convert 0.6 to a fraction with 10 as the denominator, then simplify by finding common factors."
+                },
+                {
+                    question: "What is 3/5 as a percentage?",
+                    type: "input",
+                    answer: "60",
+                    hint: "To convert a fraction to a percentage, you can first convert to a decimal, then multiply by 100."
+                },
+                {
+                    question: "Which fraction is equivalent to 0.25?",
+                    type: "multiple",
+                    options: ["1/2", "1/4", "2/5", "3/8"],
+                    answer: "1/4",
+                    hint: "Think about what 0.25 means: 25 hundredths. Can you simplify 25/100?"
+                },
+                {
+                    question: "What is 2/3 - 1/6?",
+                    type: "multiple",
+                    options: ["1/6", "1/2", "1/3", "2/9"],
+                    answer: "1/2",
+                    hint: "To subtract fractions, you need the same denominator. Try converting 2/3 to sixths first."
+                },
+                {
+                    question: "Convert 7/10 to a decimal.",
+                    type: "input",
+                    answer: "0.7",
+                    hint: "Think about what the denominator 10 means. How do you divide by 10?"
+                },
+                {
+                    question: "What is 40% as a fraction in simplest form?",
+                    type: "multiple",
+                    options: ["4/10", "2/5", "40/100", "8/20"],
+                    answer: "2/5",
+                    hint: "40% means 40 out of 100. Write this as a fraction, then simplify by finding the greatest common factor."
+                },
+                {
+                    question: "What is 1/3 + 1/6?",
+                    type: "multiple",
+                    options: ["2/9", "1/2", "2/6", "1/4"],
+                    answer: "1/2",
+                    hint: "To add these fractions, convert 1/3 to sixths. What's 1/3 equivalent to in sixths?"
+                },
+                {
+                    question: "Convert 0.8 to a percentage.",
+                    type: "input",
+                    answer: "80",
+                    hint: "To convert a decimal to a percentage, multiply by 100. What's 0.8 times 100?"
+                },
+                {
+                    question: "Which is larger: 3/4 or 0.7?",
+                    type: "multiple",
+                    options: ["3/4", "0.7", "They are equal", "Cannot tell"],
+                    answer: "3/4",
+                    hint: "To compare, convert 3/4 to a decimal first. What's 3 ÷ 4?"
+                }
+            ],
+            'geometry': [
+                {
+                    question: "How many sides does a hexagon have?",
+                    type: "input",
+                    answer: "6",
+                    hint: "Think of the prefix 'hex-' which means six, like in hexadecimal"
+                },
+                {
+                    question: "What is the sum of angles in a triangle?",
+                    type: "multiple",
+                    options: ["90°", "180°", "270°", "360°"],
+                    answer: "180°",
+                    hint: "Every triangle, no matter its shape, always has angles that add up to 180°"
+                },
+                {
+                    question: "A square has a perimeter of 20cm. What is the length of one side?",
+                    type: "input",
+                    answer: "5",
+                    hint: "Perimeter of square = 4 × side length. So if 4 × side = 20, then side = 20 ÷ 4 = 5"
+                },
+                {
+                    question: "Which shape has parallel sides that are equal in length?",
+                    type: "multiple",
+                    options: ["Triangle", "Pentagon", "Rectangle", "Circle"],
+                    answer: "Rectangle",
+                    hint: "A rectangle has opposite sides that are parallel and equal in length"
+                },
+                {
+                    question: "How many lines of symmetry does a rectangle have?",
+                    type: "input",
+                    answer: "2",
+                    hint: "A rectangle can be folded in half vertically and horizontally to match perfectly"
+                },
+                {
+                    question: "What is the area of a rectangle with length 8cm and width 5cm?",
+                    type: "multiple",
+                    options: ["13 cm²", "26 cm²", "40 cm²", "20 cm²"],
+                    answer: "40 cm²",
+                    hint: "Area of rectangle = length × width = 8 × 5 = 40 cm²"
+                },
+                {
+                    question: "How many vertices does a cube have?",
+                    type: "input",
+                    answer: "8",
+                    hint: "A cube has 8 corners (vertices) - 4 on the top face and 4 on the bottom face"
+                },
+                {
+                    question: "What angle is formed by a quarter turn?",
+                    type: "multiple",
+                    options: ["45°", "90°", "180°", "270°"],
+                    answer: "90°",
+                    hint: "A full turn is 360°, so a quarter turn is 360° ÷ 4 = 90°"
+                },
+                {
+                    question: "A circle has a radius of 4cm. What is its diameter?",
+                    type: "input",
+                    answer: "8",
+                    hint: "Diameter = 2 × radius = 2 × 4 = 8 cm"
+                },
+                {
+                    question: "Which 3D shape has 6 faces, 12 edges and 8 vertices?",
+                    type: "multiple",
+                    options: ["Pyramid", "Cylinder", "Cube", "Sphere"],
+                    answer: "Cube",
+                    hint: "Think of a dice - it's a cube with 6 square faces, 12 edges where faces meet, and 8 corners"
+                }
+            ],
+            'measurement': [
+                {
+                    question: "How many millimetres are in 3.5 centimetres?",
+                    type: "input",
+                    answer: "35",
+                    hint: "1 cm = 10 mm, so 3.5 cm = 3.5 × 10 = 35 mm"
+                },
+                {
+                    question: "What is 2.5 kilometres in metres?",
+                    type: "multiple",
+                    options: ["250m", "2500m", "25m", "25000m"],
+                    answer: "2500m",
+                    hint: "1 km = 1000 m, so 2.5 km = 2.5 × 1000 = 2500 m"
+                },
+                {
+                    question: "How many minutes are there in 2.5 hours?",
+                    type: "input",
+                    answer: "150",
+                    hint: "1 hour = 60 minutes, so 2.5 hours = 2.5 × 60 = 150 minutes"
+                },
+                {
+                    question: "What is the area of a square with sides of 6cm?",
+                    type: "multiple",
+                    options: ["12 cm²", "24 cm²", "36 cm²", "18 cm²"],
+                    answer: "36 cm²",
+                    hint: "Area of square = side × side = 6 × 6 = 36 cm²"
+                },
+                {
+                    question: "How many grams are in 1.2 kilograms?",
+                    type: "input",
+                    answer: "1200",
+                    hint: "1 kg = 1000 g, so 1.2 kg = 1.2 × 1000 = 1200 g"
+                },
+                {
+                    question: "What is the perimeter of a rectangle 7cm long and 4cm wide?",
+                    type: "multiple",
+                    options: ["11cm", "22cm", "28cm", "14cm"],
+                    answer: "22cm",
+                    hint: "Perimeter = 2 × (length + width) = 2 × (7 + 4) = 2 × 11 = 22 cm"
+                },
+                {
+                    question: "How many litres are in 3500ml?",
+                    type: "input",
+                    answer: "3.5",
+                    hint: "1 litre = 1000 ml, so 3500 ml = 3500 ÷ 1000 = 3.5 litres"
+                },
+                {
+                    question: "If it's 14:30, what time is it in 12-hour format?",
+                    type: "multiple",
+                    options: ["2:30 AM", "2:30 PM", "4:30 PM", "14:30 PM"],
+                    answer: "2:30 PM",
+                    hint: "For times after 12:00, subtract 12 from the hour: 14 - 12 = 2, and it's PM"
+                },
+                {
+                    question: "How many seconds are in 3 minutes?",
+                    type: "input",
+                    answer: "180",
+                    hint: "1 minute = 60 seconds, so 3 minutes = 3 × 60 = 180 seconds"
+                },
+                {
+                    question: "What is the volume of a cube with sides of 3cm?",
+                    type: "multiple",
+                    options: ["9 cm³", "18 cm³", "27 cm³", "12 cm³"],
+                    answer: "27 cm³",
+                    hint: "Volume of cube = side × side × side = 3 × 3 × 3 = 27 cm³"
+                }
+            ],
+            'grammar-punctuation': [
+                {
+                    question: "Which sentence uses the apostrophe correctly?",
+                    type: "multiple",
+                    options: ["The dog's tail wagged.", "The dogs' tail wagged.", "The dog's tail's wagged.", "The dogs tail wagged."],
+                    answer: "The dog's tail wagged.",
+                    hint: "We're talking about one dog, so it's 'dog's' (showing the tail belongs to the dog)"
+                },
+                {
+                    question: "What type of word is 'quickly' in this sentence: 'She ran quickly'?",
+                    type: "multiple",
+                    options: ["Noun", "Verb", "Adjective", "Adverb"],
+                    answer: "Adverb",
+                    hint: "'Quickly' describes HOW she ran. Words ending in -ly that describe verbs are usually adverbs"
+                },
+                {
+                    question: "Which word is the verb in: 'The children played football'?",
+                    type: "input",
+                    answer: "played",
+                    hint: "A verb is an action word. What did the children do? They played"
+                },
+                {
+                    question: "Choose the correct sentence:",
+                    type: "multiple",
+                    options: ["I done my homework.", "I have did my homework.", "I have done my homework.", "I has done my homework."],
+                    answer: "I have done my homework.",
+                    hint: "Use 'have done' (past participle) not 'have did'. 'I' goes with 'have', not 'has'"
+                },
+                {
+                    question: "What punctuation mark is missing? 'What time is it'",
+                    type: "multiple",
+                    options: [".", "!", "?", ","],
+                    answer: "?",
+                    hint: "This is asking a question that starts with 'What', so it needs a question mark (?)"
+                },
+                {
+                    question: "Which word is a proper noun?",
+                    type: "multiple",
+                    options: ["city", "London", "building", "person"],
+                    answer: "London",
+                    hint: "Proper nouns are specific names that start with capital letters. London is a specific city"
+                },
+                {
+                    question: "What is the past tense of 'go'?",
+                    type: "input",
+                    answer: "went",
+                    hint: "'Go' is irregular - it doesn't follow the usual pattern of adding -ed. Past tense is 'went'"
+                },
+                {
+                    question: "Which sentence uses commas correctly?",
+                    type: "multiple",
+                    options: ["I like apples, bananas and oranges.", "I like apples bananas, and oranges.", "I like, apples bananas and oranges.", "I like apples bananas and, oranges."],
+                    answer: "I like apples, bananas and oranges.",
+                    hint: "Use commas to separate items in a list: apple, bananas and oranges"
+                },
+                {
+                    question: "What type of word is 'beautiful'?",
+                    type: "multiple",
+                    options: ["Noun", "Verb", "Adjective", "Adverb"],
+                    answer: "Adjective",
+                    hint: "'Beautiful' describes something (like a flower). Words that describe nouns are adjectives"
+                },
+                {
+                    question: "Which sentence is in the passive voice?",
+                    type: "multiple",
+                    options: ["The cat chased the mouse.", "The mouse was chased by the cat.", "The cat is chasing the mouse.", "The cat will chase the mouse."],
+                    answer: "The mouse was chased by the cat.",
+                    hint: "In passive voice, the action is done TO the subject. The mouse receives the action of being chased"
+                }
+            ],
+            'spelling': [
+                {
+                    question: "Choose the correct spelling:",
+                    type: "multiple",
+                    options: ["seperate", "separate", "seperrate", "sepparate"],
+                    answer: "separate",
+                    hint: "Think about the middle vowel. Try saying the word slowly to hear the sounds."
+                },
+                {
+                    question: "Which word is spelled correctly?",
+                    type: "multiple",
+                    options: ["recieve", "receive", "receeve", "receve"],
+                    answer: "receive",
+                    hint: "Think about the 'i before e except after c' rule. What letter comes before the 'e' and 'i'?"
+                },
+                {
+                    question: "Complete the word: necess___",
+                    type: "input",
+                    answer: "ary",
+                    hint: "This word means 'essential' or 'required'. What ending sounds right when you say it aloud?"
+                },
+                {
+                    question: "Choose the correct spelling:",
+                    type: "multiple",
+                    options: ["definately", "definitly", "definitely", "definetely"],
+                    answer: "definitely",
+                    hint: "This word means 'certainly' or 'without doubt'. Look for the version that uses 'i' not 'a'."
+                },
+                {
+                    question: "Which word is spelled correctly?",
+                    type: "multiple",
+                    options: ["embarass", "embarrass", "embarras", "embaress"],
+                    answer: "embarrass",
+                    hint: "This word means 'to make someone feel awkward'. Look for doubled consonants."
+                },
+                {
+                    question: "Complete the word: bel___ve",
+                    type: "input",
+                    answer: "ie",
+                    hint: "This word follows the 'i before e' spelling rule. Think about which letters go in the middle."
+                },
+                {
+                    question: "Choose the correct spelling:",
+                    type: "multiple",
+                    options: ["occassion", "occasion", "ocasion", "occaision"],
+                    answer: "occasion",
+                    hint: "This word means 'a special event'. Think about which consonants might be doubled."
+                },
+                {
+                    question: "Which word is spelled correctly?",
+                    type: "multiple",
+                    options: ["accommodation", "accomodation", "acommodation", "accommodacion"],
+                    answer: "accommodation",
+                    hint: "This word means 'a place to stay'. Look for the version with the most doubled letters."
+                },
+                {
+                    question: "Complete the word: int___est",
+                    type: "input",
+                    answer: "er",
+                    hint: "This word means 'curiosity' or 'attention'. What letters fit in the middle?"
+                },
+                {
+                    question: "Choose the correct spelling:",
+                    type: "multiple",
+                    options: ["disappoint", "dissapoint", "disapoint", "dissappoint"],
+                    answer: "disappoint",
+                    hint: "This word means 'to let someone down'. Think about the prefix 'dis-' and the root word."
+                }
+            ],
+            'reading-comprehension': [
+                {
+                    question: "Read: 'The ancient castle stood majestically on the hill.' What does 'majestically' mean?",
+                    type: "multiple",
+                    options: ["Sadly", "Grandly", "Quickly", "Quietly"],
+                    answer: "Grandly",
+                    hint: "Think about how a royal castle might appear. What feeling does 'majestic' give you?"
+                },
+                {
+                    question: "In the sentence 'She whispered the secret softly', what is the main verb?",
+                    type: "input",
+                    answer: "whispered",
+                    hint: "A verb is an action word. Look for what the person is doing in this sentence."
+                },
+                {
+                    question: "What is the main purpose of a newspaper headline?",
+                    type: "multiple",
+                    options: ["To entertain", "To grab attention", "To provide details", "To conclude the story"],
+                    answer: "To grab attention",
+                    hint: "Headlines are meant to make you want to read the full article - they grab your attention"
+                },
+                {
+                    question: "Read: 'The storm was approaching rapidly.' What type of text feature helps you understand 'rapidly'?",
+                    type: "multiple",
+                    options: ["Context clues", "Pictures", "Bold text", "Page numbers"],
+                    answer: "Context clues",
+                    hint: "The surrounding words 'storm approaching' give you clues about what 'rapidly' means"
+                },
+                {
+                    question: "In a story, what do we call the message or lesson the author wants to teach?",
+                    type: "input",
+                    answer: "theme",
+                    hint: "This is the main idea or deeper meaning that runs throughout a story. It starts with 'th'."
+                },
+                {
+                    question: "Which word best describes the mood in: 'The dark, creepy house loomed ahead'?",
+                    type: "multiple",
+                    options: ["Happy", "Scary", "Exciting", "Peaceful"],
+                    answer: "Scary",
+                    hint: "Words like 'dark', 'creepy', and 'loomed' create a frightening atmosphere"
+                },
+                {
+                    question: "What does a glossary in a book help you with?",
+                    type: "multiple",
+                    options: ["Finding page numbers", "Understanding difficult words", "Seeing pictures", "Reading faster"],
+                    answer: "Understanding difficult words",
+                    hint: "A glossary is like a mini-dictionary that explains hard words used in the book"
+                },
+                {
+                    question: "In 'The brave knight rescued the princess', who performed the action?",
+                    type: "input",
+                    answer: "knight",
+                    hint: "Who is doing the rescuing? Look for the person performing the action in this sentence."
+                },
+                {
+                    question: "What is the purpose of using bullet points in a text?",
+                    type: "multiple",
+                    options: ["To make it longer", "To list information clearly", "To add pictures", "To change the font"],
+                    answer: "To list information clearly",
+                    hint: "Bullet points help organize information into an easy-to-read list"
+                },
+                {
+                    question: "Read: 'The flowers bloomed brilliantly in spring.' What season is mentioned?",
+                    type: "input",
+                    answer: "spring",
+                    hint: "Look for the time word in the sentence. When do flowers usually bloom?"
+                }
+            ]
+        };
+
+        // Enhanced User Data Management
+        let userData = {
+            name: '',
+            totalPoints: 0,
+            quizzesCompleted: 0,
+            bestStreak: 0,
+            currentStreak: 0,
+            topicScores: {},
+            achievements: [],
+            level: 1,
+            startTime: null,
+            lastLoginDate: null,
+            dailyStreak: 0
+        };
+
+        // Quiz State
+        let currentTopic = '';
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+        let quizStartTime = null;
+        let hintsUsed = 0;
+
+        // Topic Names
+        const topicNames = {
+            'arithmetic': 'Arithmetic',
+            'number-place-value': 'Number and Place Value',
+            'fractions-decimals': 'Fractions, Decimals & Percentages',
+            'geometry': 'Geometry',
+            'measurement': 'Measurement',
+            'grammar-punctuation': 'Grammar & Punctuation',
+            'spelling': 'Spelling',
+            'reading-comprehension': 'Reading Comprehension'
+        };
+
+        // Initialize Application
+        function initializeApp() {
+            loadUserData();
+            if (userData.name) {
+                showDashboard();
+            } else {
+                showWelcomeScreen();
+            }
+        }
+
+        // Load User Data from localStorage
+        function loadUserData() {
+            const savedData = localStorage.getItem('satsUserData');
+            if (savedData) {
+                userData = { ...userData, ...JSON.parse(savedData) };
+            }
+        }
+
+        // Save User Data to localStorage
+        function saveUserData() {
+            localStorage.setItem('satsUserData', JSON.stringify(userData));
+        }
+
+        // Start User Journey
+        function startJourney() {
+            const nameInput = document.getElementById('userName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                nameInput.style.borderColor = '#ef4444';
+                setTimeout(() => nameInput.style.borderColor = '', 2000);
+                return;
+            }
+            
+            userData.name = name;
+            userData.startTime = new Date().toISOString();
+            saveUserData();
+            showDashboard();
+        }
+
+        // Show Welcome Screen
+        function showWelcomeScreen() {
+            document.getElementById('welcomeScreen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+        }
+
+        // Show Dashboard
+        function showDashboard() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+            
+            updateDashboard();
+        }
+
+        // Update Dashboard with User Data
+        function updateDashboard() {
+            // User info
+            document.getElementById('userName-display').textContent = `Hi ${userData.name}!`;
+            document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+            
+            // Stats
+            document.getElementById('totalPoints').textContent = userData.totalPoints;
+            document.getElementById('bestStreak').textContent = userData.bestStreak;
+            document.getElementById('totalQuizzes').textContent = `${userData.quizzesCompleted} quizzes completed`;
+            
+            // Calculate average score
+            const avgScore = userData.quizzesCompleted > 0 ? 
+                Math.round(Object.values(userData.topicScores).reduce((a, b) => a + (b || 0), 0) / Object.keys(userData.topicScores).length) : 0;
+            document.getElementById('averageScore').textContent = `${avgScore}% average score`;
+            
+            // Level and progress
+            userData.level = Math.floor(userData.totalPoints / 100) + 1;
+            document.getElementById('userLevel').textContent = `Level ${userData.level}`;
+            
+            const progressToNextLevel = (userData.totalPoints % 100);
+            document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
+            document.getElementById('progressRing').style.transform = `rotate(${-90 + (progressToNextLevel * 3.6)}deg)`;
+            
+            // Update topic best scores
+            Object.keys(topicNames).forEach(topic => {
+                const scoreElement = document.getElementById(`${topic}-score`);
+                if (scoreElement) {
+                    const bestScore = userData.topicScores[topic] || 0;
+                    scoreElement.textContent = bestScore > 0 ? `Best: ${bestScore}/10` : 'Best: -';
+                }
+            });
+        }
+
+        // Start Quiz
+        function startQuiz(topic) {
+            currentTopic = topic;
+            currentQuestions = [...questionBank[topic]];
+            shuffleArray(currentQuestions);
+            currentQuestions = currentQuestions.slice(0, 10);
+            
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill('');
+            score = 0;
+            quizStartTime = Date.now();
+            hintsUsed = 0;
+            
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('quizTitle').textContent = topicNames[topic];
+            
+            displayQuestion();
+        }
+
+        // Display Question
+        function displayQuestion() {
+            const question = currentQuestions[currentQuestionIndex];
+            
+            // Update progress
+            const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
+            document.getElementById('quizProgressFill').style.width = `${progress}%`;
+            document.getElementById('quizProgressText').textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+            
+            // Question content
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1}`;
+            document.getElementById('questionText').textContent = question.question;
+            
+            // Hide hint box
+            document.getElementById('hintBox').classList.remove('show');
+            
+            // Create answer interface
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            if (question.type === 'multiple') {
+                question.options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    if (userAnswers[currentQuestionIndex] === option) {
+                        optionDiv.classList.add('selected');
+                    }
+                    
+                    optionDiv.innerHTML = `
+                        <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                        <span>${option}</span>
+                    `;
+                    
+                    optionDiv.addEventListener('click', function() {
+                        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+                        userAnswers[currentQuestionIndex] = option;
+                    });
+                    
+                    optionsContainer.appendChild(optionDiv);
+                });
+            } else {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'text-input';
+                input.placeholder = 'Enter your answer here...';
+                input.value = userAnswers[currentQuestionIndex];
+                
+                input.addEventListener('input', function() {
+                    userAnswers[currentQuestionIndex] = this.value.trim();
+                });
+                
+                optionsContainer.appendChild(input);
+                setTimeout(() => input.focus(), 100);
+            }
+            
+            updateQuizNavigation();
+        }
+
+        // Show AI Hint
+        function showHint() {
+            const question = currentQuestions[currentQuestionIndex];
+            const hintBox = document.getElementById('hintBox');
+            const hintText = document.getElementById('hintText');
+            
+            hintText.textContent = question.hint;
+            hintBox.classList.add('show');
+            hintsUsed++;
+            
+            // Disable hint button for this question
+            document.getElementById('hintBtn').disabled = true;
+            document.getElementById('hintBtn').style.opacity = '0.5';
+        }
+
+        // Update Quiz Navigation
+        function updateQuizNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            // Re-enable hint button for new question
+            document.getElementById('hintBtn').disabled = false;
+            document.getElementById('hintBtn').style.opacity = '1';
+            
+            if (currentQuestionIndex === currentQuestions.length - 1) {
+                nextBtn.style.display = 'none';
+                finishBtn.style.display = 'inline-block';
+            } else {
+                nextBtn.style.display = 'inline-block';
+                finishBtn.style.display = 'none';
+            }
+        }
+
+        // Previous Question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        // Next Question
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuestions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        // Back to Dashboard
+        function backToDashboard() {
+            showDashboard();
+        }
+
+        // Finish Quiz
+        function finishQuiz() {
+            calculateResults();
+            showResults();
+        }
+
+        // Calculate Quiz Results
+        function calculateResults() {
+            score = 0;
+            let currentStreak = 0;
+            let maxStreak = 0;
+            
+            for (let i = 0; i < currentQuestions.length; i++) {
+                const question = currentQuestions[i];
+                const userAnswer = userAnswers[i].toString().toLowerCase().trim();
+                const correctAnswer = question.answer.toString().toLowerCase().trim();
+                
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    currentStreak++;
+                    maxStreak = Math.max(maxStreak, currentStreak);
+                } else {
+                    currentStreak = 0;
+                }
+            }
+            
+            // Update user data
+            const pointsEarned = score * 10 - (hintsUsed * 2); // 10 points per correct, -2 for hints
+            userData.totalPoints += Math.max(pointsEarned, 0);
+            userData.quizzesCompleted++;
+            userData.bestStreak = Math.max(userData.bestStreak, maxStreak);
+            
+            // Update topic best score
+            if (!userData.topicScores[currentTopic] || score > userData.topicScores[currentTopic]) {
+                userData.topicScores[currentTopic] = score;
+            }
+            
+            // Check for achievements
+            checkAchievements();
+            
+            saveUserData();
+        }
+
+        // Check for Achievements
+        function checkAchievements() {
+            const achievements = [];
+            
+            // First quiz achievement
+            if (userData.quizzesCompleted === 1 && !userData.achievements.includes('first_quiz')) {
+                achievements.push({
+                    id: 'first_quiz',
+                    icon: '🎉',
+                    title: 'Getting Started!',
+                    description: 'Completed your first quiz'
+                });
+            }
+            
+            // Perfect score achievement
+            if (score === 10 && !userData.achievements.includes('perfect_score')) {
+                achievements.push({
+                    id: 'perfect_score',
+                    icon: '⭐',
+                    title: 'Perfect Score!',
+                    description: 'Got 10/10 on a quiz'
+                });
+            }
+            
+            // Level up achievement
+            const newLevel = Math.floor(userData.totalPoints / 100) + 1;
+            if (newLevel > userData.level && !userData.achievements.includes(`level_${newLevel}`)) {
+                achievements.push({
+                    id: `level_${newLevel}`,
+                    icon: '🚀',
+                    title: `Level ${newLevel} Reached!`,
+                    description: `You've reached level ${newLevel}`
+                });
+            }
+            
+            // Show achievements
+            achievements.forEach(achievement => {
+                userData.achievements.push(achievement.id);
+                showAchievement(achievement);
+            });
+        }
+
+        // Show Achievement Popup
+        function showAchievement(achievement) {
+            const popup = document.getElementById('achievementPopup');
+            document.getElementById('achievementIcon').textContent = achievement.icon;
+            document.getElementById('achievementTitle').textContent = achievement.title;
+            document.getElementById('achievementDescription').textContent = achievement.description;
+            
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        // Show Results
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Calculate time spent
+            const timeSpent = Math.round((Date.now() - quizStartTime) / 1000);
+            const minutes = Math.floor(timeSpent / 60);
+            const seconds = timeSpent % 60;
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update results display
+            document.getElementById('finalScore').textContent = `${score}/10`;
+            document.getElementById('pointsEarned').textContent = Math.max(score * 10 - (hintsUsed * 2), 0);
+            document.getElementById('timeSpent').textContent = timeString;
+            document.getElementById('accuracy').textContent = `${(score * 10)}%`;
+            
+            // Results message
+            const percentage = (score / currentQuestions.length) * 100;
+            let message = '';
+            if (percentage >= 90) message = "Outstanding! You're ready for the SATs! 🌟";
+            else if (percentage >= 80) message = "Excellent work! Keep it up! 🎉";
+            else if (percentage >= 70) message = "Good job! You're making great progress! 👍";
+            else if (percentage >= 60) message = "Nice effort! Practice makes perfect! 💪";
+            else message = "Keep practicing - you'll get there! 📚";
+            
+            document.getElementById('resultsMessage').textContent = message;
+            
+            // Question review
+            showQuestionReview();
+        }
+
+        // Show Question Review
+        function showQuestionReview() {
+            const reviewContainer = document.getElementById('questionReview');
+            reviewContainer.innerHTML = '';
+            
+            currentQuestions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const correctAnswer = question.answer;
+                const isCorrect = userAnswer.toString().toLowerCase().trim() === correctAnswer.toString().toLowerCase().trim();
+                
+                const reviewItem = document.createElement('div');
+                reviewItem.className = `result-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                
+                let answersHtml = '';
+                if (isCorrect) {
+                    answersHtml = `<div class="result-answer correct-answer">✓ Correct: ${correctAnswer}</div>`;
+                } else {
+                    answersHtml = `
+                        <div class="result-answer incorrect-answer">✗ Your answer: ${userAnswer || 'No answer'}</div>
+                        <div class="result-answer correct-answer">✓ Correct answer: ${correctAnswer}</div>
+                    `;
+                }
+                
+                reviewItem.innerHTML = `
+                    <div class="result-question">Question ${index + 1}: ${question.question}</div>
+                    <div class="result-answers">${answersHtml}</div>
+                `;
+                
+                reviewContainer.appendChild(reviewItem);
+            });
+        }
+
+        // Retry Quiz
+        function retryQuiz() {
+            startQuiz(currentTopic);
+        }
+
+        // Utility Functions
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Settings Management Functions
+        function toggleSettings() {
+            const panel = document.getElementById('settingsPanel');
+            const isOpen = panel.classList.contains('open');
+            
+            if (isOpen) {
+                panel.classList.remove('open');
+                panel.setAttribute('aria-hidden', 'true');
+            } else {
+                panel.classList.add('open');
+                panel.setAttribute('aria-hidden', 'false');
+                panel.focus();
+            }
+            
+            playSound('click');
+        }
+
+        function changeFontFamily(font) {
+            settings.fontFamily = font;
+            document.body.className = document.body.className.replace(/font-\w+/g, '');
+            document.body.classList.add(`font-${font}`);
+            
+            // Update active button
+            document.querySelectorAll('[data-font]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-font="${font}"]`).classList.add('active');
+            
+            saveSettings();
+            playSound('success');
+        }
+
+        function changeFontSize(size) {
+            settings.fontSize = size;
+            document.body.className = document.body.className.replace(/text-\w+/g, '');
+            document.body.classList.add(`text-${size}`);
+            
+            // Update active button
+            document.querySelectorAll('[data-size]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-size="${size}"]`).classList.add('active');
+            
+            saveSettings();
+            playSound('success');
+        }
+
+        function changeLineHeight(height) {
+            settings.lineHeight = height;
+            document.body.className = document.body.className.replace(/leading-\w+/g, '');
+            document.body.classList.add(`leading-${height}`);
+            
+            // Update active button
+            document.querySelectorAll('[data-height]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-height="${height}"]`).classList.add('active');
+            
+            saveSettings();
+            playSound('success');
+        }
+
+        function changeTheme(theme) {
+            settings.theme = theme;
+            if (theme === 'default') {
+                document.body.removeAttribute('data-theme');
+            } else {
+                document.body.setAttribute('data-theme', theme);
+            }
+            
+            // Update active button
+            document.querySelectorAll('[data-theme]').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+            
+            saveSettings();
+            playSound('success');
+        }
+
+        function toggleSounds() {
+            soundsEnabled = !soundsEnabled;
+            settings.soundsEnabled = soundsEnabled;
+            
+            const toggle = document.getElementById('soundToggle');
+            const container = toggle.parentElement;
+            
+            if (soundsEnabled) {
+                toggle.classList.add('active');
+                container.classList.add('active');
+                container.setAttribute('aria-pressed', 'true');
+            } else {
+                toggle.classList.remove('active');
+                container.classList.remove('active');
+                container.setAttribute('aria-pressed', 'false');
+            }
+            
+            saveSettings();
+            if (soundsEnabled) playSound('success');
+        }
+
+        function changeVolume(value) {
+            volume = value / 100;
+            settings.volume = value;
+            document.getElementById('volumeValue').textContent = value + '%';
+            saveSettings();
+        }
+
+        function resetApp() {
+            // Confirm before resetting
+            if (confirm('Are you sure you want to restart? This will clear ALL your progress, achievements, and streak data.')) {
+                // Clear all localStorage data
+                localStorage.removeItem('satsUserData');
+                localStorage.removeItem('satsSettings');
+                localStorage.removeItem('dailyChallenge');
+                localStorage.removeItem('dailyStreak');
+                
+                // Play sound effect
+                playSound('click');
+                
+                // Close settings panel
+                toggleSettings();
+                
+                // Reset all variables to default
+                userData = {
+                    name: '',
+                    totalPoints: 0,
+                    quizzesCompleted: 0,
+                    bestStreak: 0,
+                    currentStreak: 0,
+                    topicScores: {},
+                    achievements: [],
+                    level: 1,
+                    startTime: null,
+                    lastLoginDate: null,
+                    dailyStreak: 0
+                };
+                
+                // Reset settings to default
+                settings = {
+                    fontFamily: 'inter',
+                    fontSize: 'normal', 
+                    lineHeight: 'relaxed',
+                    theme: 'default',
+                    soundsEnabled: true,
+                    volume: 50
+                };
+                
+                // Apply default settings
+                applySettings();
+                
+                // Show welcome screen
+                showWelcomeScreen();
+                
+                // Clear name input
+                document.getElementById('userName').value = '';
+                
+                // Reset daily challenge and streak displays
+                updateDailyChallenge();
+                updateDailyStreak();
+                
+                alert('App has been reset! Please enter your name to start fresh.');
+            }
+        }
+
+        function saveSettings() {
+            localStorage.setItem('satsSettings', JSON.stringify(settings));
+        }
+
+        function loadSettings() {
+            const saved = localStorage.getItem('satsSettings');
+            if (saved) {
+                settings = { ...settings, ...JSON.parse(saved) };
+                applySettings();
+            }
+        }
+
+        function applySettings() {
+            changeFontFamily(settings.fontFamily);
+            changeFontSize(settings.fontSize);
+            changeLineHeight(settings.lineHeight);
+            changeTheme(settings.theme);
+            
+            soundsEnabled = settings.soundsEnabled;
+            if (!soundsEnabled) {
+                document.getElementById('soundToggle').classList.remove('active');
+                document.querySelector('.sound-toggle').classList.remove('active');
+            }
+            
+            volume = settings.volume / 100;
+            document.getElementById('volumeSlider').value = settings.volume;
+            document.getElementById('volumeValue').textContent = settings.volume + '%';
+        }
+
+        // Sound Effects
+        function playSound(type) {
+            if (!soundsEnabled) return;
+            
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                
+                const frequencies = {
+                    'click': 800,
+                    'success': 1000,
+                    'error': 400,
+                    'achievement': 1200,
+                    'complete': 1500
+                };
+                
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequencies[type] || 800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(volume * 0.1, audioContext.currentTime + 0.01);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (e) {
+                console.log('Audio not supported');
+            }
+        }
+
+        // Daily Challenge Management
+        function updateDailyChallenge() {
+            const today = new Date().toDateString();
+            let challengeData = JSON.parse(localStorage.getItem('dailyChallenge') || '{}');
+            
+            if (challengeData.date !== today) {
+                // New day - reset challenge
+                const randomChallenge = dailyChallenges[Math.floor(Math.random() * dailyChallenges.length)];
+                challengeData = {
+                    date: today,
+                    topic: randomChallenge.topic,
+                    target: randomChallenge.target,
+                    description: randomChallenge.description,
+                    progress: 0
+                };
+                localStorage.setItem('dailyChallenge', JSON.stringify(challengeData));
+            }
+            
+            // Update UI
+            document.getElementById('challengeDescription').textContent = challengeData.description;
+            document.getElementById('challengeCount').textContent = `${challengeData.progress}/${challengeData.target}`;
+            document.getElementById('challengeFill').style.width = `${(challengeData.progress / challengeData.target) * 100}%`;
+            
+            return challengeData;
+        }
+
+        function updateDailyStreak() {
+            const today = new Date().toDateString();
+            let streakData = JSON.parse(localStorage.getItem('dailyStreak') || '{}');
+            
+            if (streakData.lastDate === today) {
+                // Already completed today
+                document.getElementById('currentStreak').textContent = streakData.current || 0;
+                return;
+            }
+            
+            const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toDateString();
+            
+            if (streakData.lastDate === yesterday) {
+                // Continue streak
+                streakData.current = (streakData.current || 0) + 1;
+            } else {
+                // Reset streak
+                streakData.current = 1;
+            }
+            
+            streakData.lastDate = today;
+            localStorage.setItem('dailyStreak', JSON.stringify(streakData));
+            document.getElementById('currentStreak').textContent = streakData.current;
+        }
+
+        // Enhanced User Data with Accessibility (updated)
+
+        // Keyboard Navigation Support
+        document.addEventListener('keydown', function(e) {
+            // Escape key closes settings panel
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('settingsPanel');
+                if (panel.classList.contains('open')) {
+                    toggleSettings();
+                }
+            }
+            
+            // Arrow keys for quiz navigation
+            if (e.key === 'ArrowLeft' && !document.getElementById('prevBtn').disabled) {
+                previousQuestion();
+            }
+            if (e.key === 'ArrowRight' && document.getElementById('nextBtn').style.display !== 'none') {
+                nextQuestion();
+            }
+        });
+
+        // Creative Interactive Functions
+        function mascotClick() {
+            const mascot = document.querySelector('.mascot');
+            const messages = [
+                "Keep going! You're doing great! 🌟",
+                "Practice makes perfect! 💪",
+                "You've got this! 🚀",
+                "Learning is fun! 🎈",
+                "Smart cookies ahead! 🍪"
+            ];
+            
+            mascot.setAttribute('data-message', messages[Math.floor(Math.random() * messages.length)]);
+            mascot.style.animation = 'none';
+            setTimeout(() => {
+                mascot.style.animation = 'mascotBounce 2s ease-in-out infinite';
+            }, 10);
+            
+            playSound('achievement');
+        }
+
+        // Add ripple effect to topic cards
+        function addRippleEffect(event) {
+            const card = event.currentTarget;
+            const rect = card.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            const ripple = document.createElement('div');
+            ripple.classList.add('ripple');
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            card.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // Enhanced number counting animation
+        function animateNumber(element, start, end, duration = 1000) {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+            
+            element.classList.add('counting');
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                    element.classList.remove('counting');
+                }
+                element.textContent = Math.floor(current);
+            }, 16);
+        }
+
+        // Enhanced start quiz with ripple effect
+        function startQuiz(topic) {
+            const button = event.currentTarget;
+            addRippleEffect(event);
+            
+            setTimeout(() => {
+                currentTopic = topic;
+                currentQuestions = [...questionBank[topic]];
+                shuffleArray(currentQuestions);
+                currentQuestions = currentQuestions.slice(0, 10);
+                
+                currentQuestionIndex = 0;
+                userAnswers = new Array(currentQuestions.length).fill('');
+                score = 0;
+                quizStartTime = Date.now();
+                hintsUsed = 0;
+                
+                document.getElementById('dashboard').style.display = 'none';
+                document.getElementById('quizContainer').style.display = 'block';
+                document.getElementById('quizTitle').textContent = topicNames[topic];
+                
+                displayQuestion();
+                playSound('click');
+            }, 200);
+        }
+
+        // Enhanced update dashboard with animations
+        function updateDashboard() {
+            // User info
+            document.getElementById('userName-display').textContent = `Hi ${userData.name}!`;
+            document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+            
+            // Animate stats
+            setTimeout(() => animateNumber(document.getElementById('totalPoints'), 0, userData.totalPoints), 300);
+            setTimeout(() => animateNumber(document.getElementById('bestStreak'), 0, userData.bestStreak), 600);
+            
+            document.getElementById('totalQuizzes').textContent = `${userData.quizzesCompleted} quizzes completed`;
+            
+            // Calculate average score
+            const avgScore = userData.quizzesCompleted > 0 ? 
+                Math.round(Object.values(userData.topicScores).reduce((a, b) => a + (b || 0), 0) / Object.keys(userData.topicScores).length) : 0;
+            document.getElementById('averageScore').textContent = `${avgScore}% average score`;
+            
+            // Level and progress
+            userData.level = Math.floor(userData.totalPoints / 100) + 1;
+            document.getElementById('userLevel').textContent = `Level ${userData.level}`;
+            
+            const progressToNextLevel = (userData.totalPoints % 100);
+            document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
+            document.getElementById('progressRing').style.transform = `rotate(${-90 + (progressToNextLevel * 3.6)}deg)`;
+            
+            // Update topic best scores with animation
+            Object.keys(topicNames).forEach(topic => {
+                const scoreElement = document.getElementById(`${topic}-score`);
+                if (scoreElement) {
+                    const bestScore = userData.topicScores[topic] || 0;
+                    scoreElement.textContent = bestScore > 0 ? `Best: ${bestScore}/10` : 'Best: -';
+                }
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            initializeApp();
+            updateDailyChallenge();
+            updateDailyStreak();
+            
+            // Add ripple effect to all topic cards
+            document.querySelectorAll('.topic-card').forEach(card => {
+                card.addEventListener('click', addRippleEffect);
+            });
+            
+            // Allow Enter key to start journey
+            document.getElementById('userName').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    startJourney();
+                }
+            });
+            
+            // Focus management for accessibility
+            document.querySelector('.settings-toggle').addEventListener('click', function() {
+                setTimeout(() => {
+                    if (document.getElementById('settingsPanel').classList.contains('open')) {
+                        document.getElementById('settingsPanel').focus();
+                    }
+                }, 100);
+            });
+
+            // Add hover effects to stat cards
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    playSound('click');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
