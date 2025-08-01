@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Interactive SATs Practice</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=OpenDyslexic:wght@400;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -275,10 +278,16 @@
             height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 400;
             z-index: 1001;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
         .settings-toggle:hover {
@@ -574,57 +583,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Mascot Character */
-        .mascot {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            z-index: 1000;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: mascotBounce 2s ease-in-out infinite;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-        }
 
-        .mascot:hover {
-            transform: scale(1.2) rotate(10deg);
-            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
-        }
-
-        @keyframes mascotBounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .mascot::after {
-            content: attr(data-message);
-            position: absolute;
-            bottom: 100%;
-            right: 0;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        .mascot:hover::after {
-            opacity: 1;
-            transform: translateY(0);
-        }
 
         .welcome-title {
             font-size: 3rem;
@@ -708,7 +667,7 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             color: white;
         }
 
@@ -728,7 +687,8 @@
         .user-details h2 {
             font-size: 1.8rem;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            line-height: 1.2;
         }
 
         .user-stats {
@@ -743,24 +703,34 @@
             border-radius: 15px;
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .level-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            background: linear-gradient(135deg, #9333ea, #a855f7);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            padding: 16px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 1px solid rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
 
         .stat-card::before {
@@ -806,28 +776,30 @@
 
         .stat-card h3 {
             color: #6366f1;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         .stat-value {
-            font-size: 3rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #1f2937;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
+            line-height: 1;
         }
 
         .stat-label {
             color: #6b7280;
-            font-size: 0.95rem;
+            font-size: 0.75rem;
+            opacity: 0.8;
         }
 
         .progress-ring {
             position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 8px;
         }
 
         .progress-ring-bg,
@@ -838,19 +810,19 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 8px solid;
         }
 
         .progress-ring-bg {
-            border-color: #e5e7eb;
+            background: #e5e7eb;
+            border-radius: 50%;
+            border: none;
         }
 
         .progress-ring-fill {
-            border-color: #8b5cf6;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            transform: rotate(-90deg);
-            transition: transform 0.3s ease;
+            background: conic-gradient(#8b5cf6 0deg, #8b5cf6 0deg, transparent 0deg);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: none;
         }
 
         .progress-center {
@@ -862,16 +834,19 @@
         }
 
         .progress-value {
-            font-size: 1.8rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            color: #8b5cf6;
+            color: #1f2937;
+            line-height: 1;
         }
 
         .progress-label {
-            font-size: 0.8rem;
+            font-size: 0.45rem;
             color: #6b7280;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.2px;
+            line-height: 1;
+            margin-top: 1px;
         }
 
         /* Topic Selection */
@@ -1510,7 +1485,8 @@
             }
 
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
             }
 
             .topic-grid {
@@ -1614,17 +1590,14 @@
         <div class="sparkle"></div>
     </div>
 
-    <!-- Mascot Character -->
-    <div class="mascot" data-message="Hi! I'm here to help! 🎉" onclick="mascotClick()">
-        🐶
-    </div>
+
 
     <!-- Skip Links for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <!-- Settings Toggle Button -->
     <button class="settings-toggle" onclick="toggleSettings()" aria-label="Open settings menu" title="Settings">
-        ⚙️
+        ⚙
     </button>
 
     <!-- Settings Panel -->
@@ -1759,7 +1732,7 @@
                     </div>
                 </div>
             </div>
-            <div class="level-badge" id="userLevel">Level 1</div>
+            <div class="level-badge" id="userLevel" onclick="showLevelProgress()" title="Click to see level progress">Level 1</div>
         </div>
 
         <!-- Daily Challenge -->
@@ -1908,7 +1881,7 @@
             <div class="quiz-nav">
                 <button class="back-btn" onclick="backToDashboard()">← Back</button>
                 <h2 class="quiz-title" id="quizTitle"></h2>
-                <button class="hint-btn" onclick="showHint()" id="hintBtn">💡 Hint</button>
+                <button class="hint-btn" onclick="showHint()" id="hintBtn">💡 Hint (3)</button>
             </div>
             
             <div class="quiz-progress">
@@ -2576,6 +2549,7 @@
         let score = 0;
         let quizStartTime = null;
         let hintsUsed = 0;
+        const MAX_HINTS = 3;
 
         // Topic Names
         const topicNames = {
@@ -2669,7 +2643,7 @@
             
             const progressToNextLevel = (userData.totalPoints % 100);
             document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
-            document.getElementById('progressRing').style.transform = `rotate(${-90 + (progressToNextLevel * 3.6)}deg)`;
+            document.getElementById('progressRing').style.background = `conic-gradient(#8b5cf6 ${progressToNextLevel * 3.6}deg, #e5e7eb ${progressToNextLevel * 3.6}deg)`;
             
             // Update topic best scores
             Object.keys(topicNames).forEach(topic => {
@@ -2762,17 +2736,33 @@
 
         // Show AI Hint
         function showHint() {
+            // Check if hints limit reached
+            if (hintsUsed >= MAX_HINTS) {
+                return; // Do nothing if no hints left
+            }
+            
             const question = currentQuestions[currentQuestionIndex];
             const hintBox = document.getElementById('hintBox');
             const hintText = document.getElementById('hintText');
+            const hintBtn = document.getElementById('hintBtn');
             
             hintText.textContent = question.hint;
             hintBox.classList.add('show');
             hintsUsed++;
             
-            // Disable hint button for this question
-            document.getElementById('hintBtn').disabled = true;
-            document.getElementById('hintBtn').style.opacity = '0.5';
+            // Update hint button text with remaining hints
+            const hintsLeft = MAX_HINTS - hintsUsed;
+            if (hintsLeft > 0) {
+                hintBtn.textContent = `💡 Hint (${hintsLeft})`;
+                hintBtn.disabled = true; // Disable for current question
+                hintBtn.style.opacity = '0.5';
+            } else {
+                hintBtn.textContent = '💡 No Hints Left';
+                hintBtn.disabled = true;
+                hintBtn.style.opacity = '0.3';
+            }
+            
+            playSound('click');
         }
 
         // Update Quiz Navigation
@@ -2780,12 +2770,21 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const finishBtn = document.getElementById('finishBtn');
+            const hintBtn = document.getElementById('hintBtn');
             
             prevBtn.disabled = currentQuestionIndex === 0;
             
-            // Re-enable hint button for new question
-            document.getElementById('hintBtn').disabled = false;
-            document.getElementById('hintBtn').style.opacity = '1';
+            // Update hint button based on remaining hints
+            const hintsLeft = MAX_HINTS - hintsUsed;
+            if (hintsLeft > 0) {
+                hintBtn.disabled = false;
+                hintBtn.style.opacity = '1';
+                hintBtn.textContent = `💡 Hint (${hintsLeft})`;
+            } else {
+                hintBtn.disabled = true;
+                hintBtn.style.opacity = '0.3';
+                hintBtn.textContent = '💡 No Hints Left';
+            }
             
             if (currentQuestionIndex === currentQuestions.length - 1) {
                 nextBtn.style.display = 'none';
@@ -2853,6 +2852,15 @@
             if (!userData.topicScores[currentTopic] || score > userData.topicScores[currentTopic]) {
                 userData.topicScores[currentTopic] = score;
             }
+            
+            // Update daily challenge progress
+            updateDailyChallengeProgress(score);
+            
+            // Update daily streak
+            updateDailyStreak();
+            
+            // Update pack progress (if using pack system)
+            updatePackProgress();
             
             // Check for achievements
             checkAchievements();
@@ -3239,6 +3247,30 @@
             return challengeData;
         }
 
+        function updateDailyChallengeProgress(correctAnswers) {
+            const today = new Date().toDateString();
+            let challengeData = JSON.parse(localStorage.getItem('dailyChallenge') || '{}');
+            
+            // Check if current quiz topic matches daily challenge topic
+            if (challengeData.date === today && challengeData.topic === currentTopic) {
+                // Add correct answers to progress (but don't exceed target)
+                const oldProgress = challengeData.progress;
+                challengeData.progress = Math.min(challengeData.progress + correctAnswers, challengeData.target);
+                
+                // Save updated challenge data
+                localStorage.setItem('dailyChallenge', JSON.stringify(challengeData));
+                
+                // Update UI immediately
+                document.getElementById('challengeCount').textContent = `${challengeData.progress}/${challengeData.target}`;
+                document.getElementById('challengeFill').style.width = `${(challengeData.progress / challengeData.target) * 100}%`;
+                
+                // Play success sound if challenge completed for the first time
+                if (oldProgress < challengeData.target && challengeData.progress >= challengeData.target) {
+                    playSound('achievement');
+                }
+            }
+        }
+
         function updateDailyStreak() {
             const today = new Date().toDateString();
             let streakData = JSON.parse(localStorage.getItem('dailyStreak') || '{}');
@@ -3286,23 +3318,20 @@
         });
 
         // Creative Interactive Functions
-        function mascotClick() {
-            const mascot = document.querySelector('.mascot');
-            const messages = [
-                "Keep going! You're doing great! 🌟",
-                "Practice makes perfect! 💪",
-                "You've got this! 🚀",
-                "Learning is fun! 🎈",
-                "Smart cookies ahead! 🍪"
-            ];
+        function showLevelProgress() {
+            const currentPoints = userData.totalPoints;
+            const currentLevel = Math.floor(currentPoints / 100) + 1;
+            const pointsInCurrentLevel = currentPoints % 100;
+            const pointsToNextLevel = 100 - pointsInCurrentLevel;
             
-            mascot.setAttribute('data-message', messages[Math.floor(Math.random() * messages.length)]);
-            mascot.style.animation = 'none';
-            setTimeout(() => {
-                mascot.style.animation = 'mascotBounce 2s ease-in-out infinite';
-            }, 10);
+            let message = `🎓 Level ${currentLevel}\n\n`;
+            message += `📊 Progress: ${pointsInCurrentLevel}/100 points\n`;
+            message += `🎯 ${pointsToNextLevel} points to Level ${currentLevel + 1}\n\n`;
+            message += `💡 Earn points by completing quizzes!\n`;
+            message += `🏆 Each correct answer = 10 points`;
             
-            playSound('achievement');
+            alert(message);
+            playSound('click');
         }
 
         // Add ripple effect to topic cards
@@ -3394,7 +3423,7 @@
             
             const progressToNextLevel = (userData.totalPoints % 100);
             document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
-            document.getElementById('progressRing').style.transform = `rotate(${-90 + (progressToNextLevel * 3.6)}deg)`;
+            document.getElementById('progressRing').style.background = `conic-gradient(#8b5cf6 ${progressToNextLevel * 3.6}deg, #e5e7eb ${progressToNextLevel * 3.6}deg)`;
             
             // Update topic best scores with animation
             Object.keys(topicNames).forEach(topic => {

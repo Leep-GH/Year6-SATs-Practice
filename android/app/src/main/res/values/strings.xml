@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SATs Practice Pro</string>
+    <string name="title_activity_main">SATs Practice Pro</string>
+    <string name="package_name">com.sats.practice</string>
+    <string name="custom_url_scheme">com.sats.practice</string>
+</resources>

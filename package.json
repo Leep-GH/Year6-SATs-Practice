@@ -1,0 +1,19 @@
+{
+  "name": "year6-sats-practice",
+  "version": "1.0.0",
+  "description": "Interactive Year 6 SATs Practice App",
+  "main": "interactive-sats-practice.html",
+  "scripts": {
+    "build": "echo 'Build complete'",
+    "start": "npx cap serve"
+  },
+  "author": "Year 6 SATs Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/core": "^6.0.0"
+  }
+}
