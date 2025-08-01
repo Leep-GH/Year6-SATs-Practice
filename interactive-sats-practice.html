@@ -680,7 +680,7 @@
             flex: 1;
             min-width: 0;
         }
-        
+
         .user-details h2 {
             font-size: 1.8rem;
             font-weight: 600;
@@ -1574,6 +1574,186 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(255,255,255,0.5);
         }
+
+        /* Pack Selection Styles */
+        .pack-selection-container {
+            padding-top: 40px;
+        }
+
+        .pack-selection-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .pack-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+
+        .pack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pack-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pack-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .pack-card.locked {
+            opacity: 0.6;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .pack-card.locked:hover {
+            transform: none;
+        }
+
+        .pack-badge {
+            display: inline-block;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .pack-badge.bronze {
+            background: linear-gradient(135deg, #cd7f32, #b8860b);
+            color: white;
+        }
+
+        .pack-badge.silver {
+            background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+            color: white;
+        }
+
+        .pack-badge.gold {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            color: white;
+        }
+
+        .pack-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .pack-card .pack-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+        }
+
+        .pack-description {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .pack-requirement {
+            background: rgba(var(--warning-color), 0.1);
+            color: var(--warning-color);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .pack-progress {
+            margin-bottom: 25px;
+        }
+
+        .pack-progress-bar {
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .pack-progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--success-color), #34d399);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .pack-progress-text {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .pack-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pack-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .pack-btn:disabled,
+        .pack-btn.locked {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .pack-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .pack-title {
+                font-size: 2rem;
+                color: white;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            }
+            
+            .pack-card {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1785,49 +1965,49 @@
                     Mathematics
                 </h3>
                 <div class="topic-grid">
-                    <button class="topic-card" data-topic="arithmetic" onclick="startQuiz('arithmetic')">
+                    <button class="topic-card" data-topic="arithmetic" onclick="showPackSelection('arithmetic')">
                         <div class="completion-badge" id="arithmetic-badge">NEW</div>
                         <div class="topic-icon">🧮</div>
                         <div class="topic-title">Arithmetic</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="arithmetic-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="arithmetic-score">Tap to choose pack</span>
                         </div>
                     </button>
-                    <button class="topic-card" data-topic="number-place-value" onclick="startQuiz('number-place-value')">
+                    <button class="topic-card" data-topic="number-place-value" onclick="showPackSelection('number-place-value')">
                         <div class="completion-badge" id="number-place-value-badge">NEW</div>
                         <div class="topic-icon">🔢</div>
                         <div class="topic-title">Number and Place Value</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="number-place-value-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="number-place-value-score">Tap to choose pack</span>
                         </div>
                     </button>
-                    <button class="topic-card" data-topic="fractions-decimals" onclick="startQuiz('fractions-decimals')">
+                    <button class="topic-card" data-topic="fractions-decimals" onclick="showPackSelection('fractions-decimals')">
                         <div class="completion-badge" id="fractions-decimals-badge">NEW</div>
                         <div class="topic-icon">🍕</div>
                         <div class="topic-title">Fractions, Decimals & %</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="fractions-decimals-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="fractions-decimals-score">Tap to choose pack</span>
                         </div>
                     </button>
-                    <button class="topic-card" data-topic="geometry" onclick="startQuiz('geometry')">
+                    <button class="topic-card" data-topic="geometry" onclick="showPackSelection('geometry')">
                         <div class="completion-badge" id="geometry-badge">NEW</div>
                         <div class="topic-icon">📐</div>
                         <div class="topic-title">Geometry</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="geometry-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="geometry-score">Tap to choose pack</span>
                         </div>
                     </button>
-                    <button class="topic-card" data-topic="measurement" onclick="startQuiz('measurement')">
+                    <button class="topic-card" data-topic="measurement" onclick="showPackSelection('measurement')">
                         <div class="completion-badge" id="measurement-badge">NEW</div>
                         <div class="topic-icon">📏</div>
                         <div class="topic-title">Measurement</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="measurement-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="measurement-score">Tap to choose pack</span>
                         </div>
                     </button>
                 </div>
@@ -1839,34 +2019,88 @@
                     English
                 </h3>
                 <div class="topic-grid">
-                    <button class="topic-card" data-topic="grammar-punctuation" onclick="startQuiz('grammar-punctuation')">
+                    <button class="topic-card" data-topic="grammar-punctuation" onclick="showPackSelection('grammar-punctuation')">
                         <div class="completion-badge" id="grammar-punctuation-badge">NEW</div>
                         <div class="topic-icon">✏️</div>
                         <div class="topic-title">Grammar & Punctuation</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="grammar-punctuation-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="grammar-punctuation-score">Tap to choose pack</span>
                         </div>
                     </button>
-                    <button class="topic-card" data-topic="spelling" onclick="startQuiz('spelling')">
+                    <button class="topic-card" data-topic="spelling" onclick="showPackSelection('spelling')">
                         <div class="completion-badge" id="spelling-badge">NEW</div>
                         <div class="topic-icon">🔤</div>
                         <div class="topic-title">Spelling</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="spelling-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="spelling-score">Tap to choose pack</span>
                         </div>
                     </button>
-                    <button class="topic-card" data-topic="reading-comprehension" onclick="startQuiz('reading-comprehension')">
+                    <button class="topic-card" data-topic="reading-comprehension" onclick="showPackSelection('reading-comprehension')">
                         <div class="completion-badge" id="reading-comprehension-badge">NEW</div>
                         <div class="topic-icon">📖</div>
                         <div class="topic-title">Reading Comprehension</div>
                         <div class="topic-stats">
-                            <span>10 questions</span>
-                            <span class="topic-best-score" id="reading-comprehension-score">Best: -</span>
+                            <span>30 questions (3 packs)</span>
+                            <span class="topic-best-score" id="reading-comprehension-score">Tap to choose pack</span>
                         </div>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pack Selection Interface -->
+    <div id="packSelectionContainer" class="container pack-selection-container" style="display: none;">
+        <div class="pack-selection-header">
+            <button class="back-btn" onclick="backToDashboard()">← Back</button>
+            <h2 class="pack-title" id="packSelectionTitle">Choose Your Pack</h2>
+        </div>
+        
+        <div class="pack-grid">
+            <div class="pack-card" id="pack1Card">
+                <div class="pack-badge bronze">🥉</div>
+                <div class="pack-icon">📚</div>
+                <div class="pack-title">Pack 1: Foundation</div>
+                <div class="pack-description">Basic concepts & confidence building</div>
+                <div class="pack-progress">
+                    <div class="pack-progress-bar">
+                        <div class="pack-progress-fill" id="pack1Progress"></div>
+                    </div>
+                    <span class="pack-progress-text" id="pack1ProgressText">0/10 completed</span>
+                </div>
+                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'pack1')" id="pack1Btn">Start Foundation</button>
+            </div>
+            
+            <div class="pack-card locked" id="pack2Card">
+                <div class="pack-badge silver">🥈</div>
+                <div class="pack-icon">🎯</div>
+                <div class="pack-title">Pack 2: Development</div>
+                <div class="pack-description">Intermediate skills & challenges</div>
+                <div class="pack-requirement" id="pack2Requirement">Complete Pack 1 with 70%+ to unlock</div>
+                <div class="pack-progress">
+                    <div class="pack-progress-bar">
+                        <div class="pack-progress-fill" id="pack2Progress"></div>
+                    </div>
+                    <span class="pack-progress-text" id="pack2ProgressText">0/10 completed</span>
+                </div>
+                <button class="pack-btn locked" onclick="startQuizPack(currentPackTopic, 'pack2')" id="pack2Btn" disabled>🔒 Locked</button>
+            </div>
+            
+            <div class="pack-card locked" id="pack3Card">
+                <div class="pack-badge gold">🥇</div>
+                <div class="pack-icon">🏆</div>
+                <div class="pack-title">Pack 3: Mastery</div>
+                <div class="pack-description">Advanced SATs-level questions</div>
+                <div class="pack-requirement" id="pack3Requirement">Complete Pack 2 with 70%+ to unlock</div>
+                <div class="pack-progress">
+                    <div class="pack-progress-bar">
+                        <div class="pack-progress-fill" id="pack3Progress"></div>
+                    </div>
+                    <span class="pack-progress-text" id="pack3ProgressText">0/10 completed</span>
+                </div>
+                <button class="pack-btn locked" onclick="startQuizPack(currentPackTopic, 'pack3')" id="pack3Btn" disabled>🔒 Locked</button>
             </div>
         </div>
     </div>
@@ -1974,9 +2208,79 @@
             { topic: 'spelling', target: 6, description: 'Unlock 6 spelling treasures today!' }
         ];
 
-        // Updated Question Bank with 2024-2025 SATs Style Questions
+        // Updated Question Bank with 3-Pack System (240 Total Questions)
         const questionBank = {
-            'arithmetic': [
+            'arithmetic': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Basic Operations
+                    {
+                        question: "Calculate: 234 + 156",
+                        type: "input",
+                        answer: "390",
+                        hint: "Line up the numbers in columns. Add from right to left, starting with the units."
+                    },
+                    {
+                        question: "What is 7 × 8?",
+                        type: "multiple",
+                        options: ["48", "54", "56", "63"],
+                        answer: "56",
+                        hint: "This is a times table fact. Try counting in 7s or 8s to check your answer."
+                    },
+                    {
+                        question: "Calculate: 543 - 178",
+                        type: "input",
+                        answer: "365",
+                        hint: "Line up by place value. When the top digit is smaller, borrow from the next column."
+                    },
+                    {
+                        question: "What is 10% of 80?",
+                        type: "multiple",
+                        options: ["4", "8", "10", "18"],
+                        answer: "8",
+                        hint: "10% means 10 out of 100. What's an easy way to find 10% of any number?"
+                    },
+                    {
+                        question: "Calculate: 84 ÷ 4",
+                        type: "input",
+                        answer: "21",
+                        hint: "Think: how many groups of 4 make 84? Use your 4 times table to help."
+                    },
+                    {
+                        question: "What is 1/2 of 24?",
+                        type: "multiple",
+                        options: ["6", "12", "18", "24"],
+                        answer: "12",
+                        hint: "Half of something means divide by 2. What's 24 ÷ 2?"
+                    },
+                    {
+                        question: "Calculate: 1.5 + 2.3",
+                        type: "input",
+                        answer: "3.8",
+                        hint: "Line up the decimal points. Add normally, keeping the decimal point in the same position."
+                    },
+                    {
+                        question: "What is 25% of 100?",
+                        type: "multiple",
+                        options: ["20", "25", "50", "75"],
+                        answer: "25",
+                        hint: "25% means 25 out of 100. What fraction is this equivalent to?"
+                    },
+                    {
+                        question: "Calculate: 6.2 - 3.7",
+                        type: "input",
+                        answer: "2.5",
+                        hint: "Line up the decimal points. Subtract carefully, borrowing when needed."
+                    },
+                    {
+                        question: "What is 3 × 1/4?",
+                        type: "multiple",
+                        options: ["3/4", "1/4", "3/12", "12/4"],
+                        answer: "3/4",
+                        hint: "When multiplying a whole number by a fraction, multiply the numerator by the whole number."
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Intermediate Skills
                 {
                     question: "Calculate: 2,847 + 1,596",
                     type: "input",
@@ -1997,13 +2301,6 @@
                     hint: "Line up the numbers by place value. What strategy can you use when the top digit is smaller than the bottom digit?"
                 },
                 {
-                    question: "What is 35% of 140?",
-                    type: "multiple",
-                    options: ["35", "49", "70", "105"],
-                    answer: "49",
-                    hint: "What does 35% mean? Think about the relationship between percentages and fractions. How could you convert this to a calculation?"
-                },
-                {
                     question: "Calculate: 156 ÷ 12",
                     type: "input",
                     answer: "13",
@@ -2015,12 +2312,6 @@
                     options: ["28", "32", "42", "52"],
                     answer: "42",
                     hint: "How can you work with decimals more easily? Think about what happens if you multiply by 10 first, then adjust later."
-                },
-                {
-                    question: "Calculate: 8,000 - 3,247",
-                    type: "input",
-                    answer: "4753",
-                    hint: "When subtracting from a number with zeros, what borrowing strategy do you need? Work through each column carefully."
                 },
                 {
                     question: "What is 5/6 of 72?",
@@ -2035,15 +2326,167 @@
                     answer: "9.15",
                     hint: "When adding decimals, what's the most important thing to remember about lining up the numbers? How can adding zeros help?"
                 },
+                    {
+                        question: "What is 40% of 175?",
+                        type: "multiple",
+                        options: ["60", "70", "80", "90"],
+                        answer: "70",
+                        hint: "40% is the same as 4/10 or 2/5. How could you use this to make the calculation easier?"
+                    },
+                    {
+                        question: "Calculate: 384 ÷ 16",
+                        type: "input",
+                        answer: "24",
+                        hint: "Try breaking this down: what's 16 × 20? How much more do you need to reach 384?"
+                    },
+                    {
+                        question: "What is 3/4 - 2/8?",
+                        type: "multiple",
+                        options: ["1/4", "1/2", "3/8", "5/8"],
+                        answer: "1/4",
+                        hint: "First make the fractions have the same denominator. What do 3/4 and 2/8 become with a common denominator?"
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Advanced SATs Level
+                    {
+                        question: "Calculate: 35% of 140?",
+                        type: "multiple",
+                        options: ["35", "49", "70", "105"],
+                        answer: "49",
+                        hint: "What does 35% mean? Think about the relationship between percentages and fractions. How could you convert this to a calculation?"
+                    },
+                    {
+                        question: "Calculate: 8,000 - 3,247",
+                        type: "input",
+                        answer: "4753",
+                        hint: "When subtracting from a number with zeros, what borrowing strategy do you need? Work through each column carefully."
+                    },
                 {
                     question: "What is 18% of 250?",
                     type: "multiple",
                     options: ["36", "45", "54", "63"],
                     answer: "45",
                     hint: "What does 18% mean as a fraction? Once you know that, how would you calculate 18% of any number?"
-                }
-            ],
-            'number-place-value': [
+                    },
+                    {
+                        question: "Calculate: (4.7 × 6) + (3.8 × 4)",
+                        type: "input",
+                        answer: "43.4",
+                        hint: "Use the order of operations. Calculate each multiplication first, then add the results."
+                    },
+                    {
+                        question: "What is 7/8 ÷ 1/4?",
+                        type: "multiple",
+                        options: ["7/32", "7/2", "3.5", "14"],
+                        answer: "3.5",
+                        hint: "To divide by a fraction, multiply by its reciprocal. What's the reciprocal of 1/4?"
+                    },
+                    {
+                        question: "Calculate: 125% of 64",
+                        type: "input",
+                        answer: "80",
+                        hint: "125% means 125 out of 100, which is more than the original number. How can you break this into 100% + 25%?"
+                    },
+                    {
+                        question: "What is 2.5² + 3.7?",
+                        type: "multiple",
+                        options: ["6.95", "7.95", "9.95", "10.95"],
+                        answer: "9.95",
+                        hint: "Calculate 2.5 squared first (2.5 × 2.5), then add 3.7. Be careful with decimal multiplication."
+                    },
+                    {
+                        question: "Calculate: 3,456 ÷ 48",
+                        type: "input",
+                        answer: "72",
+                        hint: "Try estimating first: 48 × 70 = ? This will help you get close to the answer."
+                    },
+                    {
+                        question: "What is 5/12 + 3/8?",
+                        type: "multiple",
+                        options: ["8/20", "19/24", "8/24", "15/24"],
+                        answer: "19/24",
+                        hint: "Find a common denominator for 12 and 8. What's the lowest common multiple of 12 and 8?"
+                    },
+                    {
+                        question: "Calculate: 15% of 240 + 25% of 160",
+                        type: "input",
+                        answer: "76",
+                        hint: "Calculate each percentage separately, then add them together. 15% of 240 = ? and 25% of 160 = ?"
+                    }
+                ]
+            },
+            'number-place-value': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Basic Place Value
+                    {
+                        question: "What is the value of the digit 3 in 234?",
+                        type: "multiple",
+                        options: ["3", "30", "300", "3000"],
+                        answer: "30",
+                        hint: "Look at which column the 3 is in. Count from right to left: ones, tens, hundreds."
+                    },
+                    {
+                        question: "Round 67 to the nearest ten.",
+                        type: "input",
+                        answer: "70",
+                        hint: "Look at the units digit. Is it 5 or more? If yes, round up. If not, round down."
+                    },
+                    {
+                        question: "Which number is larger: 345 or 354?",
+                        type: "multiple",
+                        options: ["345", "354", "They are equal", "Cannot tell"],
+                        answer: "354",
+                        hint: "Compare the digits from left to right. Start with the hundreds, then tens, then ones."
+                    },
+                    {
+                        question: "What is 200 + 40 + 5 in standard form?",
+                        type: "input",
+                        answer: "245",
+                        hint: "Add each part together: hundreds + tens + ones."
+                    },
+                    {
+                        question: "What is the value of the digit 8 in 186?",
+                        type: "multiple",
+                        options: ["8", "80", "800", "8000"],
+                        answer: "80",
+                        hint: "The 8 is in the tens place. What value does this give it?"
+                    },
+                    {
+                        question: "Round 142 to the nearest hundred.",
+                        type: "input",
+                        answer: "100",
+                        hint: "Look at the tens digit. Is 142 closer to 100 or 200?"
+                    },
+                    {
+                        question: "Which digit is in the ones place in 789?",
+                        type: "multiple",
+                        options: ["7", "8", "9", "78"],
+                        answer: "9",
+                        hint: "The ones place is the rightmost digit. Which digit is that?"
+                    },
+                    {
+                        question: "What is 1,000 + 200 + 30 + 4?",
+                        type: "input",
+                        answer: "1234",
+                        hint: "Add the place values together: thousands + hundreds + tens + ones."
+                    },
+                    {
+                        question: "In the number 456, which digit is in the hundreds place?",
+                        type: "multiple",
+                        options: ["4", "5", "6", "456"],
+                        answer: "4",
+                        hint: "Count from right to left: ones, tens, hundreds. Which digit is in the hundreds position?"
+                    },
+                    {
+                        question: "Round 78 to the nearest ten.",
+                        type: "input",
+                        answer: "80",
+                        hint: "Look at the ones digit. Since it's 8, do you round up or down?"
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Intermediate Place Value
                 {
                     question: "What is the value of the digit 7 in the number 37,642?",
                     type: "multiple",
@@ -2056,13 +2499,6 @@
                     type: "input",
                     answer: "4600",
                     hint: "Look at the digit in the tens place to decide whether to round up or down. What's the rule for rounding?"
-                },
-                {
-                    question: "Which number is largest?",
-                    type: "multiple",
-                    options: ["0.7", "0.07", "0.707", "0.077"],
-                    answer: "0.707",
-                    hint: "Try adding zeros to make all numbers have the same number of decimal places, then compare."
                 },
                 {
                     question: "What is 6,000 + 400 + 50 + 3 in standard form?",
@@ -2084,13 +2520,6 @@
                     hint: "When rounding to the nearest thousand, which digit should you look at? What's the rounding rule?"
                 },
                 {
-                    question: "Which is the smallest number?",
-                    type: "multiple",
-                    options: ["0.4", "0.04", "0.404", "0.044"],
-                    answer: "0.04",
-                    hint: "To compare decimals, try writing them all with the same number of decimal places. How does this help you compare?"
-                },
-                {
                     question: "What is 50,000 + 3,000 + 800 + 20 + 7?",
                     type: "input",
                     answer: "53827",
@@ -2108,9 +2537,164 @@
                     type: "input",
                     answer: "2850",
                     hint: "When rounding to the nearest ten, which digit should you look at? What does the rounding rule tell you to do?"
-                }
-            ],
-            'fractions-decimals': [
+                    },
+                    {
+                        question: "What is the value of the digit 9 in 298,456?",
+                        type: "multiple",
+                        options: ["9", "90", "9000", "90000"],
+                        answer: "90000",
+                        hint: "Count carefully from right to left to find which place the 9 occupies in this large number."
+                    },
+                    {
+                        question: "Round 36,789 to the nearest hundred.",
+                        type: "input",
+                        answer: "36800",
+                        hint: "Look at the tens digit to decide whether to round up or down to the nearest hundred."
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Advanced Place Value & Decimals
+                    {
+                        question: "Which number is largest?",
+                        type: "multiple",
+                        options: ["0.7", "0.07", "0.707", "0.077"],
+                        answer: "0.707",
+                        hint: "Try adding zeros to make all numbers have the same number of decimal places, then compare."
+                    },
+                    {
+                        question: "Which is the smallest number?",
+                        type: "multiple",
+                        options: ["0.4", "0.04", "0.404", "0.044"],
+                        answer: "0.04",
+                        hint: "To compare decimals, try writing them all with the same number of decimal places. How does this help you compare?"
+                    },
+                    {
+                        question: "Round 47.836 to 2 decimal places.",
+                        type: "input",
+                        answer: "47.84",
+                        hint: "Look at the third decimal place to decide whether to round the second decimal place up or down."
+                    },
+                    {
+                        question: "What is the value of the digit 4 in 3.0247?",
+                        type: "multiple",
+                        options: ["4 thousandths", "4 hundredths", "4 tenths", "4 units"],
+                        answer: "4 thousandths",
+                        hint: "Count the decimal places from left to right: tenths, hundredths, thousandths."
+                    },
+                    {
+                        question: "Round 123,456 to the nearest ten thousand.",
+                        type: "input",
+                        answer: "120000",
+                        hint: "Look at the thousands digit to decide whether to round up or down."
+                    },
+                    {
+                        question: "What is 2.5 million in standard form?",
+                        type: "input",
+                        answer: "2500000",
+                        hint: "2.5 million means 2.5 × 1,000,000. How many zeros do you need?"
+                    },
+                    {
+                        question: "Round 0.8496 to 1 decimal place.",
+                        type: "input",
+                        answer: "0.8",
+                        hint: "Look at the second decimal place (4) to decide whether to round up or down."
+                    },
+                    {
+                        question: "What is 7 × 10⁴ in standard form?",
+                        type: "multiple",
+                        options: ["7000", "70000", "700000", "70"],
+                        answer: "70000",
+                        hint: "10⁴ means 10 × 10 × 10 × 10. How many zeros does this give?"
+                    },
+                    {
+                        question: "Which number is closest to 0.25?",
+                        type: "multiple",
+                        options: ["0.205", "0.295", "0.3", "0.2"],
+                        answer: "0.295",
+                        hint: "Calculate the difference between 0.25 and each option. Which difference is smallest?"
+                    },
+                    {
+                        question: "Express 4,560,000 in scientific notation.",
+                        type: "multiple",
+                        options: ["4.56 × 10⁵", "4.56 × 10⁶", "45.6 × 10⁵", "4.56 × 10⁷"],
+                        answer: "4.56 × 10⁶",
+                        hint: "Count how many places you need to move the decimal point to get a number between 1 and 10."
+                    }
+                ]
+            },
+            'fractions-decimals': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Basic Fractions & Decimals
+                    {
+                        question: "What is 1/2 as a decimal?",
+                        type: "input",
+                        answer: "0.5",
+                        hint: "Half means divide by 2. What's 1 ÷ 2?"
+                    },
+                    {
+                        question: "Which fraction represents half?",
+                        type: "multiple",
+                        options: ["1/3", "1/2", "2/3", "1/4"],
+                        answer: "1/2",
+                        hint: "Half means one out of two equal parts. Which fraction shows this?"
+                    },
+                    {
+                        question: "Convert 0.3 to a fraction.",
+                        type: "multiple",
+                        options: ["3/10", "1/3", "3/100", "30/100"],
+                        answer: "3/10",
+                        hint: "0.3 means 3 tenths. How do you write this as a fraction?"
+                    },
+                    {
+                        question: "What is 50% as a fraction?",
+                        type: "multiple",
+                        options: ["1/2", "1/4", "50/100", "5/10"],
+                        answer: "1/2",
+                        hint: "50% means 50 out of 100, which simplifies to what basic fraction?"
+                    },
+                    {
+                        question: "Which is bigger: 1/4 or 1/2?",
+                        type: "multiple",
+                        options: ["1/4", "1/2", "They are equal", "Cannot tell"],
+                        answer: "1/2",
+                        hint: "Think about pizza slices. Would you rather have 1 out of 4 slices or 1 out of 2 slices?"
+                    },
+                    {
+                        question: "Convert 7/10 to a decimal.",
+                        type: "input",
+                        answer: "0.7",
+                        hint: "Think about what the denominator 10 means. How do you divide by 10?"
+                    },
+                    {
+                        question: "What percentage is 1/4?",
+                        type: "input",
+                        answer: "25",
+                        hint: "1/4 means 1 out of 4. If 4/4 = 100%, what is 1/4?"
+                    },
+                    {
+                        question: "Which decimal equals 1/5?",
+                        type: "multiple",
+                        options: ["0.2", "0.5", "0.15", "0.25"],
+                        answer: "0.2",
+                        hint: "Divide 1 by 5. What's 1 ÷ 5?"
+                    },
+                    {
+                        question: "What is 0.9 as a fraction?",
+                        type: "multiple",
+                        options: ["9/10", "9/100", "1/9", "90/100"],
+                        answer: "9/10",
+                        hint: "0.9 means 9 tenths. How do you write this as a fraction?"
+                    },
+                    {
+                        question: "Which is smaller: 0.3 or 1/2?",
+                        type: "multiple",
+                        options: ["0.3", "1/2", "They are equal", "Cannot tell"],
+                        answer: "0.3",
+                        hint: "Convert both to the same form. What is 1/2 as a decimal?"
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Intermediate Operations
                 {
                     question: "What is 1/2 + 1/4?",
                     type: "multiple",
@@ -2146,12 +2730,6 @@
                     hint: "To subtract fractions, you need the same denominator. Look at both denominators - which one can be converted to match the other?"
                 },
                 {
-                    question: "Convert 7/10 to a decimal.",
-                    type: "input",
-                    answer: "0.7",
-                    hint: "Think about what the denominator 10 means. How do you divide by 10?"
-                },
-                {
                     question: "What is 40% as a fraction in simplest form?",
                     type: "multiple",
                     options: ["4/10", "2/5", "40/100", "8/20"],
@@ -2177,15 +2755,154 @@
                     options: ["3/4", "0.7", "They are equal", "Cannot tell"],
                     answer: "3/4",
                     hint: "To compare a fraction and a decimal, convert them to the same form. Which would be easier to convert?"
-                }
-            ],
-            'geometry': [
+                    },
+                    {
+                        question: "What is 5/8 as a decimal?",
+                        type: "input",
+                        answer: "0.625",
+                        hint: "Divide the numerator by the denominator. What's 5 ÷ 8?"
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Advanced Fractions & Mixed Operations
+                    {
+                        question: "Calculate: 2⅓ + 1¾",
+                        type: "input",
+                        answer: "4.08",
+                        hint: "Convert mixed numbers to improper fractions first, then add. Remember to find a common denominator."
+                    },
+                    {
+                        question: "What is 7/12 × 3/4?",
+                        type: "multiple",
+                        options: ["7/16", "21/48", "10/16", "21/16"],
+                        answer: "21/48",
+                        hint: "When multiplying fractions, multiply numerators together and denominators together. Then simplify if possible."
+                    },
+                    {
+                        question: "Express 0.375 as a fraction in lowest terms.",
+                        type: "multiple",
+                        options: ["375/1000", "3/8", "15/40", "75/200"],
+                        answer: "3/8",
+                        hint: "0.375 = 375/1000. Find the greatest common factor to simplify this fraction."
+                    },
+                    {
+                        question: "What is 2/3 ÷ 1/4?",
+                        type: "multiple",
+                        options: ["2/12", "8/3", "2/7", "1/6"],
+                        answer: "8/3",
+                        hint: "To divide fractions, multiply by the reciprocal. What's the reciprocal of 1/4?"
+                    },
+                    {
+                        question: "Calculate: 125% of 2.4",
+                        type: "input",
+                        answer: "3",
+                        hint: "125% = 1.25. Multiply 1.25 × 2.4. What's the result?"
+                    },
+                    {
+                        question: "Which fraction is closest to 0.33?",
+                        type: "multiple",
+                        options: ["1/3", "3/10", "33/100", "1/4"],
+                        answer: "1/3",
+                        hint: "Convert each fraction to a decimal and compare with 0.33. Which is closest?"
+                    },
+                    {
+                        question: "What is 4⅝ as an improper fraction?",
+                        type: "multiple",
+                        options: ["37/8", "32/8", "36/8", "4⅝"],
+                        answer: "37/8",
+                        hint: "Multiply the whole number by the denominator, then add the numerator. Put this over the original denominator."
+                    },
+                    {
+                        question: "Calculate: 0.75 ÷ 0.25",
+                        type: "input",
+                        answer: "3",
+                        hint: "Think of this as fractions: 75/100 ÷ 25/100. How can you simplify this division?"
+                    },
+                    {
+                        question: "What percentage is 7/8?",
+                        type: "input",
+                        answer: "87.5",
+                        hint: "Convert 7/8 to a decimal first by dividing 7 ÷ 8, then multiply by 100 for the percentage."
+                    },
+                    {
+                        question: "Express 1.25 as a mixed number in simplest form.",
+                        type: "multiple",
+                        options: ["1¼", "1²⁄₅", "1¹⁄₄", "5/4"],
+                        answer: "1¼",
+                        hint: "1.25 = 1 + 0.25. What fraction equals 0.25? Express as a mixed number."
+                    }
+                ]
+            },
+            'geometry': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Basic Shapes
+                    {
+                        question: "How many sides does a triangle have?",
+                        type: "input",
+                        answer: "3",
+                        hint: "A triangle is named after the number of sides it has. Tri means three."
+                    },
+                    {
+                        question: "How many sides does a square have?",
+                        type: "input",
+                        answer: "4",
+                        hint: "Count the sides of a square. All sides are equal length."
+                    },
+                    {
+                        question: "What is the name of a shape with 5 sides?",
+                        type: "multiple",
+                        options: ["Pentagon", "Hexagon", "Octagon", "Triangle"],
+                        answer: "Pentagon",
+                        hint: "Think about the prefix 'pent-'. What does it mean? Like a pentagram."
+                    },
                 {
                     question: "How many sides does a hexagon have?",
                     type: "input",
                     answer: "6",
                     hint: "Think about the prefix 'hex-'. What other words do you know that start with this prefix? What does it mean?"
                 },
+                    {
+                        question: "Which shape is completely round?",
+                        type: "multiple",
+                        options: ["Square", "Triangle", "Circle", "Rectangle"],
+                        answer: "Circle",
+                        hint: "Which shape has no corners or straight edges? It's perfectly round."
+                    },
+                    {
+                        question: "How many corners does a rectangle have?",
+                        type: "input",
+                        answer: "4",
+                        hint: "Count the corners (vertices) of a rectangle. Each corner is a right angle."
+                    },
+                    {
+                        question: "What angle is formed by a quarter turn?",
+                        type: "multiple",
+                        options: ["45°", "90°", "180°", "270°"],
+                        answer: "90°",
+                        hint: "Think about what a quarter turn means. If a full turn is 360°, how would you calculate a quarter of that?"
+                    },
+                    {
+                        question: "Which shape has 8 sides?",
+                        type: "multiple",
+                        options: ["Hexagon", "Pentagon", "Octagon", "Heptagon"],
+                        answer: "Octagon",
+                        hint: "Think about the prefix 'oct-'. Like an octopus has 8 arms."
+                    },
+                    {
+                        question: "A circle has a radius of 4cm. What is its diameter?",
+                        type: "input",
+                        answer: "8",
+                        hint: "What's the relationship between radius and diameter in a circle? How are they connected?"
+                    },
+                    {
+                        question: "How many right angles does a square have?",
+                        type: "input",
+                        answer: "4",
+                        hint: "Each corner of a square is a right angle. How many corners does a square have?"
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Properties & Measurements
                 {
                     question: "What is the sum of angles in a triangle?",
                     type: "multiple",
@@ -2226,300 +2943,932 @@
                     hint: "Think about the structure of a cube. How many corners does each face have? How many faces touch at each corner?"
                 },
                 {
-                    question: "What angle is formed by a quarter turn?",
-                    type: "multiple",
-                    options: ["45°", "90°", "180°", "270°"],
-                    answer: "90°",
-                    hint: "Think about what a quarter turn means. If a full turn is 360°, how would you calculate a quarter of that?"
-                },
-                {
-                    question: "A circle has a radius of 4cm. What is its diameter?",
+                        question: "What is the perimeter of a triangle with sides 3cm, 4cm, and 5cm?",
+                        type: "input",
+                        answer: "12",
+                        hint: "Perimeter means the distance around the outside. Add up all the side lengths."
+                    },
+                    {
+                        question: "How many faces does a cube have?",
                     type: "input",
-                    answer: "8",
-                    hint: "What's the relationship between radius and diameter in a circle? How are they connected?"
-                },
+                        answer: "6",
+                        hint: "Think about a dice. Count all the flat surfaces (faces) of a cube."
+                    },
+                    {
+                        question: "What is the area of a square with side length 6cm?",
+                        type: "input",
+                        answer: "36",
+                        hint: "For a square, area = side × side. What's 6 × 6?"
+                    },
+                    {
+                        question: "How many lines of symmetry does a square have?",
+                        type: "input",
+                        answer: "4",
+                        hint: "A square can be folded in half in several ways. Count all the possible lines of symmetry."
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Advanced Geometry
                 {
                     question: "Which 3D shape has 6 faces, 12 edges and 8 vertices?",
                     type: "multiple",
                     options: ["Pyramid", "Cylinder", "Cube", "Sphere"],
                     answer: "Cube",
                     hint: "Think about a familiar cube-shaped object like a dice. Count the faces, edges, and corners. What pattern do you notice?"
-                }
-            ],
-            'measurement': [
-                {
-                    question: "How many millimetres are in 3.5 centimetres?",
-                    type: "input",
-                    answer: "35",
-                    hint: "What's the relationship between centimetres and millimetres? How many mm are in 1 cm?"
-                },
-                {
-                    question: "What is 2.5 kilometres in metres?",
-                    type: "multiple",
-                    options: ["250m", "2500m", "25m", "25000m"],
-                    answer: "2500m",
-                    hint: "How many metres are in one kilometre? How would you convert km to metres?"
-                },
-                {
-                    question: "How many minutes are there in 2.5 hours?",
-                    type: "input",
-                    answer: "150",
-                    hint: "How many minutes are in one hour? How would you calculate the minutes in 2.5 hours?"
-                },
-                {
-                    question: "What is the area of a square with sides of 6cm?",
-                    type: "multiple",
-                    options: ["12 cm²", "24 cm²", "36 cm²", "18 cm²"],
-                    answer: "36 cm²",
-                    hint: "What's the formula for the area of a square? How do you use the side length to find the area?"
-                },
-                {
-                    question: "How many grams are in 1.2 kilograms?",
-                    type: "input",
-                    answer: "1200",
-                    hint: "How many grams are in one kilogram? What operation helps you convert kg to grams?"
-                },
-                {
-                    question: "What is the perimeter of a rectangle 7cm long and 4cm wide?",
-                    type: "multiple",
-                    options: ["11cm", "22cm", "28cm", "14cm"],
-                    answer: "22cm",
-                    hint: "What's the formula for the perimeter of a rectangle? Think about how many sides a rectangle has."
-                },
-                {
-                    question: "How many litres are in 3500ml?",
-                    type: "input",
-                    answer: "3.5",
-                    hint: "How many millilitres are in one litre? When converting from ml to litres, what operation do you use?"
-                },
-                {
-                    question: "If it's 14:30, what time is it in 12-hour format?",
-                    type: "multiple",
-                    options: ["2:30 AM", "2:30 PM", "4:30 PM", "14:30 PM"],
-                    answer: "2:30 PM",
-                    hint: "In 24-hour format, what happens to times after 12:00? What operation converts them to 12-hour format?"
-                },
-                {
-                    question: "How many seconds are in 3 minutes?",
-                    type: "input",
-                    answer: "180",
-                    hint: "How many seconds are in one minute? What operation helps you find the total seconds?"
-                },
-                {
-                    question: "What is the volume of a cube with sides of 3cm?",
-                    type: "multiple",
-                    options: ["9 cm³", "18 cm³", "27 cm³", "12 cm³"],
-                    answer: "27 cm³",
-                    hint: "What's the formula for the volume of a cube? Think about how many dimensions a cube has."
-                }
-            ],
-            'grammar-punctuation': [
-                {
-                    question: "Which sentence uses the apostrophe correctly?",
-                    type: "multiple",
-                    options: ["The dog's tail wagged.", "The dogs' tail wagged.", "The dog's tail's wagged.", "The dogs tail wagged."],
-                    answer: "The dog's tail wagged.",
-                    hint: "Think about apostrophe rules. Are you talking about one dog or multiple dogs? What does the apostrophe show?"
-                },
-                {
-                    question: "What type of word is 'quickly' in this sentence: 'She ran quickly'?",
-                    type: "multiple",
-                    options: ["Noun", "Verb", "Adjective", "Adverb"],
-                    answer: "Adverb",
-                    hint: "What does 'quickly' tell us about how she ran? What type of word typically ends in -ly and describes actions?"
-                },
-                {
-                    question: "Which word is the verb in: 'The children played football'?",
-                    type: "input",
-                    answer: "played",
-                    hint: "A verb is an action word. Look at the sentence - what action is happening?"
-                },
-                {
-                    question: "Choose the correct sentence:",
-                    type: "multiple",
-                    options: ["I done my homework.", "I have did my homework.", "I have done my homework.", "I has done my homework."],
-                    answer: "I have done my homework.",
-                    hint: "Think about auxiliary verbs. What form of 'do' works with 'have'? Also consider subject-verb agreement with 'I'."
-                },
-                {
-                    question: "What punctuation mark is missing? 'What time is it'",
-                    type: "multiple",
-                    options: [".", "!", "?", ","],
-                    answer: "?",
-                    hint: "What type of sentence is this? What punctuation mark do we use for questions?"
-                },
-                {
-                    question: "Which word is a proper noun?",
-                    type: "multiple",
-                    options: ["city", "London", "building", "person"],
-                    answer: "London",
-                    hint: "Proper nouns are specific names of people, places, or things. Which option is a specific name rather than a general word?"
-                },
-                {
-                    question: "What is the past tense of 'go'?",
-                    type: "input",
-                    answer: "went",
-                    hint: "'Go' is an irregular verb - it doesn't follow the usual pattern of adding -ed. What's the special past tense form?"
-                },
-                {
-                    question: "Which sentence uses commas correctly?",
-                    type: "multiple",
-                    options: ["I like apples, bananas and oranges.", "I like apples bananas, and oranges.", "I like, apples bananas and oranges.", "I like apples bananas and, oranges."],
-                    answer: "I like apples, bananas and oranges.",
-                    hint: "How do you separate items in a list? Where should commas be placed when listing three things?"
-                },
-                {
-                    question: "What type of word is 'beautiful'?",
-                    type: "multiple",
-                    options: ["Noun", "Verb", "Adjective", "Adverb"],
-                    answer: "Adjective",
-                    hint: "What does 'beautiful' do in a sentence? What type of word describes or gives more information about nouns?"
-                },
-                {
-                    question: "Which sentence is in the passive voice?",
-                    type: "multiple",
-                    options: ["The cat chased the mouse.", "The mouse was chased by the cat.", "The cat is chasing the mouse.", "The cat will chase the mouse."],
-                    answer: "The mouse was chased by the cat.",
-                    hint: "In passive voice, the subject receives the action rather than doing it. Which sentence shows something being done TO the subject?"
-                }
-            ],
-            'spelling': [
-                {
-                    question: "Choose the correct spelling:",
-                    type: "multiple",
-                    options: ["seperate", "separate", "seperrate", "sepparate"],
-                    answer: "separate",
-                    hint: "Think about the middle vowel. Try saying the word slowly to hear the sounds."
-                },
-                {
-                    question: "Which word is spelled correctly?",
-                    type: "multiple",
-                    options: ["recieve", "receive", "receeve", "receve"],
-                    answer: "receive",
-                    hint: "Think about the 'i before e except after c' rule. What letter comes before the 'e' and 'i'?"
-                },
-                {
-                    question: "Complete the word: necess___",
-                    type: "input",
-                    answer: "ary",
-                    hint: "This word means 'essential' or 'required'. What ending sounds right when you say it aloud?"
-                },
-                {
-                    question: "Choose the correct spelling:",
-                    type: "multiple",
-                    options: ["definately", "definitly", "definitely", "definetely"],
-                    answer: "definitely",
-                    hint: "This word means 'certainly' or 'without doubt'. Break it down into parts: 'definite' + ending. What sounds right?"
-                },
-                {
-                    question: "Which word is spelled correctly?",
-                    type: "multiple",
-                    options: ["embarass", "embarrass", "embarras", "embaress"],
-                    answer: "embarrass",
-                    hint: "This word means 'to make someone feel awkward'. Listen to the sounds - which consonants might be doubled?"
-                },
-                {
-                    question: "Complete the word: bel___ve",
-                    type: "input",
-                    answer: "ie",
-                    hint: "This word follows the 'i before e' spelling rule. Think about which letters go in the middle."
-                },
-                {
-                    question: "Choose the correct spelling:",
-                    type: "multiple",
-                    options: ["occassion", "occasion", "ocasion", "occaision"],
-                    answer: "occasion",
-                    hint: "This word means 'a special event'. Think about which consonants might be doubled."
-                },
-                {
-                    question: "Which word is spelled correctly?",
-                    type: "multiple",
-                    options: ["accommodation", "accomodation", "acommodation", "accommodacion"],
-                    answer: "accommodation",
-                    hint: "This word means 'a place to stay'. Think about the root word 'accommodate' and how it's spelled."
-                },
-                {
-                    question: "Complete the word: int___est",
-                    type: "input",
-                    answer: "er",
-                    hint: "This word means 'curiosity' or 'attention'. What letters fit in the middle?"
-                },
-                {
-                    question: "Choose the correct spelling:",
-                    type: "multiple",
-                    options: ["disappoint", "dissapoint", "disapoint", "dissappoint"],
-                    answer: "disappoint",
-                    hint: "This word means 'to let someone down'. Think about the prefix 'dis-' and the root word."
-                }
-            ],
-            'reading-comprehension': [
-                {
-                    question: "Read: 'The ancient castle stood majestically on the hill.' What does 'majestically' mean?",
-                    type: "multiple",
-                    options: ["Sadly", "Grandly", "Quickly", "Quietly"],
-                    answer: "Grandly",
-                    hint: "Think about how a royal castle might appear. What feeling does 'majestic' give you?"
-                },
-                {
-                    question: "In the sentence 'She whispered the secret softly', what is the main verb?",
-                    type: "input",
-                    answer: "whispered",
-                    hint: "A verb is an action word. Look for what the person is doing in this sentence."
-                },
-                {
-                    question: "What is the main purpose of a newspaper headline?",
-                    type: "multiple",
-                    options: ["To entertain", "To grab attention", "To provide details", "To conclude the story"],
-                    answer: "To grab attention",
-                    hint: "Think about why newspapers put headlines at the top of articles. What do they want readers to do?"
-                },
-                {
-                    question: "Read: 'The storm was approaching rapidly.' What type of text feature helps you understand 'rapidly'?",
-                    type: "multiple",
-                    options: ["Context clues", "Pictures", "Bold text", "Page numbers"],
-                    answer: "Context clues",
-                    hint: "Look at the words around 'rapidly' in the sentence. How do they help you understand the meaning?"
-                },
-                {
-                    question: "In a story, what do we call the message or lesson the author wants to teach?",
-                    type: "input",
-                    answer: "theme",
-                    hint: "This is the main idea or deeper meaning that runs throughout a story. What do we call the message an author wants to teach?"
-                },
-                {
-                    question: "Which word best describes the mood in: 'The dark, creepy house loomed ahead'?",
-                    type: "multiple",
-                    options: ["Happy", "Scary", "Exciting", "Peaceful"],
-                    answer: "Scary",
-                    hint: "Look at the descriptive words in this sentence. What feeling or atmosphere do they create?"
-                },
-                {
-                    question: "What does a glossary in a book help you with?",
-                    type: "multiple",
-                    options: ["Finding page numbers", "Understanding difficult words", "Seeing pictures", "Reading faster"],
-                    answer: "Understanding difficult words",
-                    hint: "Think about what a glossary contains and where you find it in a book. How does it help readers?"
-                },
-                {
-                    question: "In 'The brave knight rescued the princess', who performed the action?",
-                    type: "input",
-                    answer: "knight",
-                    hint: "Who is doing the rescuing? Look for the person performing the action in this sentence."
-                },
-                {
-                    question: "What is the purpose of using bullet points in a text?",
-                    type: "multiple",
-                    options: ["To make it longer", "To list information clearly", "To add pictures", "To change the font"],
-                    answer: "To list information clearly",
-                    hint: "Think about how bullet points are used in texts. How do they help organize and present information?"
-                },
-                {
-                    question: "Read: 'The flowers bloomed brilliantly in spring.' What season is mentioned?",
-                    type: "input",
-                    answer: "spring",
-                    hint: "Look for words that indicate time or season in the sentence. What season is mentioned?"
-                }
-            ]
+                    },
+                    {
+                        question: "What is the area of a triangle with base 10cm and height 6cm?",
+                        type: "input",
+                        answer: "30",
+                        hint: "The formula for triangle area is ½ × base × height. Calculate ½ × 10 × 6."
+                    },
+                    {
+                        question: "If the radius of a circle is 5cm, what is its circumference? (Use π = 3.14)",
+                        type: "input",
+                        answer: "31.4",
+                        hint: "Circumference = 2 × π × radius. Use π = 3.14 and radius = 5cm."
+                    },
+                    {
+                        question: "What is the volume of a cube with side length 4cm?",
+                        type: "input",
+                        answer: "64",
+                        hint: "Volume of a cube = side × side × side. What's 4 × 4 × 4?"
+                    },
+                    {
+                        question: "How many edges does a triangular prism have?",
+                        type: "input",
+                        answer: "9",
+                        hint: "A triangular prism has two triangular faces and three rectangular faces. Count all the edges carefully."
+                    },
+                    {
+                        question: "What is the sum of interior angles in a pentagon?",
+                        type: "multiple",
+                        options: ["360°", "540°", "720°", "900°"],
+                        answer: "540°",
+                        hint: "Use the formula: (n-2) × 180° where n is the number of sides. For a pentagon, n = 5."
+                    },
+                    {
+                        question: "What is the area of a circle with radius 3cm? (Use π = 3.14)",
+                        type: "input",
+                        answer: "28.26",
+                        hint: "Area of circle = π × radius². Calculate 3.14 × 3 × 3."
+                    },
+                    {
+                        question: "A rectangle has area 48cm² and width 6cm. What is its length?",
+                        type: "input",
+                        answer: "8",
+                        hint: "Area = length × width. If 48 = length × 6, what is the length?"
+                    },
+                    {
+                        question: "How many diagonals does a hexagon have?",
+                        type: "input",
+                        answer: "9",
+                        hint: "Use the formula: n(n-3)/2 where n is the number of sides. For a hexagon, n = 6."
+                    },
+                    {
+                        question: "What type of triangle has all sides of different lengths?",
+                        type: "multiple",
+                        options: ["Equilateral", "Isosceles", "Scalene", "Right-angled"],
+                        answer: "Scalene",
+                        hint: "Think about triangle classifications. What do we call a triangle where all three sides are different lengths?"
+                    }
+                ]
+            },
+            'measurement': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Basic Units & Conversions
+                    {
+                        question: "How many millimetres are in 3.5 centimetres?",
+                        type: "input",
+                        answer: "35",
+                        hint: "What's the relationship between centimetres and millimetres? How many mm are in 1 cm?"
+                    },
+                    {
+                        question: "How many minutes are there in 2.5 hours?",
+                        type: "input",
+                        answer: "150",
+                        hint: "How many minutes are in one hour? How would you calculate the minutes in 2.5 hours?"
+                    },
+                    {
+                        question: "How many grams are in 1.2 kilograms?",
+                        type: "input",
+                        answer: "1200",
+                        hint: "How many grams are in one kilogram? What operation helps you convert kg to grams?"
+                    },
+                    {
+                        question: "How many litres are in 3500ml?",
+                        type: "input",
+                        answer: "3.5",
+                        hint: "How many millilitres are in one litre? When converting from ml to litres, what operation do you use?"
+                    },
+                    {
+                        question: "How many seconds are in 3 minutes?",
+                        type: "input",
+                        answer: "180",
+                        hint: "How many seconds are in one minute? What operation helps you find the total seconds?"
+                    },
+                    {
+                        question: "How many centimetres are in 2.5 metres?",
+                        type: "input",
+                        answer: "250",
+                        hint: "How many centimetres are in one metre? What operation converts metres to centimetres?"
+                    },
+                    {
+                        question: "If it's 14:30, what time is it in 12-hour format?",
+                        type: "multiple",
+                        options: ["2:30 AM", "2:30 PM", "4:30 PM", "14:30 PM"],
+                        answer: "2:30 PM",
+                        hint: "In 24-hour format, what happens to times after 12:00? What operation converts them to 12-hour format?"
+                    },
+                    {
+                        question: "How many hours are in 240 minutes?",
+                        type: "input",
+                        answer: "4",
+                        hint: "How many minutes are in one hour? What operation converts minutes to hours?"
+                    },
+                    {
+                        question: "How many millilitres are in 1.5 litres?",
+                        type: "multiple",
+                        options: ["150ml", "1500ml", "15ml", "15000ml"],
+                        answer: "1500ml",
+                        hint: "How many millilitres are in one litre? What operation converts litres to ml?"
+                    },
+                    {
+                        question: "What is 500 grams in kilograms?",
+                        type: "input",
+                        answer: "0.5",
+                        hint: "How many grams are in one kilogram? When converting from grams to kg, what operation do you use?"
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Area, Perimeter & Volume
+                    {
+                        question: "What is the area of a square with sides of 6cm?",
+                        type: "multiple",
+                        options: ["12 cm²", "24 cm²", "36 cm²", "18 cm²"],
+                        answer: "36 cm²",
+                        hint: "What's the formula for the area of a square? How do you use the side length to find the area?"
+                    },
+                    {
+                        question: "What is the perimeter of a rectangle 7cm long and 4cm wide?",
+                        type: "multiple",
+                        options: ["11cm", "22cm", "28cm", "14cm"],
+                        answer: "22cm",
+                        hint: "What's the formula for the perimeter of a rectangle? Think about how many sides a rectangle has."
+                    },
+                    {
+                        question: "What is the volume of a cube with sides of 3cm?",
+                        type: "multiple",
+                        options: ["9 cm³", "18 cm³", "27 cm³", "12 cm³"],
+                        answer: "27 cm³",
+                        hint: "What's the formula for the volume of a cube? Think about how many dimensions a cube has."
+                    },
+                    {
+                        question: "What is the area of a rectangle 8cm long and 5cm wide?",
+                        type: "input",
+                        answer: "40",
+                        hint: "Area of rectangle = length × width. What's 8 × 5?"
+                    },
+                    {
+                        question: "A square has an area of 49 cm². What is the length of one side?",
+                        type: "input",
+                        answer: "7",
+                        hint: "If area = side × side, and area is 49, what number times itself equals 49?"
+                    },
+                    {
+                        question: "What is the perimeter of a square with sides of 9cm?",
+                        type: "input",
+                        answer: "36",
+                        hint: "A square has 4 equal sides. If each side is 9cm, what's the total perimeter?"
+                    },
+                    {
+                        question: "What is the volume of a rectangular box 4cm × 3cm × 2cm?",
+                        type: "input",
+                        answer: "24",
+                        hint: "Volume = length × width × height. Calculate 4 × 3 × 2."
+                    },
+                    {
+                        question: "A rectangle has perimeter 20cm and width 3cm. What is its length?",
+                        type: "input",
+                        answer: "7",
+                        hint: "Perimeter = 2 × (length + width). If perimeter is 20 and width is 3, find the length."
+                    },
+                    {
+                        question: "What is the area of a triangle with base 10cm and height 6cm?",
+                        type: "input",
+                        answer: "30",
+                        hint: "Area of triangle = ½ × base × height. Calculate ½ × 10 × 6."
+                    },
+                    {
+                        question: "A cube has volume 64 cm³. What is the length of one side?",
+                        type: "input",
+                        answer: "4",
+                        hint: "If volume = side³ and volume is 64, what number cubed equals 64?"
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Complex Measurements & Conversions
+                    {
+                        question: "What is 2.5 kilometres in metres?",
+                        type: "multiple",
+                        options: ["250m", "2500m", "25m", "25000m"],
+                        answer: "2500m",
+                        hint: "How many metres are in one kilometre? How would you convert km to metres?"
+                    },
+                    {
+                        question: "Convert 3.2 kg to grams and 150g. What's the total in grams?",
+                        type: "input",
+                        answer: "3350",
+                        hint: "First convert 3.2 kg to grams, then add 150g. How many grams in 3.2 kg?"
+                    },
+                    {
+                        question: "A room is 4.5m long and 3.2m wide. What is its area in m²?",
+                        type: "input",
+                        answer: "14.4",
+                        hint: "Area = length × width. Calculate 4.5 × 3.2."
+                    },
+                    {
+                        question: "How many minutes from 09:45 to 11:20?",
+                        type: "input",
+                        answer: "95",
+                        hint: "Count the time difference. From 09:45 to 10:00 is 15 minutes, then add the time to 11:20."
+                    },
+                    {
+                        question: "A water tank holds 2.4m³. How many litres is this?",
+                        type: "input",
+                        answer: "2400",
+                        hint: "1 cubic metre = 1000 litres. What's 2.4 × 1000?"
+                    },
+                    {
+                        question: "The scale is 1:50. If a line is 8cm on the map, what's the real distance in metres?",
+                        type: "input",
+                        answer: "4",
+                        hint: "Scale 1:50 means 1cm = 50cm real. If map shows 8cm, real distance is 8 × 50cm = ? metres."
+                    },
+                    {
+                        question: "A circular pond has radius 3m. What is its area? (Use π = 3.14)",
+                        type: "input",
+                        answer: "28.26",
+                        hint: "Area of circle = π × radius². Calculate 3.14 × 3²."
+                    },
+                    {
+                        question: "Convert 4 hours 25 minutes to decimal hours.",
+                        type: "input",
+                        answer: "4.42",
+                        hint: "25 minutes = 25/60 hours. Convert to decimal and add to 4 hours."
+                    },
+                    {
+                        question: "A box measures 15cm × 12cm × 8cm. What is its volume in litres?",
+                        type: "input",
+                        answer: "1.44",
+                        hint: "Volume = 15 × 12 × 8 = ? cm³. Then convert to litres (1000 cm³ = 1 litre)."
+                    },
+                    {
+                        question: "Speed = 60 km/h. How far in 2.5 hours?",
+                        type: "input",
+                        answer: "150",
+                        hint: "Distance = speed × time. Calculate 60 × 2.5."
+                    }
+                ]
+            },
+            'grammar-punctuation': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Basic Grammar & Punctuation
+                    {
+                        question: "Which word is the verb in: 'The children played football'?",
+                        type: "input",
+                        answer: "played",
+                        hint: "A verb is an action word. Look at the sentence - what action is happening?"
+                    },
+                    {
+                        question: "What punctuation mark is missing? 'What time is it'",
+                        type: "multiple",
+                        options: [".", "!", "?", ","],
+                        answer: "?",
+                        hint: "What type of sentence is this? What punctuation mark do we use for questions?"
+                    },
+                    {
+                        question: "Which word is a proper noun?",
+                        type: "multiple",
+                        options: ["city", "London", "building", "person"],
+                        answer: "London",
+                        hint: "Proper nouns are specific names of people, places, or things. Which option is a specific name rather than a general word?"
+                    },
+                    {
+                        question: "What is the past tense of 'go'?",
+                        type: "input",
+                        answer: "went",
+                        hint: "'Go' is an irregular verb - it doesn't follow the usual pattern of adding -ed. What's the special past tense form?"
+                    },
+                    {
+                        question: "What type of word is 'beautiful'?",
+                        type: "multiple",
+                        options: ["Noun", "Verb", "Adjective", "Adverb"],
+                        answer: "Adjective",
+                        hint: "What does 'beautiful' do in a sentence? What type of word describes or gives more information about nouns?"
+                    },
+                    {
+                        question: "What is the past tense of 'run'?",
+                        type: "input",
+                        answer: "ran",
+                        hint: "This is another irregular verb. What's the past tense form of 'run'?"
+                    },
+                    {
+                        question: "Which word is a noun in: 'The big cat sleeps'?",
+                        type: "multiple",
+                        options: ["big", "cat", "sleeps", "the"],
+                        answer: "cat",
+                        hint: "A noun is a person, place, animal, or thing. Which word names something?"
+                    },
+                    {
+                        question: "What punctuation goes at the end of this sentence? 'Stop running'",
+                        type: "multiple",
+                        options: [".", "!", "?", ","],
+                        answer: "!",
+                        hint: "This is a command or exclamation. What punctuation shows strong feeling or commands?"
+                    },
+                    {
+                        question: "Choose the correct sentence:",
+                        type: "multiple",
+                        options: ["i like cats.", "I like cats.", "i Like cats.", "I Like Cats."],
+                        answer: "I like cats.",
+                        hint: "Think about capitalization rules. What should be capital at the start of a sentence?"
+                    },
+                    {
+                        question: "What is the plural of 'child'?",
+                        type: "input",
+                        answer: "children",
+                        hint: "This is an irregular plural - it doesn't just add 's'. What's the special plural form?"
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Advanced Grammar Rules
+                    {
+                        question: "Which sentence uses the apostrophe correctly?",
+                        type: "multiple",
+                        options: ["The dog's tail wagged.", "The dogs' tail wagged.", "The dog's tail's wagged.", "The dogs tail wagged."],
+                        answer: "The dog's tail wagged.",
+                        hint: "Think about apostrophe rules. Are you talking about one dog or multiple dogs? What does the apostrophe show?"
+                    },
+                    {
+                        question: "What type of word is 'quickly' in this sentence: 'She ran quickly'?",
+                        type: "multiple",
+                        options: ["Noun", "Verb", "Adjective", "Adverb"],
+                        answer: "Adverb",
+                        hint: "What does 'quickly' tell us about how she ran? What type of word typically ends in -ly and describes actions?"
+                    },
+                    {
+                        question: "Choose the correct sentence:",
+                        type: "multiple",
+                        options: ["I done my homework.", "I have did my homework.", "I have done my homework.", "I has done my homework."],
+                        answer: "I have done my homework.",
+                        hint: "Think about auxiliary verbs. What form of 'do' works with 'have'? Also consider subject-verb agreement with 'I'."
+                    },
+                    {
+                        question: "Which sentence uses commas correctly?",
+                        type: "multiple",
+                        options: ["I like apples, bananas and oranges.", "I like apples bananas, and oranges.", "I like, apples bananas and oranges.", "I like apples bananas and, oranges."],
+                        answer: "I like apples, bananas and oranges.",
+                        hint: "How do you separate items in a list? Where should commas be placed when listing three things?"
+                    },
+                    {
+                        question: "Which sentence is in the passive voice?",
+                        type: "multiple",
+                        options: ["The cat chased the mouse.", "The mouse was chased by the cat.", "The cat is chasing the mouse.", "The cat will chase the mouse."],
+                        answer: "The mouse was chased by the cat.",
+                        hint: "In passive voice, the subject receives the action rather than doing it. Which sentence shows something being done TO the subject?"
+                    },
+                    {
+                        question: "Choose the correct apostrophe use:",
+                        type: "multiple",
+                        options: ["The childrens' toys", "The children's toys", "The childrens toys", "The children toy's"],
+                        answer: "The children's toys",
+                        hint: "Since 'children' is already plural and doesn't end in 's', where does the apostrophe go?"
+                    },
+                    {
+                        question: "Which sentence shows correct subject-verb agreement?",
+                        type: "multiple",
+                        options: ["The dogs runs fast.", "The dog run fast.", "The dogs run fast.", "The dog are fast."],
+                        answer: "The dogs run fast.",
+                        hint: "Plural subjects need plural verbs. Which sentence matches correctly?"
+                    },
+                    {
+                        question: "What type of sentence is: 'Although it was raining, we went outside'?",
+                        type: "multiple",
+                        options: ["Simple", "Compound", "Complex", "Fragment"],
+                        answer: "Complex",
+                        hint: "This sentence has a main clause and a dependent clause. What type of sentence structure is this?"
+                    },
+                    {
+                        question: "Choose the sentence with correct comma usage:",
+                        type: "multiple",
+                        options: ["Before we eat lunch we should wash our hands.", "Before we eat lunch, we should wash our hands.", "Before, we eat lunch we should wash our hands.", "Before we eat, lunch we should wash our hands."],
+                        answer: "Before we eat lunch, we should wash our hands.",
+                        hint: "When should you use a comma after an introductory phrase?"
+                    },
+                    {
+                        question: "Which word is the indirect object in: 'Sarah gave Tom a book'?",
+                        type: "input",
+                        answer: "Tom",
+                        hint: "The indirect object tells us who or what receives the direct object. Who received the book?"
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Complex Grammar & Style
+                    {
+                        question: "Choose the sentence that uses the subjunctive mood correctly:",
+                        type: "multiple",
+                        options: ["If I was rich, I would buy a car.", "If I were rich, I would buy a car.", "If I will be rich, I would buy a car.", "If I am rich, I would buy a car."],
+                        answer: "If I were rich, I would buy a car.",
+                        hint: "The subjunctive mood is used for hypothetical situations. Which option shows this correctly?"
+                    },
+                    {
+                        question: "Identify the dependent clause: 'Because it was late, we decided to go home.'",
+                        type: "input",
+                        answer: "Because it was late",
+                        hint: "A dependent clause cannot stand alone and often starts with words like 'because', 'when', 'if', etc."
+                    },
+                    {
+                        question: "Which sentence correctly uses a semicolon?",
+                        type: "multiple",
+                        options: ["I went shopping; and bought apples.", "I went shopping; I bought apples.", "I went; shopping and bought apples.", "I went shopping and; bought apples."],
+                        answer: "I went shopping; I bought apples.",
+                        hint: "Semicolons join two complete sentences that are closely related. Which option does this correctly?"
+                    },
+                    {
+                        question: "Choose the sentence with correct use of 'who' vs 'whom':",
+                        type: "multiple",
+                        options: ["Who did you give the book to?", "Whom did you give the book to?", "Who did you give the book?", "Whom gave you the book?"],
+                        answer: "Whom did you give the book to?",
+                        hint: "'Whom' is used when the person is the object of the verb or preposition. Which sentence shows this?"
+                    },
+                    {
+                        question: "What is the function of 'however' in: 'I was tired; however, I kept working'?",
+                        type: "multiple",
+                        options: ["Conjunction", "Conjunctive adverb", "Preposition", "Interjection"],
+                        answer: "Conjunctive adverb",
+                        hint: "Words like 'however', 'therefore', 'moreover' connect ideas and show relationships between sentences."
+                    },
+                    {
+                        question: "Which sentence shows parallel structure?",
+                        type: "multiple",
+                        options: ["I like reading, writing, and to paint.", "I like reading, writing, and painting.", "I like to read, writing, and painting.", "I like reading, to write, and painting."],
+                        answer: "I like reading, writing, and painting.",
+                        hint: "Parallel structure means using the same grammatical form for items in a series."
+                    },
+                    {
+                        question: "Choose the correct use of the apostrophe with plural possessives:",
+                        type: "multiple",
+                        options: ["The teacher's books", "The teachers' books", "The teachers book's", "The teacher books'"],
+                        answer: "The teachers' books",
+                        hint: "When the plural already ends in 's', where does the apostrophe go for possession?"
+                    },
+                    {
+                        question: "Which sentence correctly uses 'affect' vs 'effect'?",
+                        type: "multiple",
+                        options: ["The rain will effect our picnic.", "The rain will affect our picnic.", "The affect of rain was cancelled picnic.", "We felt the affect of the rain."],
+                        answer: "The rain will affect our picnic.",
+                        hint: "'Affect' is usually a verb (to influence), 'effect' is usually a noun (a result)."
+                    },
+                    {
+                        question: "Identify the gerund in: 'Swimming is my favorite exercise.'",
+                        type: "input",
+                        answer: "Swimming",
+                        hint: "A gerund is a verb form ending in -ing that functions as a noun. What word fits this description?"
+                    },
+                    {
+                        question: "Which sentence uses the conditional mood correctly?",
+                        type: "multiple",
+                        options: ["If you study hard, you will pass.", "If you would study hard, you will pass.", "If you studied hard, you would pass.", "If you study hard, you would pass."],
+                        answer: "If you studied hard, you would pass.",
+                        hint: "The conditional mood expresses what would happen under certain conditions. Which shows this pattern correctly?"
+                    }
+                ]
+            },
+            'spelling': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Common Words & Basic Rules
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["seperate", "separate", "seperrate", "sepparate"],
+                        answer: "separate",
+                        hint: "Think about the middle vowel. Try saying the word slowly to hear the sounds."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["recieve", "receive", "receeve", "receve"],
+                        answer: "receive",
+                        hint: "Think about the 'i before e except after c' rule. What letter comes before the 'e' and 'i'?"
+                    },
+                    {
+                        question: "Complete the word: bel___ve",
+                        type: "input",
+                        answer: "ie",
+                        hint: "This word follows the 'i before e' spelling rule. Think about which letters go in the middle."
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["because", "becuase", "becasue", "becase"],
+                        answer: "because",
+                        hint: "This is a very common word. Think about the order of the vowels in the middle."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["frend", "friend", "freind", "frind"],
+                        answer: "friend",
+                        hint: "Remember the 'i before e' rule, but this word is an exception. Which spelling looks right?"
+                    },
+                    {
+                        question: "Complete the word: diff___ent",
+                        type: "input",
+                        answer: "er",
+                        hint: "This word means 'not the same'. What letters go in the middle?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["witch", "which", "wich", "whitch"],
+                        answer: "which",
+                        hint: "This is a question word (like 'what' or 'where'). Think about the 'wh' pattern."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["there", "thier", "their", "theire"],
+                        answer: "their",
+                        hint: "This shows possession (belonging to them). Think about the 'i before e' pattern."
+                    },
+                    {
+                        question: "Complete the word: w___re",
+                        type: "input",
+                        answer: "he",
+                        hint: "This is a question word asking about location. What letters complete the word?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["through", "threw", "thorugh", "thrugh"],
+                        answer: "through",
+                        hint: "This word means 'from one side to the other'. Think about all the letters needed."
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Tricky Spellings & Rules
+                    {
+                        question: "Complete the word: necess___",
+                        type: "input",
+                        answer: "ary",
+                        hint: "This word means 'essential' or 'required'. What ending sounds right when you say it aloud?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["definately", "definitly", "definitely", "definetely"],
+                        answer: "definitely",
+                        hint: "This word means 'certainly' or 'without doubt'. Break it down into parts: 'definite' + ending. What sounds right?"
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["embarass", "embarrass", "embarras", "embaress"],
+                        answer: "embarrass",
+                        hint: "This word means 'to make someone feel awkward'. Listen to the sounds - which consonants might be doubled?"
+                    },
+                    {
+                        question: "Complete the word: int___est",
+                        type: "input",
+                        answer: "er",
+                        hint: "This word means 'curiosity' or 'attention'. What letters fit in the middle?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["disappoint", "dissapoint", "disapoint", "dissappoint"],
+                        answer: "disappoint",
+                        hint: "This word means 'to let someone down'. Think about the prefix 'dis-' and the root word."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["beginning", "begining", "beggining", "begginning"],
+                        answer: "beginning",
+                        hint: "This word means 'the start'. Think about doubling consonants when adding endings."
+                    },
+                    {
+                        question: "Complete the word: knowl___ge",
+                        type: "input",
+                        answer: "ed",
+                        hint: "This word means 'information' or 'understanding'. What letters complete it?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["environment", "enviroment", "enviornment", "envirnoment"],
+                        answer: "environment",
+                        hint: "This word relates to our surroundings. Think about the order of letters in the middle."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["grammer", "grammar", "gramar", "grammarr"],
+                        answer: "grammar",
+                        hint: "This word refers to language rules. Think about which consonants are doubled."
+                    },
+                    {
+                        question: "Complete the word: ___siness",
+                        type: "input",
+                        answer: "bu",
+                        hint: "This word relates to work and commerce. What letters start this word?"
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Advanced & Challenge Words
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["occassion", "occasion", "ocasion", "occaision"],
+                        answer: "occasion",
+                        hint: "This word means 'a special event'. Think about which consonants might be doubled."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["accommodation", "accomodation", "acommodation", "accommodacion"],
+                        answer: "accommodation",
+                        hint: "This word means 'a place to stay'. Think about the root word 'accommodate' and how it's spelled."
+                    },
+                    {
+                        question: "Complete the word: con___ence",
+                        type: "input",
+                        answer: "sci",
+                        hint: "This word means 'moral sense of right and wrong'. What letters go in the middle?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["mischievous", "mischievious", "mischevious", "mischeivous"],
+                        answer: "mischievous",
+                        hint: "This word means 'playfully naughty'. Be careful with the 'i before e' pattern."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["psychiatrist", "psyciatrist", "psychiatrist", "phsychiatrist"],
+                        answer: "psychiatrist",
+                        hint: "This is a mental health doctor. Think about the 'ps' and 'ch' sounds at the beginning."
+                    },
+                    {
+                        question: "Complete the word: rhy___m",
+                        type: "input",
+                        answer: "th",
+                        hint: "This word relates to musical beats. What letters complete this tricky spelling?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["fluorescent", "flourescent", "fluoresent", "fluorescant"],
+                        answer: "fluorescent",
+                        hint: "This describes a type of lighting. Think about the 'uo' and 'sc' letter combinations."
+                    },
+                    {
+                        question: "Which word is spelled correctly?",
+                        type: "multiple",
+                        options: ["manoeuvre", "manoeuver", "maneuver", "manouver"],
+                        answer: "manoeuvre",
+                        hint: "This word means 'a skillful movement' (British spelling). Notice the vowel combinations."
+                    },
+                    {
+                        question: "Complete the word: pharma___",
+                        type: "input",
+                        answer: "cy",
+                        hint: "This is where you get medicines. What ending completes this word?"
+                    },
+                    {
+                        question: "Choose the correct spelling:",
+                        type: "multiple",
+                        options: ["bureaucracy", "beaurocracy", "bureacracy", "burocracy"],
+                        answer: "bureaucracy",
+                        hint: "This word refers to government administration. Think about the 'eau' vowel combination."
+                    }
+                ]
+            },
+            'reading-comprehension': {
+                pack1: [
+                    // PACK 1: Foundation (Bronze) - Basic Reading Skills
+                    {
+                        question: "In the sentence 'She whispered the secret softly', what is the main verb?",
+                        type: "input",
+                        answer: "whispered",
+                        hint: "A verb is an action word. Look for what the person is doing in this sentence."
+                    },
+                    {
+                        question: "Read: 'The flowers bloomed brilliantly in spring.' What season is mentioned?",
+                        type: "input",
+                        answer: "spring",
+                        hint: "Look for words that indicate time or season in the sentence. What season is mentioned?"
+                    },
+                    {
+                        question: "In 'The brave knight rescued the princess', who performed the action?",
+                        type: "input",
+                        answer: "knight",
+                        hint: "Who is doing the rescuing? Look for the person performing the action in this sentence."
+                    },
+                    {
+                        question: "Read: 'The cat sat on the mat.' What is this sentence about?",
+                        type: "multiple",
+                        options: ["A dog", "A cat", "A bird", "A fish"],
+                        answer: "A cat",
+                        hint: "Look for the main character or subject in this sentence."
+                    },
+                    {
+                        question: "What does 'big' mean in: 'The big elephant walked slowly'?",
+                        type: "multiple",
+                        options: ["Small", "Large", "Fast", "Grey"],
+                        answer: "Large",
+                        hint: "Think about what 'big' tells us about the elephant's size."
+                    },
+                    {
+                        question: "In 'Tom plays football every day', when does Tom play?",
+                        type: "input",
+                        answer: "every day",
+                        hint: "Look for words that tell us about time or frequency in the sentence."
+                    },
+                    {
+                        question: "Read: 'The red car is fast.' What colour is the car?",
+                        type: "input",
+                        answer: "red",
+                        hint: "Look for the word that describes the car's colour."
+                    },
+                    {
+                        question: "What is the main idea of: 'Dogs are loyal pets. They help people and guard homes'?",
+                        type: "multiple",
+                        options: ["Dogs are animals", "Dogs are helpful", "Dogs are big", "Dogs are expensive"],
+                        answer: "Dogs are helpful",
+                        hint: "Think about what both sentences tell us about dogs. What's the main point?"
+                    },
+                    {
+                        question: "In 'Sarah runs quickly to school', how does Sarah run?",
+                        type: "input",
+                        answer: "quickly",
+                        hint: "Look for the word that describes the way Sarah runs."
+                    },
+                    {
+                        question: "Read: 'The sun is bright today.' What is bright?",
+                        type: "input",
+                        answer: "sun",
+                        hint: "Look for what is being described as bright in this sentence."
+                    }
+                ],
+                pack2: [
+                    // PACK 2: Development (Silver) - Text Features & Comprehension
+                    {
+                        question: "Read: 'The ancient castle stood majestically on the hill.' What does 'majestically' mean?",
+                        type: "multiple",
+                        options: ["Sadly", "Grandly", "Quickly", "Quietly"],
+                        answer: "Grandly",
+                        hint: "Think about how a royal castle might appear. What feeling does 'majestic' give you?"
+                    },
+                    {
+                        question: "What is the main purpose of a newspaper headline?",
+                        type: "multiple",
+                        options: ["To entertain", "To grab attention", "To provide details", "To conclude the story"],
+                        answer: "To grab attention",
+                        hint: "Think about why newspapers put headlines at the top of articles. What do they want readers to do?"
+                    },
+                    {
+                        question: "Read: 'The storm was approaching rapidly.' What type of text feature helps you understand 'rapidly'?",
+                        type: "multiple",
+                        options: ["Context clues", "Pictures", "Bold text", "Page numbers"],
+                        answer: "Context clues",
+                        hint: "Look at the words around 'rapidly' in the sentence. How do they help you understand the meaning?"
+                    },
+                    {
+                        question: "Which word best describes the mood in: 'The dark, creepy house loomed ahead'?",
+                        type: "multiple",
+                        options: ["Happy", "Scary", "Exciting", "Peaceful"],
+                        answer: "Scary",
+                        hint: "Look at the descriptive words in this sentence. What feeling or atmosphere do they create?"
+                    },
+                    {
+                        question: "What does a glossary in a book help you with?",
+                        type: "multiple",
+                        options: ["Finding page numbers", "Understanding difficult words", "Seeing pictures", "Reading faster"],
+                        answer: "Understanding difficult words",
+                        hint: "Think about what a glossary contains and where you find it in a book. How does it help readers?"
+                    },
+                    {
+                        question: "What is the purpose of using bullet points in a text?",
+                        type: "multiple",
+                        options: ["To make it longer", "To list information clearly", "To add pictures", "To change the font"],
+                        answer: "To list information clearly",
+                        hint: "Think about how bullet points are used in texts. How do they help organize and present information?"
+                    },
+                    {
+                        question: "Read: 'Although it was raining, the children played outside.' What does 'although' tell us?",
+                        type: "multiple",
+                        options: ["The children like rain", "Something surprising happened", "It always rains", "The children got wet"],
+                        answer: "Something surprising happened",
+                        hint: "'Although' shows contrast. What's unexpected about children playing outside in the rain?"
+                    },
+                    {
+                        question: "In a recipe, what is the purpose of the ingredients list?",
+                        type: "multiple",
+                        options: ["To tell a story", "To show what you need", "To give cooking times", "To explain the history"],
+                        answer: "To show what you need",
+                        hint: "Think about what you need to know before you start cooking. What does the ingredients list provide?"
+                    },
+                    {
+                        question: "Read: 'The mysterious stranger vanished into the fog.' What mood does this create?",
+                        type: "multiple",
+                        options: ["Cheerful", "Mysterious", "Angry", "Funny"],
+                        answer: "Mysterious",
+                        hint: "Look at the words 'mysterious', 'vanished', and 'fog'. What atmosphere do they create together?"
+                    },
+                    {
+                        question: "What is the main difference between fiction and non-fiction books?",
+                        type: "multiple",
+                        options: ["Length", "Fiction is made up, non-fiction is real", "Price", "Cover design"],
+                        answer: "Fiction is made up, non-fiction is real",
+                        hint: "Think about what makes a story fictional versus factual. What's the key difference?"
+                    }
+                ],
+                pack3: [
+                    // PACK 3: Mastery (Gold) - Advanced Analysis & Critical Thinking
+                    {
+                        question: "In a story, what do we call the message or lesson the author wants to teach?",
+                        type: "input",
+                        answer: "theme",
+                        hint: "This is the main idea or deeper meaning that runs throughout a story. What do we call the message an author wants to teach?"
+                    },
+                    {
+                        question: "Read: 'The protagonist struggled against the antagonist's evil plans.' What is an antagonist?",
+                        type: "multiple",
+                        options: ["The main character", "The opposing character", "The setting", "The narrator"],
+                        answer: "The opposing character",
+                        hint: "Think about the roles in a story. If the protagonist is the main character, what role does the antagonist play?"
+                    },
+                    {
+                        question: "What literary device is used in: 'The wind whispered through the trees'?",
+                        type: "multiple",
+                        options: ["Simile", "Metaphor", "Personification", "Alliteration"],
+                        answer: "Personification",
+                        hint: "The wind is given a human action (whispering). What do we call this literary technique?"
+                    },
+                    {
+                        question: "In persuasive writing, what is the author's main goal?",
+                        type: "multiple",
+                        options: ["To entertain", "To inform", "To convince", "To confuse"],
+                        answer: "To convince",
+                        hint: "Think about what 'persuasive' means. What is the writer trying to do to the reader?"
+                    },
+                    {
+                        question: "Read: 'The author's use of foreshadowing created suspense.' What does foreshadowing do?",
+                        type: "multiple",
+                        options: ["Explains the past", "Hints at future events", "Describes characters", "Sets the location"],
+                        answer: "Hints at future events",
+                        hint: "'Fore' means 'before' and 'shadow' suggests an outline. What might this technique hint at?"
+                    },
+                    {
+                        question: "What is the difference between first-person and third-person narrative?",
+                        type: "multiple",
+                        options: ["Tense used", "Who tells the story", "Length of story", "Topic of story"],
+                        answer: "Who tells the story",
+                        hint: "Think about the pronouns used. First-person uses 'I', third-person uses 'he/she/they'. What does this affect?"
+                    },
+                    {
+                        question: "In poetry, what effect does alliteration typically create?",
+                        type: "multiple",
+                        options: ["Rhyme", "Rhythm and emphasis", "Meaning", "Length"],
+                        answer: "Rhythm and emphasis",
+                        hint: "Alliteration repeats initial consonant sounds. How might this repetition affect how the poem sounds?"
+                    },
+                    {
+                        question: "Read: 'The irony of the situation was not lost on her.' What does irony mean?",
+                        type: "multiple",
+                        options: ["Something expected", "Something opposite to what's expected", "Something funny", "Something sad"],
+                        answer: "Something opposite to what's expected",
+                        hint: "Irony often involves contrast between expectation and reality. What kind of contrast is this?"
+                    },
+                    {
+                        question: "What is the purpose of a thesis statement in an essay?",
+                        type: "multiple",
+                        options: ["To conclude the essay", "To state the main argument", "To introduce characters", "To provide examples"],
+                        answer: "To state the main argument",
+                        hint: "A thesis statement typically appears early in an essay. What main element does it present to the reader?"
+                    },
+                    {
+                        question: "In analyzing text structure, what does 'cause and effect' organization show?",
+                        type: "multiple",
+                        options: ["Time order", "Relationships between events", "Different viewpoints", "Similarities"],
+                        answer: "Relationships between events",
+                        hint: "Cause and effect shows how one thing leads to another. What kind of relationship does this demonstrate?"
+                    }
+                ]
+            }
         };
 
         // Enhanced User Data Management
@@ -2644,6 +3993,10 @@
         let quizStartTime = null;
         let hintsUsed = 0;
         const MAX_HINTS = 3;
+        
+        // Pack Selection State
+        let currentPackTopic = '';
+        let packProgress = {}; // Track completion of each pack
 
         // Topic Names
         const topicNames = {
@@ -2729,11 +4082,7 @@
             document.getElementById('totalPoints').textContent = userData.totalPoints;
             document.getElementById('bestStreak').textContent = userData.bestStreak;
             document.getElementById('totalQuizzes').textContent = getSmartStats(userData);
-            
-            // Calculate average score
-            const avgScore = userData.quizzesCompleted > 0 ? 
-                Math.round(Object.values(userData.topicScores).reduce((a, b) => a + (b || 0), 0) / Object.keys(userData.topicScores).length) : 0;
-            document.getElementById('averageScore').textContent = `${avgScore}% average score`;
+            document.getElementById('averageScore').textContent = ``;
             
             // Level and progress
             userData.level = Math.floor(userData.totalPoints / 100) + 1;
@@ -2753,7 +4102,182 @@
             });
         }
 
-        // Start Quiz
+        // Show Pack Selection
+        function showPackSelection(topic) {
+            currentPackTopic = topic;
+            
+            // Hide dashboard and show pack selection
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('packSelectionContainer').style.display = 'block';
+            
+            // Update title
+            document.getElementById('packSelectionTitle').textContent = `${topicNames[topic]} - Choose Your Pack`;
+            
+            // Load and display pack progress
+            loadPackProgress(topic);
+            updatePackDisplay(topic);
+        }
+        
+        // Load Pack Progress
+        function loadPackProgress(topic) {
+            const saved = localStorage.getItem(`packProgress_${topic}`);
+            if (saved) {
+                packProgress[topic] = JSON.parse(saved);
+            } else {
+                packProgress[topic] = {
+                    pack1: { completed: 0, bestScore: 0, unlocked: true },
+                    pack2: { completed: 0, bestScore: 0, unlocked: false },
+                    pack3: { completed: 0, bestScore: 0, unlocked: false }
+                };
+            }
+        }
+        
+        // Update Pack Display
+        function updatePackDisplay(topic) {
+            const progress = packProgress[topic];
+            
+            // Update pack 1
+            document.getElementById('pack1Progress').style.width = `${(progress.pack1.completed / 10) * 100}%`;
+            document.getElementById('pack1ProgressText').textContent = `${progress.pack1.completed}/10 completed`;
+            
+            // Update pack 2
+            document.getElementById('pack2Progress').style.width = `${(progress.pack2.completed / 10) * 100}%`;
+            document.getElementById('pack2ProgressText').textContent = `${progress.pack2.completed}/10 completed`;
+            const pack2Card = document.getElementById('pack2Card');
+            const pack2Btn = document.getElementById('pack2Btn');
+            
+            if (progress.pack2.unlocked) {
+                pack2Card.classList.remove('locked');
+                pack2Btn.classList.remove('locked');
+                pack2Btn.disabled = false;
+                pack2Btn.textContent = 'Start Development';
+                document.getElementById('pack2Requirement').textContent = '✅ Unlocked! Ready to tackle intermediate challenges';
+                document.getElementById('pack2Requirement').style.background = 'rgba(16, 185, 129, 0.1)';
+                document.getElementById('pack2Requirement').style.color = '#10b981';
+                document.getElementById('pack2Requirement').style.borderColor = 'rgba(16, 185, 129, 0.2)';
+            } else {
+                pack2Card.classList.add('locked');
+                pack2Btn.classList.add('locked');
+                pack2Btn.disabled = true;
+                pack2Btn.textContent = '🔒 Locked';
+                document.getElementById('pack2Requirement').textContent = 'Complete Pack 1 with 70%+ to unlock';
+                document.getElementById('pack2Requirement').style.background = 'rgba(245, 158, 11, 0.1)';
+                document.getElementById('pack2Requirement').style.color = '#f59e0b';
+                document.getElementById('pack2Requirement').style.borderColor = 'rgba(245, 158, 11, 0.2)';
+            }
+            
+            // Update pack 3
+            document.getElementById('pack3Progress').style.width = `${(progress.pack3.completed / 10) * 100}%`;
+            document.getElementById('pack3ProgressText').textContent = `${progress.pack3.completed}/10 completed`;
+            const pack3Card = document.getElementById('pack3Card');
+            const pack3Btn = document.getElementById('pack3Btn');
+            
+            if (progress.pack3.unlocked) {
+                pack3Card.classList.remove('locked');
+                pack3Btn.classList.remove('locked');
+                pack3Btn.disabled = false;
+                pack3Btn.textContent = 'Start Mastery';
+                document.getElementById('pack3Requirement').textContent = '🏆 Unlocked! Master the most challenging questions';
+                document.getElementById('pack3Requirement').style.background = 'rgba(16, 185, 129, 0.1)';
+                document.getElementById('pack3Requirement').style.color = '#10b981';
+                document.getElementById('pack3Requirement').style.borderColor = 'rgba(16, 185, 129, 0.2)';
+            } else {
+                pack3Card.classList.add('locked');
+                pack3Btn.classList.add('locked');
+                pack3Btn.disabled = true;
+                pack3Btn.textContent = '🔒 Locked';
+                document.getElementById('pack3Requirement').textContent = 'Complete Pack 2 with 70%+ to unlock';
+                document.getElementById('pack3Requirement').style.background = 'rgba(245, 158, 11, 0.1)';
+                document.getElementById('pack3Requirement').style.color = '#f59e0b';
+                document.getElementById('pack3Requirement').style.borderColor = 'rgba(245, 158, 11, 0.2)';
+            }
+        }
+        
+        // Update Pack Progress
+        function updatePackProgress() {
+            // Only update if we're using a pack topic (topics with pack structure)
+            if (!questionBank[currentTopic] || typeof questionBank[currentTopic] !== 'object' || Array.isArray(questionBank[currentTopic])) {
+                return; // Skip if it's not a pack-based topic
+            }
+            
+            // Determine which pack was completed based on quiz title
+            const quizTitle = document.getElementById('quizTitle').textContent;
+            let currentPack = null;
+            
+            if (quizTitle.includes('Foundation')) currentPack = 'pack1';
+            else if (quizTitle.includes('Development')) currentPack = 'pack2';
+            else if (quizTitle.includes('Mastery')) currentPack = 'pack3';
+            
+            if (!currentPack) return; // Not a pack quiz
+            
+            // Ensure pack progress exists for this topic
+            if (!packProgress[currentTopic]) {
+                packProgress[currentTopic] = {
+                    pack1: { completed: 0, bestScore: 0, unlocked: true },
+                    pack2: { completed: 0, bestScore: 0, unlocked: false },
+                    pack3: { completed: 0, bestScore: 0, unlocked: false }
+                };
+            }
+            
+            const progress = packProgress[currentTopic];
+            const scorePercentage = (score / currentQuestions.length) * 100;
+            
+            // Update completion and best score
+            progress[currentPack].completed = Math.max(progress[currentPack].completed, score);
+            progress[currentPack].bestScore = Math.max(progress[currentPack].bestScore, score);
+            
+            // Check for pack unlocks (70% threshold)
+            if (currentPack === 'pack1' && scorePercentage >= 70 && !progress.pack2.unlocked) {
+                progress.pack2.unlocked = true;
+                showAchievement({
+                    icon: '🥈',
+                    title: 'Pack 2 Unlocked!',
+                    description: `Great score! Development pack is now available.`
+                });
+            } else if (currentPack === 'pack2' && scorePercentage >= 70 && !progress.pack3.unlocked) {
+                progress.pack3.unlocked = true;
+                showAchievement({
+                    icon: '🥇',
+                    title: 'Pack 3 Unlocked!',
+                    description: `Outstanding! Mastery pack is now available.`
+                });
+            }
+            
+            // Save pack progress
+            localStorage.setItem(`packProgress_${currentTopic}`, JSON.stringify(progress));
+            
+            // Update pack display if pack selection is visible
+            if (document.getElementById('packSelectionContainer').style.display === 'block') {
+                updatePackDisplay(currentTopic);
+            }
+        }
+        
+        // Start Quiz Pack
+        function startQuizPack(topic, pack) {
+            currentTopic = topic;
+            
+            // Get questions from the specific pack
+            currentQuestions = [...questionBank[topic][pack]];
+            shuffleArray(currentQuestions);
+            
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill('');
+            score = 0;
+            quizStartTime = Date.now();
+            hintsUsed = 0;
+            
+            // Hide pack selection and show quiz
+            document.getElementById('packSelectionContainer').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            
+            // Update quiz title with pack info
+            const packNames = { pack1: 'Foundation', pack2: 'Development', pack3: 'Mastery' };
+            document.getElementById('quizTitle').textContent = `${topicNames[topic]} - ${packNames[pack]}`;
+            
+            displayQuestion();
+        }
+
+        // Legacy Start Quiz (for non-pack topics)
         function startQuiz(topic) {
             currentTopic = topic;
             currentQuestions = [...questionBank[topic]];
@@ -2911,6 +4435,12 @@
 
         // Back to Dashboard
         function backToDashboard() {
+            // Hide all containers
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('packSelectionContainer').style.display = 'none';
+            
+            // Show dashboard
             showDashboard();
         }
 
@@ -3513,11 +5043,6 @@
             setTimeout(() => animateNumber(document.getElementById('bestStreak'), 0, userData.bestStreak), 600);
             
             document.getElementById('totalQuizzes').textContent = getSmartStats(userData);
-            
-            // Calculate average score
-            const avgScore = userData.quizzesCompleted > 0 ? 
-                Math.round(Object.values(userData.topicScores).reduce((a, b) => a + (b || 0), 0) / Object.keys(userData.topicScores).length) : 0;
-            document.getElementById('averageScore').textContent = `${avgScore}% average score`;
             
             // Level and progress
             userData.level = Math.floor(userData.totalPoints / 100) + 1;
