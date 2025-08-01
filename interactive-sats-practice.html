@@ -817,11 +817,15 @@
             margin-top: 4px;
         }
 
-        .progress-ring {
-            position: relative;
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 8px;
+        .progress-ring-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .progress-ring-bg,
@@ -847,29 +851,7 @@
             border: none;
         }
 
-        .progress-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
 
-        .progress-value {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #1f2937;
-            line-height: 1;
-        }
-
-        .progress-label {
-            font-size: 0.45rem;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.2px;
-            line-height: 1;
-            margin-top: 1px;
-        }
 
         /* Topic Selection */
         .topics-section {
@@ -1789,13 +1771,11 @@
             
             <div class="stat-card">
                 <h3>Quest Progress</h3>
-                <div class="progress-ring">
+                <div class="stat-value" id="progressValue">0%</div>
+                <div class="stat-label">complete</div>
+                <div class="progress-ring-background">
                     <div class="progress-ring-bg"></div>
                     <div class="progress-ring-fill" id="progressRing"></div>
-                    <div class="progress-center">
-                        <div class="progress-value" id="progressValue">0%</div>
-                        <div class="progress-label">Complete</div>
-                    </div>
                 </div>
             </div>
         </div>
