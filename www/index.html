@@ -1933,7 +1933,7 @@
 
         <!-- Daily Challenge -->
         <div class="daily-challenge" id="dailyChallenge">
-            <h3 class="challenge-title">📅 Daily Challenge</h3>
+                            <h3 class="challenge-title">📅 Daily Quest</h3>
             <p class="challenge-description" id="challengeDescription">Complete 5 arithmetic questions today!</p>
             <div class="challenge-progress">
                 <div class="challenge-bar">
@@ -1952,19 +1952,19 @@
 
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>Total Points</h3>
+                <h3>Adventure Points</h3>
                 <div class="stat-value" id="totalPoints">0</div>
-                <div class="stat-label">points earned</div>
+                <div class="stat-label">adventure points</div>
             </div>
             
             <div class="stat-card">
-                <h3>Best Streak</h3>
+                <h3>Quest Streak Record</h3>
                 <div class="stat-value" id="bestStreak">0</div>
                 <div class="stat-label">correct answers in a row</div>
             </div>
             
             <div class="stat-card">
-                <h3>Progress</h3>
+                <h3>Quest Progress</h3>
                 <div class="progress-ring">
                     <div class="progress-ring-bg"></div>
                     <div class="progress-ring-fill" id="progressRing"></div>
@@ -2219,13 +2219,13 @@
             volume: 50
         };
 
-        // Daily Challenges
+        // Daily Quests
         const dailyChallenges = [
-            { topic: 'arithmetic', target: 5, description: 'Complete 5 arithmetic questions today!' },
-            { topic: 'fractions-decimals', target: 3, description: 'Master 3 fractions questions today!' },
-            { topic: 'geometry', target: 4, description: 'Solve 4 geometry problems today!' },
-            { topic: 'grammar-punctuation', target: 5, description: 'Perfect 5 grammar questions today!' },
-            { topic: 'spelling', target: 6, description: 'Spell 6 words correctly today!' }
+            { topic: 'arithmetic', target: 5, description: 'Conquer 5 arithmetic challenges today!' },
+            { topic: 'fractions-decimals', target: 3, description: 'Explore 3 fractions mysteries today!' },
+            { topic: 'geometry', target: 4, description: 'Discover 4 geometry secrets today!' },
+            { topic: 'grammar-punctuation', target: 5, description: 'Master 5 grammar quests today!' },
+            { topic: 'spelling', target: 6, description: 'Unlock 6 spelling treasures today!' }
         ];
 
         // Updated Question Bank with 3-Pack System (240 Total Questions)
@@ -4412,11 +4412,14 @@
             const pointsToNextLevel = 100 - pointsInCurrentLevel;
             
             let message = `${getQuestRank(currentLevel)}\n\n`;
-            message += `⚡ Quest Progress: ${pointsInCurrentLevel}/100 adventure points\n`;
-            message += `🗡️ Next: ${getNextQuestRank(currentLevel)}\n`;
-            message += `🎯 ${pointsToNextLevel} more adventure points needed!\n\n`;
-            message += `🎁 Advance your quest by completing challenges!\n`;
-            message += `✨ Each correct answer = 10 adventure points`;
+            message += `⚡ Quest Progress:\n   ${pointsInCurrentLevel}/100 adventure points\n\n`;
+            message += `🗡️ Next Rank:\n   ${getNextQuestRank(currentLevel)}\n\n`;
+            message += `🎯 Points Needed:\n   ${pointsToNextLevel} more adventure points\n\n`;
+            message += `------------------------------------\n\n`;
+            message += `🎁 HOW TO ADVANCE:\n`;
+            message += `   • Complete quiz challenges\n`;
+            message += `   • Each correct answer = 10 points\n`;
+            message += `   • Unlock new quest ranks!`;
             
             alert(message);
             playSound('click');
