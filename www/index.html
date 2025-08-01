@@ -749,6 +749,10 @@
             position: relative;
             overflow: hidden;
             text-align: center;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .stat-card::before {
@@ -1958,9 +1962,9 @@
             </div>
             
             <div class="stat-card">
-                <h3>Quest Streak Record</h3>
+                <h3>Best Streak</h3>
                 <div class="stat-value" id="bestStreak">0</div>
-                <div class="stat-label">correct answers in a row</div>
+                <div class="stat-label">in a row</div>
             </div>
             
             <div class="stat-card">
