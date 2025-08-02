@@ -11,27 +11,27 @@
     <style>
         /* CSS Custom Properties for Themes */
         :root {
-            /* Modern Color Palette */
-            --orange-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            --teal-gradient: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-            --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --pink-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --blue-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --coral-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            --gold-gradient: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
-            --emerald-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            /* Adventure Quest Color Palette */
+            --quest-blue: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            --forest-green: linear-gradient(135deg, #166534 0%, #15803d 100%);
+            --deep-teal: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+            --mountain-gray: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            --ocean-blue: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            --amber-gold: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            --iron-slate: linear-gradient(135deg, #475569 0%, #64748b 100%);
+            --royal-gold: linear-gradient(135deg, #ca8a04 0%, #eab308 100%);
+            --emerald-forest: linear-gradient(135deg, #047857 0%, #059669 100%);
             
             /* Core Theme */
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --accent-color: #d946ef;
+            --primary-color: #1e40af;
+            --secondary-color: #059669;
+            --accent-color: #d97706;
             --success-color: #10b981;
             --warning-color: #f59e0b;
-            --error-color: #ef4444;
+            --error-color: #dc2626;
             --text-color: #1f2937;
             --text-light: #6b7280;
-            --background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --background: linear-gradient(135deg, #1e3a8a 0%, #166534 25%, #0f766e 75%, #374151 100%);
             --card-bg: rgba(255, 255, 255, 0.95);
             --border-color: #e5e7eb;
             --font-family: 'Inter', sans-serif;
@@ -333,7 +333,7 @@
 
         .setting-option:hover {
             border-color: var(--primary-color);
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(30, 64, 175, 0.1);
         }
 
         .setting-option.active {
@@ -428,7 +428,7 @@
 
         /* Daily Challenge Card - Compact */
         .daily-challenge {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #1e40af, #059669);
             color: white;
             border-radius: 12px;
             padding: 12px 16px;
@@ -570,7 +570,7 @@
 
         .welcome-logo:hover {
             transform: scale(1.1) rotateY(15deg);
-            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 50px rgba(30, 64, 175, 0.4);
         }
 
         @keyframes logoFloat {
@@ -694,13 +694,13 @@
         }
 
         .level-badge {
-            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            background: linear-gradient(135deg, #059669, #10b981);
             color: white;
             padding: 8px 16px;
             border-radius: 12px;
             font-weight: 600;
             font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -710,8 +710,8 @@
 
         .level-badge:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-            background: linear-gradient(135deg, #9333ea, #a855f7);
+            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+            background: linear-gradient(135deg, #047857, #059669);
         }
         
         /* Responsive adjustments for long names */
@@ -762,7 +762,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #d946ef);
+            background: linear-gradient(90deg, #1e40af, #059669, #d97706);
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
@@ -797,12 +797,12 @@
 
         @keyframes numberPulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); color: #6366f1; }
+            50% { transform: scale(1.1); color: #1e40af; }
             100% { transform: scale(1); }
         }
 
         .stat-card h3 {
-            color: #6366f1;
+            color: #1e40af;
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 8px;
@@ -845,7 +845,7 @@
         }
 
         .progress-ring-fill {
-            background: conic-gradient(#8b5cf6 0deg, #8b5cf6 0deg, transparent 0deg);
+            background: conic-gradient(#d97706 0deg, #d97706 0deg, transparent 0deg);
             border-radius: 50%;
             transition: all 0.3s ease;
             border: none;
@@ -865,7 +865,7 @@
         .section-title {
             font-size: 2.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #059669 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -881,7 +881,7 @@
 
         .subject-title {
             font-size: 1.6rem;
-            color: #6366f1;
+            color: #1e40af;
             margin-bottom: 25px;
             font-weight: 600;
             display: flex;
@@ -892,7 +892,7 @@
         .subject-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #1e40af, #059669);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -925,45 +925,45 @@
             justify-content: space-between;
         }
 
-        /* Individual Topic Colors */
+        /* Individual Topic Colors - Adventure Quest Theme */
         .topic-card[data-topic="arithmetic"] {
-            background: var(--orange-gradient);
-            box-shadow: 0 8px 32px rgba(255, 107, 53, 0.25);
+            background: var(--amber-gold);
+            box-shadow: 0 8px 32px rgba(217, 119, 6, 0.25);
         }
 
         .topic-card[data-topic="number-place-value"] {
-            background: var(--teal-gradient);
-            box-shadow: 0 8px 32px rgba(78, 205, 196, 0.25);
+            background: var(--deep-teal);
+            box-shadow: 0 8px 32px rgba(15, 118, 110, 0.25);
         }
 
         .topic-card[data-topic="fractions-decimals"] {
-            background: var(--purple-gradient);
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.25);
+            background: var(--quest-blue);
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.25);
         }
 
         .topic-card[data-topic="geometry"] {
-            background: var(--pink-gradient);
-            box-shadow: 0 8px 32px rgba(240, 147, 251, 0.25);
+            background: var(--forest-green);
+            box-shadow: 0 8px 32px rgba(22, 101, 52, 0.25);
         }
 
         .topic-card[data-topic="measurement"] {
-            background: var(--blue-gradient);
-            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.25);
+            background: var(--ocean-blue);
+            box-shadow: 0 8px 32px rgba(30, 64, 175, 0.25);
         }
 
         .topic-card[data-topic="grammar-punctuation"] {
-            background: var(--coral-gradient);
-            box-shadow: 0 8px 32px rgba(250, 112, 154, 0.25);
+            background: var(--emerald-forest);
+            box-shadow: 0 8px 32px rgba(4, 120, 87, 0.25);
         }
 
         .topic-card[data-topic="spelling"] {
-            background: var(--dark-gradient);
-            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.25);
+            background: var(--iron-slate);
+            box-shadow: 0 8px 32px rgba(71, 85, 105, 0.25);
         }
 
         .topic-card[data-topic="reading-comprehension"] {
-            background: var(--gold-gradient);
-            box-shadow: 0 8px 32px rgba(247, 151, 30, 0.25);
+            background: var(--royal-gold);
+            box-shadow: 0 8px 32px rgba(202, 138, 4, 0.25);
         }
 
         /* Modern Hover Effects */
@@ -1145,7 +1145,7 @@
         }
 
         .question-number {
-            color: #6366f1;
+            color: #1e40af;
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 15px;
@@ -1210,14 +1210,14 @@
         }
 
         .option:hover {
-            border-color: #6366f1;
-            background: #f0f4ff;
+            border-color: #1e40af;
+            background: #eff6ff;
             transform: translateX(5px);
         }
 
         .option.selected {
-            border-color: #6366f1;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-color: #1e40af;
+            background: linear-gradient(135deg, #1e40af, #059669);
             color: white;
             transform: translateX(5px);
         }
@@ -1252,9 +1252,9 @@
 
         .text-input:focus {
             outline: none;
-            border-color: #6366f1;
+            border-color: #1e40af;
             background: white;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
         }
 
         .quiz-navigation {
@@ -1265,7 +1265,7 @@
         }
 
         .nav-btn {
-            background: #6366f1;
+            background: #1e40af;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -1415,7 +1415,7 @@
         }
 
         .action-btn {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #1e40af, #059669);
             color: white;
             border: none;
             padding: 18px 35px;
@@ -1424,12 +1424,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
         }
 
         .action-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 12px 35px rgba(30, 64, 175, 0.4);
         }
 
         .action-btn.secondary {
@@ -1759,14 +1759,14 @@
 <body>
     <!-- Premium 3D Floating Elements -->
     <div class="background-particles">
-        <div class="floating-element book">📚</div>
-        <div class="floating-element calculator">🧮</div>
-        <div class="floating-element globe">🌍</div>
-        <div class="floating-element pencil">✏️</div>
-        <div class="floating-element star">⭐</div>
-        <div class="floating-element trophy">🏆</div>
-        <div class="floating-element lightbulb">💡</div>
-        <div class="floating-element medal">🥇</div>
+                    <div class="floating-element book">🎮</div>
+            <div class="floating-element calculator">🎲</div>
+            <div class="floating-element globe">🎯</div>
+            <div class="floating-element pencil">🪙</div>
+            <div class="floating-element star">⭐</div>
+            <div class="floating-element trophy">🏆</div>
+            <div class="floating-element lightbulb">💎</div>
+            <div class="floating-element medal">🔥</div>
         <div class="sparkle"></div>
         <div class="sparkle"></div>
         <div class="sparkle"></div>
@@ -1890,7 +1890,7 @@
     <main id="main-content">
     <!-- Welcome Screen -->
     <div id="welcomeScreen" class="welcome-screen">
-        <div class="welcome-logo">🎓</div>
+                        <div class="welcome-logo">🎮</div>
         <h1 class="welcome-title">SATs Quest</h1>
         <p class="welcome-subtitle">Your exciting adventure to master Year 6 SATs with helpful hints and fun challenges!</p>
         
@@ -4090,7 +4090,7 @@
             
             const progressToNextLevel = (userData.totalPoints % 100);
             document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
-            document.getElementById('progressRing').style.background = `conic-gradient(#8b5cf6 ${progressToNextLevel * 3.6}deg, #e5e7eb ${progressToNextLevel * 3.6}deg)`;
+            document.getElementById('progressRing').style.background = `conic-gradient(#d97706 ${progressToNextLevel * 3.6}deg, #e5e7eb ${progressToNextLevel * 3.6}deg)`;
             
             // Update topic best scores
             Object.keys(topicNames).forEach(topic => {
@@ -5050,7 +5050,7 @@
             
             const progressToNextLevel = (userData.totalPoints % 100);
             document.getElementById('progressValue').textContent = `${progressToNextLevel}%`;
-            document.getElementById('progressRing').style.background = `conic-gradient(#8b5cf6 ${progressToNextLevel * 3.6}deg, #e5e7eb ${progressToNextLevel * 3.6}deg)`;
+            document.getElementById('progressRing').style.background = `conic-gradient(#d97706 ${progressToNextLevel * 3.6}deg, #e5e7eb ${progressToNextLevel * 3.6}deg)`;
             
             // Update topic best scores with animation
             Object.keys(topicNames).forEach(topic => {
