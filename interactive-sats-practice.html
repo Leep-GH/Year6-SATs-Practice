@@ -3597,33 +3597,126 @@
         }
         
         function getNextQuestRank(level) {
-                    },
-                    {
-                        question: "Calculate: 6.2 - 3.7",
-                        type: "input",
-                        answer: "2.5",
-                        hint: "Line up the decimal points. Subtract carefully, borrowing when needed."
-                    },
-                    {
-                        question: "What is 3 × 1/4?",
-                        type: "multiple",
-                        options: ["3/4", "1/4", "3/12", "12/4"],
-                        answer: "3/4",
-                        hint: "When multiplying a whole number by a fraction, multiply the numerator by the whole number."
-                    }
-                ],
-                pack2: [
-                    // PACK 2: Development (Silver) - Intermediate Skills
-                {
-                    question: "Calculate: 2,847 + 1,596",
-                    type: "input",
-                    answer: "4443",
-                    hint: "Set up the numbers in columns and add from right to left. What should you do when a column adds to 10 or more?"
-                },
-                {
-                    question: "What is 3/8 × 24?",
-                    type: "multiple",
-                    options: ["6", "9", "12", "15"],
+            const nextLevel = level + 1;
+            if (nextLevel <= 5) {
+                return getQuestRank(nextLevel);
+            } else {
+                return `🌟 Legendary Scholar ${nextLevel - 5}`;
+            }
+        }
+
+        // Pack Progress System
+        let packProgress = {};
+
+        // Daily Challenge System
+        const dailyChallenges = [
+            { topic: 'reading', target: 3, description: 'Master 3 reading comprehension questions!' },
+            { topic: 'grammar', target: 5, description: 'Perfect 5 grammar challenges today!' },
+            { topic: 'mathematics', target: 10, description: 'Solve 10 mathematical puzzles!' }
+        ];
+
+        // Topic Names Mapping
+        const topicNames = {
+            'year5': 'Year 5 Foundation',
+            'year6': 'Year 6 SATs Ready'
+        };
+
+        // Current variables
+        let currentTopic = '';
+        let currentPackTopic = '';
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+        let quizStartTime = null;
+        let hintsUsed = 0;
+
+        // Show Pack Selection (Updated for Year 5/6 Structure)
+        function showPackSelection(yearLevel) {
+            currentPackTopic = yearLevel;
+            
+            // Hide dashboard and show pack selection
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('packSelectionContainer').style.display = 'block';
+            
+            // Update title based on year level
+            const yearNames = {
+                'year5': 'Year 5 Foundation',
+                'year6': 'Year 6 SATs Ready'
+            };
+            document.getElementById('packSelectionTitle').textContent = `${yearNames[yearLevel]} - Choose Your Subject`;
+            
+            // Update subject button text to reflect year level
+            updateSubjectButtons(yearLevel);
+        }
+
+        // Update Subject Buttons for Year Level
+        function updateSubjectButtons(yearLevel) {
+            const readingBtn = document.getElementById('readingBtn');
+            const grammarBtn = document.getElementById('grammarBtn');
+            const mathsBtn = document.getElementById('mathsBtn');
+            
+            // Update button text based on year level
+            if (yearLevel === 'year5') {
+                readingBtn.textContent = 'Start Year 5 Reading';
+                grammarBtn.textContent = 'Start Year 5 Grammar';
+                mathsBtn.textContent = 'Start Year 5 Maths';
+            } else if (yearLevel === 'year6') {
+                readingBtn.textContent = 'Start Year 6 Reading';
+                grammarBtn.textContent = 'Start Year 6 Grammar';
+                mathsBtn.textContent = 'Start Year 6 Maths';
+            }
+            
+            // All subjects are always available (no lock/unlock system)
+            readingBtn.disabled = false;
+            grammarBtn.disabled = false;
+            mathsBtn.disabled = false;
+        }
+
+        // Start Quiz Pack (Updated for Year 5/6 Structure)
+        function startQuizPack(yearLevel, subject) {
+            currentTopic = yearLevel;
+            
+            // Get questions from the specific year and subject
+            currentQuestions = [...questionBank[yearLevel][subject]];
+            shuffleArray(currentQuestions);
+            
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill('');
+            score = 0;
+            quizStartTime = Date.now();
+            hintsUsed = 0;
+            
+            // Hide pack selection and show quiz
+            document.getElementById('packSelectionContainer').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            
+            // Update quiz title with year and subject info
+            const yearNames = {
+                'year5': 'Year 5 Foundation',
+                'year6': 'Year 6 SATs Ready'
+            };
+            const subjectNames = {
+                'reading': 'Reading',
+                'grammar': 'Grammar & Spelling',
+                'mathematics': 'Mathematics'
+            };
+            document.getElementById('quizTitle').textContent = `${yearNames[yearLevel]} - ${subjectNames[subject]}`;
+            
+            displayQuestion();
+        }
+
+        // Utility function to shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Load and sync the backup file to complete the functions
+        // (Connecting to Smart Greeting System)
                     answer: "9",
                     hint: "When multiplying a fraction by a whole number, think about what the fraction means. How could you break this calculation into two simpler steps?"
                 },
@@ -5203,47 +5296,6 @@
                 ]
             }
         };
-
-        // Enhanced User Data Management
-        let userData = {
-            name: '',
-            totalPoints: 0,
-            quizzesCompleted: 0,
-            bestStreak: 0,
-            currentStreak: 0,
-            topicScores: {},
-            achievements: [],
-            level: 1,
-            startTime: null,
-            lastLoginDate: null,
-            dailyStreak: 0
-        };
-
-        // Quest Rank System
-        function getQuestRank(level) {
-            const ranks = {
-                1: "🌟 Apprentice Scholar",
-                2: "⚔️ Brave Questor", 
-                3: "🛡️ Skilled Explorer",
-                4: "👑 Master Adventurer",
-                5: "🏆 SATs Champion"
-            };
-            
-            if (level <= 5) {
-                return ranks[level];
-            } else {
-                return `🌟 Legendary Scholar ${level - 5}`;
-            }
-        }
-        
-        function getNextQuestRank(level) {
-            const nextLevel = level + 1;
-            if (nextLevel <= 5) {
-                return getQuestRank(nextLevel);
-            } else {
-                return `🌟 Legendary Scholar ${nextLevel - 5}`;
-            }
-        }
 
         // Smart Greeting System
         function getSmartGreeting(userData) {
