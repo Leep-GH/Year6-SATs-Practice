@@ -2561,14 +2561,18 @@
                         passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
                         question: "What did the fox do beneath the oak tree?",
                         type: "input",
-                        answer: "It paused",
+                        answer: {
+                            keywords: ['pause', 'stop', 'wait', 'rest', 'halt', 'still']
+                        },
                         hint: "Look at what happened when the fox reached the tree."
                     },
                     {
                         passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
                         question: "The text suggests the fox was hunting. What is the main clue for this?",
                         type: "input",
-                        answer: "It was \"searching for any sign of movement\"",
+                        answer: {
+                            keywords: ['search', 'silent hunter', 'movement', 'focused', 'scan']
+                        },
                         hint: "Look for what the fox was doing with its eyes."
                     },
                     {
@@ -4427,7 +4431,46 @@
             }
         }
 
-        // Advanced answer validation with fuzzy matching and gentle corrections
+        /**
+         * Intelligently checks if a user's free-text answer contains key concepts
+         * by matching against a list of keywords, rather than requiring exact matches.
+         * 
+         * @param {string} userAnswer - The free-text answer provided by the user
+         * @param {array} keywords - Array of strings representing core concepts of correct answer
+         * @returns {boolean} - True if any keyword is found, false if none match
+         */
+        function checkAnswer(userAnswer, keywords) {
+            // Step 1: Input validation - ensure we have valid inputs
+            if (!userAnswer || !keywords || !Array.isArray(keywords)) {
+                return false;
+            }
+            
+            // Step 2: Convert user answer to lowercase for case-insensitive matching
+            let processedAnswer = userAnswer.toLowerCase();
+            
+            // Step 3: Remove basic punctuation that might interfere with keyword matching
+            // This removes: . , ? ! ; : " ' ( ) - and extra spaces
+            processedAnswer = processedAnswer.replace(/[.,?!;:"'()\-]/g, ' ');
+            
+            // Step 4: Clean up extra whitespace (replace multiple spaces with single space)
+            processedAnswer = processedAnswer.replace(/\s+/g, ' ').trim();
+            
+            // Step 5: Iterate through each keyword in the array
+            for (let i = 0; i < keywords.length; i++) {
+                const keyword = keywords[i].toLowerCase(); // Ensure keyword is also lowercase
+                
+                // Step 6: Check if the processed answer contains this keyword
+                if (processedAnswer.includes(keyword)) {
+                    // Step 7: Return true immediately when first match is found
+                    return true;
+                }
+            }
+            
+            // Step 8: If we've checked all keywords and found no matches, return false
+            return false;
+        }
+
+        // Advanced answer validation with fuzzy matching, gentle corrections, and keyword matching
         function isAnswerCorrect(userAnswer, correctAnswer) {
             // Convert both to lowercase and trim whitespace
             const user = userAnswer.toString().toLowerCase().trim();
@@ -4435,6 +4478,11 @@
             
             // Exact match - fastest check
             if (user === correct) return true;
+            
+            // NEW: Check if correctAnswer has keywords defined (enhanced keyword matching)
+            if (typeof correctAnswer === 'object' && correctAnswer.keywords) {
+                return checkAnswer(userAnswer, correctAnswer.keywords);
+            }
             
             // Handle numeric answers with optional units
             const userNum = parseFloat(user);
@@ -4445,7 +4493,7 @@
                 return Math.abs(userNum - correctNum) < 0.001;
             }
             
-            // For text answers, try flexible matching
+            // For text answers, try flexible matching (fallback for simple text)
             if (isNaN(userNum) && isNaN(correctNum)) {
                 // Check if user answer contains the key words from correct answer
                 const correctWords = correct.split(' ').filter(word => word.length > 2);
@@ -4562,6 +4610,27 @@
             
             // Update dashboard stats
             updateDashboard();
+        }
+
+        // Test function for keyword matching system (for development/debugging)
+        function testKeywordSystem() {
+            console.log('🔬 Testing Enhanced Keyword Matching System:');
+            
+            // Test Case 1: Fox question
+            const foxKeywords = ['pause', 'stop', 'wait', 'rest', 'halt', 'still'];
+            console.log('Test 1 - Fox paused:', checkAnswer("It paused under the tree", foxKeywords)); // Should be true
+            console.log('Test 2 - Fox stopped:', checkAnswer("The fox stopped", foxKeywords)); // Should be true  
+            console.log('Test 3 - Fox waited:', checkAnswer("it was waiting there", foxKeywords)); // Should be true
+            console.log('Test 4 - Wrong answer:', checkAnswer("The fox ran away", foxKeywords)); // Should be false
+            
+            // Test Case 2: Hunting question
+            const huntingKeywords = ['search', 'silent hunter', 'movement', 'focused', 'scan'];
+            console.log('Test 5 - Searching:', checkAnswer("It was searching for prey", huntingKeywords)); // Should be true
+            console.log('Test 6 - Silent hunter:', checkAnswer("The text calls it a silent hunter", huntingKeywords)); // Should be true
+            console.log('Test 7 - Focused behavior:', checkAnswer("The fox remained focused", huntingKeywords)); // Should be true
+            console.log('Test 8 - Wrong answer:', checkAnswer("It was just walking around", huntingKeywords)); // Should be false
+            
+            console.log('✅ Keyword system test complete!');
         }
 
         // Show Level Progress (Apprentice Scholar button)
