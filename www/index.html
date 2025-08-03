@@ -5435,95 +5435,46 @@
             });
         }
 
-        // Show Pack Selection
-        function showPackSelection(topic) {
-            currentPackTopic = topic;
+        // Show Pack Selection (Updated for Year 5/6 Structure)
+        function showPackSelection(yearLevel) {
+            currentPackTopic = yearLevel;
             
             // Hide dashboard and show pack selection
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('packSelectionContainer').style.display = 'block';
             
-            // Update title
-            document.getElementById('packSelectionTitle').textContent = `${topicNames[topic]} - Choose Your Pack`;
+            // Update title based on year level
+            const yearNames = {
+                'year5': 'Year 5 Foundation',
+                'year6': 'Year 6 SATs Ready'
+            };
+            document.getElementById('packSelectionTitle').textContent = `${yearNames[yearLevel]} - Choose Your Subject`;
             
-            // Load and display pack progress
-            loadPackProgress(topic);
-            updatePackDisplay(topic);
+            // Update subject button text to reflect year level
+            updateSubjectButtons(yearLevel);
         }
         
-        // Load Pack Progress
-        function loadPackProgress(topic) {
-            const saved = localStorage.getItem(`packProgress_${topic}`);
-            if (saved) {
-                packProgress[topic] = JSON.parse(saved);
-            } else {
-                packProgress[topic] = {
-                    pack1: { completed: 0, bestScore: 0, unlocked: true },
-                    pack2: { completed: 0, bestScore: 0, unlocked: false },
-                    pack3: { completed: 0, bestScore: 0, unlocked: false }
-                };
-            }
-        }
-        
-        // Update Pack Display
-        function updatePackDisplay(topic) {
-            const progress = packProgress[topic];
+        // Update Subject Buttons for Year Level
+        function updateSubjectButtons(yearLevel) {
+            const readingBtn = document.getElementById('readingBtn');
+            const grammarBtn = document.getElementById('grammarBtn');
+            const mathsBtn = document.getElementById('mathsBtn');
             
-            // Update pack 1
-            document.getElementById('pack1Progress').style.width = `${(progress.pack1.completed / 10) * 100}%`;
-            document.getElementById('pack1ProgressText').textContent = `${progress.pack1.completed}/10 completed`;
-            
-            // Update pack 2
-            document.getElementById('pack2Progress').style.width = `${(progress.pack2.completed / 10) * 100}%`;
-            document.getElementById('pack2ProgressText').textContent = `${progress.pack2.completed}/10 completed`;
-            const pack2Card = document.getElementById('pack2Card');
-            const pack2Btn = document.getElementById('pack2Btn');
-            
-            if (progress.pack2.unlocked) {
-                pack2Card.classList.remove('locked');
-                pack2Btn.classList.remove('locked');
-                pack2Btn.disabled = false;
-                pack2Btn.textContent = 'Start Development';
-                document.getElementById('pack2Requirement').textContent = '✅ Unlocked! Ready to tackle intermediate challenges';
-                document.getElementById('pack2Requirement').style.background = 'rgba(16, 185, 129, 0.1)';
-                document.getElementById('pack2Requirement').style.color = '#10b981';
-                document.getElementById('pack2Requirement').style.borderColor = 'rgba(16, 185, 129, 0.2)';
-            } else {
-                pack2Card.classList.add('locked');
-                pack2Btn.classList.add('locked');
-                pack2Btn.disabled = true;
-                pack2Btn.textContent = '🔒 Locked';
-                document.getElementById('pack2Requirement').textContent = 'Complete Pack 1 with 70%+ to unlock';
-                document.getElementById('pack2Requirement').style.background = 'rgba(245, 158, 11, 0.1)';
-                document.getElementById('pack2Requirement').style.color = '#f59e0b';
-                document.getElementById('pack2Requirement').style.borderColor = 'rgba(245, 158, 11, 0.2)';
+            // Update button text based on year level
+            if (yearLevel === 'year5') {
+                readingBtn.textContent = 'Start Year 5 Reading';
+                grammarBtn.textContent = 'Start Year 5 Grammar';
+                mathsBtn.textContent = 'Start Year 5 Maths';
+            } else if (yearLevel === 'year6') {
+                readingBtn.textContent = 'Start Year 6 Reading';
+                grammarBtn.textContent = 'Start Year 6 Grammar';
+                mathsBtn.textContent = 'Start Year 6 Maths';
             }
             
-            // Update pack 3
-            document.getElementById('pack3Progress').style.width = `${(progress.pack3.completed / 10) * 100}%`;
-            document.getElementById('pack3ProgressText').textContent = `${progress.pack3.completed}/10 completed`;
-            const pack3Card = document.getElementById('pack3Card');
-            const pack3Btn = document.getElementById('pack3Btn');
-            
-            if (progress.pack3.unlocked) {
-                pack3Card.classList.remove('locked');
-                pack3Btn.classList.remove('locked');
-                pack3Btn.disabled = false;
-                pack3Btn.textContent = 'Start Mastery';
-                document.getElementById('pack3Requirement').textContent = '🏆 Unlocked! Master the most challenging questions';
-                document.getElementById('pack3Requirement').style.background = 'rgba(16, 185, 129, 0.1)';
-                document.getElementById('pack3Requirement').style.color = '#10b981';
-                document.getElementById('pack3Requirement').style.borderColor = 'rgba(16, 185, 129, 0.2)';
-            } else {
-                pack3Card.classList.add('locked');
-                pack3Btn.classList.add('locked');
-                pack3Btn.disabled = true;
-                pack3Btn.textContent = '🔒 Locked';
-                document.getElementById('pack3Requirement').textContent = 'Complete Pack 2 with 70%+ to unlock';
-                document.getElementById('pack3Requirement').style.background = 'rgba(245, 158, 11, 0.1)';
-                document.getElementById('pack3Requirement').style.color = '#f59e0b';
-                document.getElementById('pack3Requirement').style.borderColor = 'rgba(245, 158, 11, 0.2)';
-            }
+            // All subjects are always available (no lock/unlock system)
+            readingBtn.disabled = false;
+            grammarBtn.disabled = false;
+            mathsBtn.disabled = false;
         }
         
         // Update Pack Progress
@@ -5585,12 +5536,12 @@
             }
         }
         
-        // Start Quiz Pack
-        function startQuizPack(topic, pack) {
-            currentTopic = topic;
+        // Start Quiz Pack (Updated for Year 5/6 Structure)
+        function startQuizPack(yearLevel, subject) {
+            currentTopic = yearLevel;
             
-            // Get questions from the specific pack
-            currentQuestions = [...questionBank[topic][pack]];
+            // Get questions from the specific year and subject
+            currentQuestions = [...questionBank[yearLevel][subject]];
             shuffleArray(currentQuestions);
             
             currentQuestionIndex = 0;
@@ -5603,9 +5554,17 @@
             document.getElementById('packSelectionContainer').style.display = 'none';
             document.getElementById('quizContainer').style.display = 'block';
             
-            // Update quiz title with pack info
-            const packNames = { pack1: 'Foundation', pack2: 'Development', pack3: 'Mastery' };
-            document.getElementById('quizTitle').textContent = `${topicNames[topic]} - ${packNames[pack]}`;
+            // Update quiz title with year and subject info
+            const yearNames = {
+                'year5': 'Year 5 Foundation',
+                'year6': 'Year 6 SATs Ready'
+            };
+            const subjectNames = {
+                'reading': 'Reading',
+                'grammar': 'Grammar & Spelling',
+                'mathematics': 'Mathematics'
+            };
+            document.getElementById('quizTitle').textContent = `${yearNames[yearLevel]} - ${subjectNames[subject]}`;
             
             displayQuestion();
         }
