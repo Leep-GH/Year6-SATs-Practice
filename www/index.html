@@ -3776,7 +3776,7 @@
                 document.getElementById('dashboard').style.display = 'block';
                 
                 // Update greeting
-                document.getElementById('userGreeting').textContent = getSmartGreeting(userData);
+                document.getElementById('userName-display').textContent = getSmartGreeting(userData);
                 
                 // Update stats
                 document.getElementById('totalScore').textContent = userData.totalPoints;
@@ -3784,6 +3784,46 @@
                 document.getElementById('bestStreak').textContent = userData.bestStreak;
                 document.getElementById('progressValue').textContent = `${Math.min(100, Math.round((userData.quizzesCompleted / 50) * 100))}%`;
             }
+        }
+
+        // Save User Data to localStorage
+        function saveUserData() {
+            localStorage.setItem('satsUserData', JSON.stringify(userData));
+        }
+
+        // Start User Journey
+        function startJourney() {
+            const nameInput = document.getElementById('userName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                nameInput.style.borderColor = '#ef4444';
+                setTimeout(() => nameInput.style.borderColor = '', 2000);
+                return;
+            }
+            
+            userData.name = name;
+            userData.startTime = new Date().toISOString();
+            saveUserData();
+            showDashboard();
+        }
+
+        // Show Welcome Screen
+        function showWelcomeScreen() {
+            document.getElementById('welcomeScreen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+        }
+
+        // Show Dashboard
+        function showDashboard() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+            
+            updateDashboard();
         }
     </script>
 </body>
