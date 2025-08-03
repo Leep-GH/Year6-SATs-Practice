@@ -1234,6 +1234,18 @@
             letter-spacing: 0.5px;
         }
 
+        .passage-text {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #374151;
+            font-style: italic;
+        }
+
         .question-text {
             font-size: 1.4rem;
             font-weight: 500;
@@ -2172,6 +2184,7 @@
                 <div class="question-number" id="questionNumber">Question 1</div>
                 <button class="hint-btn" onclick="showHint()" id="hintBtn">💡 Hint (3)</button>
             </div>
+            <div class="passage-text" id="passageText" style="display: none;"></div>
             <div class="question-text" id="questionText"></div>
             
             <div class="hint-box" id="hintBox">
@@ -3623,6 +3636,7 @@
         let score = 0;
         let quizStartTime = null;
         let hintsUsed = 0;
+        const MAX_HINTS = 3;
 
         // Show Pack Selection (Updated for Year 5/6 Structure)
         function showPackSelection(yearLevel) {
@@ -3824,6 +3838,163 @@
             document.getElementById('resultsContainer').style.display = 'none';
             
             updateDashboard();
+        }
+
+        // Display Question
+        function displayQuestion() {
+            const question = currentQuestions[currentQuestionIndex];
+            
+            // Update progress
+            const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
+            document.getElementById('quizProgressFill').style.width = `${progress}%`;
+            document.getElementById('quizProgressText').textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+            
+            // Question content
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1}`;
+            
+            // Show passage if it exists (for reading comprehension questions)
+            const passageElement = document.getElementById('passageText');
+            if (question.passage) {
+                passageElement.textContent = question.passage;
+                passageElement.style.display = 'block';
+            } else {
+                passageElement.style.display = 'none';
+            }
+            
+            document.getElementById('questionText').textContent = question.question;
+            
+            // Hide hint box
+            document.getElementById('hintBox').classList.remove('show');
+            
+            // Create answer interface
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            if (question.type === 'multiple') {
+                question.options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    if (userAnswers[currentQuestionIndex] === option) {
+                        optionDiv.classList.add('selected');
+                    }
+                    
+                    optionDiv.innerHTML = `
+                        <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                        <span>${option}</span>
+                    `;
+                    
+                    optionDiv.addEventListener('click', function() {
+                        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+                        userAnswers[currentQuestionIndex] = option;
+                    });
+                    
+                    optionsContainer.appendChild(optionDiv);
+                });
+            } else {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'text-input';
+                input.placeholder = 'Enter your answer here...';
+                input.value = userAnswers[currentQuestionIndex];
+                
+                input.addEventListener('input', function() {
+                    userAnswers[currentQuestionIndex] = this.value.trim();
+                });
+                
+                optionsContainer.appendChild(input);
+                setTimeout(() => input.focus(), 100);
+            }
+            
+            updateQuizNavigation();
+        }
+
+        // Show AI Hint
+        function showHint() {
+            // Check if hints limit reached
+            if (hintsUsed >= MAX_HINTS) {
+                return; // Do nothing if no hints left
+            }
+            
+            const question = currentQuestions[currentQuestionIndex];
+            const hintBox = document.getElementById('hintBox');
+            const hintText = document.getElementById('hintText');
+            const hintBtn = document.getElementById('hintBtn');
+            
+            hintText.textContent = question.hint;
+            hintBox.classList.add('show');
+            hintsUsed++;
+            
+            // Update hint button text with remaining hints
+            const hintsLeft = MAX_HINTS - hintsUsed;
+            if (hintsLeft > 0) {
+                hintBtn.textContent = `💡 Hint (${hintsLeft})`;
+                hintBtn.disabled = true; // Disable for current question
+                hintBtn.style.opacity = '0.5';
+            } else {
+                hintBtn.textContent = '💡 No Hints Left';
+                hintBtn.disabled = true;
+                hintBtn.style.opacity = '0.3';
+            }
+        }
+
+        // Update Quiz Navigation
+        function updateQuizNavigation() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            const hintBtn = document.getElementById('hintBtn');
+            
+            // Update Previous/Next buttons
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            // Update hint button based on remaining hints
+            const hintsLeft = MAX_HINTS - hintsUsed;
+            if (hintsLeft > 0) {
+                hintBtn.disabled = false;
+                hintBtn.style.opacity = '1';
+                hintBtn.textContent = `💡 Hint (${hintsLeft})`;
+            } else {
+                hintBtn.disabled = true;
+                hintBtn.style.opacity = '0.3';
+                hintBtn.textContent = '💡 No Hints Left';
+            }
+            
+            // Show/hide Next and Finish buttons
+            if (currentQuestionIndex === currentQuestions.length - 1) {
+                nextBtn.style.display = 'none';
+                finishBtn.style.display = 'inline-block';
+            } else {
+                nextBtn.style.display = 'inline-block';
+                finishBtn.style.display = 'none';
+            }
+        }
+
+        // Previous Question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        // Next Question
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuestions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        // Back to Dashboard
+        function backToDashboard() {
+            // Hide all containers
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('packSelectionContainer').style.display = 'none';
+            
+            // Show dashboard
+            showDashboard();
         }
     </script>
 </body>
