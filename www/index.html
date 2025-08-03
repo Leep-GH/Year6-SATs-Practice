@@ -2332,7 +2332,6 @@
         <div class="pack-grid">
             <div class="pack-card" id="readingCard">
                 <div class="pack-badge" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">📖</div>
-                <div class="pack-icon">📚</div>
                 <div class="pack-title">Reading</div>
                 <div class="pack-description">Comprehension & Inference</div>
                 <div class="pack-stats">
@@ -2343,7 +2342,6 @@
             
             <div class="pack-card" id="grammarCard">
                 <div class="pack-badge" style="background: linear-gradient(135deg, #10b981, #059669);">✏️</div>
-                <div class="pack-icon">📝</div>
                 <div class="pack-title">Grammar & Spelling</div>
                 <div class="pack-description">Punctuation, spelling, and grammar</div>
                 <div class="pack-stats">
@@ -2354,7 +2352,6 @@
             
             <div class="pack-card" id="arithmeticCard">
                 <div class="pack-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🧮</div>
-                <div class="pack-icon">🔢</div>
                 <div class="pack-title">Arithmetic</div>
                 <div class="pack-description">Quick calculations & number skills</div>
                 <div class="pack-stats">
@@ -2365,7 +2362,6 @@
             
             <div class="pack-card" id="reasoningCard">
                 <div class="pack-badge" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🧩</div>
-                <div class="pack-icon">🤔</div>
                 <div class="pack-title">Mathematical Reasoning</div>
                 <div class="pack-description">Problem solving & logic</div>
                 <div class="pack-stats">
@@ -4109,7 +4105,9 @@
         function getSmartGreeting(userData) {
             const name = userData.name;
             const quizzes = userData.quizzesCompleted;
-            const averageScore = userData.totalPoints > 0 ? Math.round((userData.totalPoints / (quizzes * 10)) * 100) : 0;
+            // Calculate approximate average (assuming average of 17.5 questions per quiz)
+            const avgQuestionsPerQuiz = 17.5; // Between 10 (quick) and 25 (full)
+            const averageScore = userData.totalPoints > 0 ? Math.round((userData.totalPoints / (quizzes * avgQuestionsPerQuiz * 10)) * 100) : 0;
             const daysSinceLastLogin = userData.lastLoginDate ? 
                 Math.floor((Date.now() - new Date(userData.lastLoginDate).getTime()) / (1000 * 60 * 60 * 24)) : 0;
             
@@ -4543,16 +4541,47 @@
             document.getElementById('quizContainer').style.display = 'none';
             document.getElementById('resultsContainer').style.display = 'block';
             
+            // Calculate quiz time
+            const timeSpent = Math.round((Date.now() - quizStartTime) / 1000);
+            const minutes = Math.floor(timeSpent / 60);
+            const seconds = timeSpent % 60;
+            const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
             // Update results display
             const percentage = Math.round((score / currentQuestions.length) * 100);
             document.getElementById('finalScore').textContent = `${score}/${currentQuestions.length}`;
             document.getElementById('resultsMessage').textContent = percentage >= 80 ? 'Excellent work!' : percentage >= 60 ? 'Good job!' : 'Keep practicing!';
             document.getElementById('pointsEarned').textContent = score * 10;
+            document.getElementById('timeSpent').textContent = timeDisplay;
+            document.getElementById('accuracy').textContent = `${percentage}%`;
             
             // Update user data
             userData.totalPoints += score * 10;
             userData.quizzesCompleted++;
             saveUserData();
+            
+            // Update dashboard stats
+            updateDashboard();
+        }
+
+        // Show Level Progress (Apprentice Scholar button)
+        function showLevelProgress() {
+            const currentPoints = userData.totalPoints;
+            const currentLevel = Math.floor(currentPoints / 100) + 1;
+            const pointsInCurrentLevel = currentPoints % 100;
+            const pointsToNextLevel = 100 - pointsInCurrentLevel;
+            
+            let message = `${getQuestRank(currentLevel)}\n\n`;
+            message += `⚡ Quest Progress:\n   ${pointsInCurrentLevel}/100 adventure points\n\n`;
+            message += `🗡️ Next Rank:\n   ${getNextQuestRank(currentLevel)}\n\n`;
+            message += `🎯 Points Needed:\n   ${pointsToNextLevel} more adventure points\n\n`;
+            message += `------------------------------------\n\n`;
+            message += `🎁 HOW TO ADVANCE:\n`;
+            message += `   • Complete quiz challenges\n`;
+            message += `   • Each correct answer = 10 points\n`;
+            message += `   • Unlock new quest ranks!`;
+            
+            alert(message);
         }
     </script>
 </body>
