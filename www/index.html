@@ -1232,6 +1232,40 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
+        .spelling-feedback {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            animation: slideInUp 0.3s ease;
+        }
+
+        .feedback-icon {
+            font-size: 1.2rem;
+        }
+
+        .feedback-text strong {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .question-number {
             color: #1e40af;
             font-size: 1rem;
@@ -3990,6 +4024,25 @@
                 
                 input.addEventListener('input', function() {
                     userAnswers[currentQuestionIndex] = this.value.trim();
+                    
+                    // Check for spelling feedback after a short delay
+                    clearTimeout(window.spellingCheckTimeout);
+                    window.spellingCheckTimeout = setTimeout(() => {
+                        if (this.value.trim()) {
+                            const correctAnswer = currentQuestions[currentQuestionIndex].answer;
+                            
+                            // Clear any existing feedback first
+                            const existingFeedback = document.querySelector('.spelling-feedback');
+                            if (existingFeedback) {
+                                existingFeedback.remove();
+                            }
+                            
+                            // Check if answer is correct and if there was a spelling suggestion
+                            if (isAnswerCorrect(this.value.trim(), correctAnswer)) {
+                                showSpellingFeedback();
+                            }
+                        }
+                    }, 800); // Wait 800ms after user stops typing
                 });
                 
                 optionsContainer.appendChild(input);
@@ -4105,9 +4158,9 @@
             }
         }
 
-        // Flexible answer validation that handles units and measurements
+        // Advanced answer validation with fuzzy matching and gentle corrections
         function isAnswerCorrect(userAnswer, correctAnswer) {
-            // Convert both to lowercase and trim
+            // Convert both to lowercase and trim whitespace
             const user = userAnswer.toString().toLowerCase().trim();
             const correct = correctAnswer.toString().toLowerCase().trim();
             
@@ -4123,7 +4176,94 @@
                 return Math.abs(userNum - correctNum) < 0.001;
             }
             
+            // For text answers, try flexible matching
+            if (isNaN(userNum) && isNaN(correctNum)) {
+                // Check if user answer contains the key words from correct answer
+                const correctWords = correct.split(' ').filter(word => word.length > 2);
+                const userWords = user.split(' ');
+                
+                // If any key word matches (or close match), accept it
+                for (let correctWord of correctWords) {
+                    for (let userWord of userWords) {
+                        if (userWord === correctWord) return true;
+                        
+                        // Fuzzy matching for common misspellings
+                        if (isFuzzyMatch(userWord, correctWord)) {
+                            // Store spelling suggestion for feedback
+                            window.lastSpellingSuggestion = {
+                                typed: userWord,
+                                correct: correctWord
+                            };
+                            return true;
+                        }
+                    }
+                }
+                
+                // Check if user answer is a reasonable variation
+                if (user.includes(correct) || correct.includes(user)) {
+                    return true;
+                }
+            }
+            
             return false;
+        }
+
+        // Fuzzy matching for common spelling mistakes
+        function isFuzzyMatch(userWord, correctWord) {
+            if (userWord.length < 3 || correctWord.length < 3) return false;
+            
+            // Calculate edit distance (Levenshtein distance simplified)
+            const maxDistance = Math.floor(correctWord.length * 0.3); // Allow 30% error
+            
+            let distance = 0;
+            let i = 0, j = 0;
+            
+            while (i < userWord.length && j < correctWord.length) {
+                if (userWord[i] === correctWord[j]) {
+                    i++;
+                    j++;
+                } else {
+                    distance++;
+                    if (distance > maxDistance) return false;
+                    
+                    // Try different error types
+                    if (i + 1 < userWord.length && userWord[i + 1] === correctWord[j]) {
+                        i += 2; j++; // deletion
+                    } else if (j + 1 < correctWord.length && userWord[i] === correctWord[j + 1]) {
+                        i++; j += 2; // insertion
+                    } else {
+                        i++; j++; // substitution
+                    }
+                }
+            }
+            
+            distance += Math.abs(userWord.length - correctWord.length);
+            return distance <= maxDistance;
+        }
+
+        // Show gentle spelling feedback when appropriate
+        function showSpellingFeedback() {
+            if (window.lastSpellingSuggestion) {
+                const suggestion = window.lastSpellingSuggestion;
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.className = 'spelling-feedback';
+                feedbackDiv.innerHTML = `
+                    <span class="feedback-icon">✨</span>
+                    <span class="feedback-text">Great answer! Just a quick tip on the spelling: it's '<strong>${suggestion.correct}</strong>'</span>
+                `;
+                
+                // Show feedback briefly
+                const questionContainer = document.querySelector('.question-container');
+                questionContainer.appendChild(feedbackDiv);
+                
+                setTimeout(() => {
+                    if (feedbackDiv.parentNode) {
+                        feedbackDiv.remove();
+                    }
+                }, 3000);
+                
+                window.lastSpellingSuggestion = null;
+            }
         }
 
         // Show Results
