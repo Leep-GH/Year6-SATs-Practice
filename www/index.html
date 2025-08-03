@@ -1131,6 +1131,156 @@
             backdrop-filter: blur(10px);
         }
 
+        /* Quiz Type Selection */
+        .quiz-type-container {
+            display: none;
+            padding: 40px 20px;
+        }
+
+        .quiz-type-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-type-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .quiz-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quiz-type-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .quiz-type-card.quick-quiz {
+            border-top: 4px solid #3b82f6;
+        }
+
+        .quiz-type-card.full-practice {
+            border-top: 4px solid #10b981;
+        }
+
+        .quiz-type-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        .quiz-type-card .quiz-type-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .quiz-type-subtitle {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .quiz-type-details {
+            margin: 20px 0 30px 0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #374151;
+        }
+
+        .detail-icon {
+            font-size: 1.1rem;
+        }
+
+        .quiz-type-btn {
+            width: 100%;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .quiz-type-btn.primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+
+        .quiz-type-btn.primary:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .quiz-type-btn.secondary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .quiz-type-btn.secondary:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quiz-type-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .quiz-type-card {
+                padding: 25px 20px;
+            }
+            
+            .quiz-type-title {
+                font-size: 1.75rem;
+            }
+        }
+
         /* Quiz Interface */
         .quiz-container {
             display: none;
@@ -2226,11 +2376,63 @@
         </div>
     </div>
 
+    <!-- Quiz Type Selection Screen -->
+    <div id="quizTypeContainer" class="container quiz-type-container" style="display: none;">
+        <div class="quiz-type-header">
+            <button class="back-btn" onclick="backToPackSelection()">← Back</button>
+            <h2 class="quiz-type-title" id="quizTypeTitle">Choose Your Practice Type</h2>
+        </div>
+        
+        <div class="quiz-type-grid">
+            <div class="quiz-type-card quick-quiz">
+                <div class="quiz-type-icon">⚡</div>
+                <div class="quiz-type-title">Quick Quiz</div>
+                <div class="quiz-type-subtitle">Perfect for short sessions</div>
+                <div class="quiz-type-details">
+                    <div class="detail-item">
+                        <span class="detail-icon">📝</span>
+                        <span class="detail-text">10 questions</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">⏱️</span>
+                        <span class="detail-text">~5-8 minutes</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🎯</span>
+                        <span class="detail-text">Quick wins</span>
+                    </div>
+                </div>
+                <button class="quiz-type-btn primary" onclick="startQuiz('quick')" id="quickQuizBtn">Start Quick Quiz</button>
+            </div>
+            
+            <div class="quiz-type-card full-practice">
+                <div class="quiz-type-icon">💪</div>
+                <div class="quiz-type-title">Full Practice</div>
+                <div class="quiz-type-subtitle">Complete topic mastery</div>
+                <div class="quiz-type-details">
+                    <div class="detail-item">
+                        <span class="detail-icon">📚</span>
+                        <span class="detail-text">25 questions</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🕐</span>
+                        <span class="detail-text">~15-20 minutes</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">🏆</span>
+                        <span class="detail-text">Maximum points</span>
+                    </div>
+                </div>
+                <button class="quiz-type-btn secondary" onclick="startQuiz('full')" id="fullPracticeBtn">Start Full Practice</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Quiz Interface -->
     <div id="quizContainer" class="container quiz-container">
         <div class="quiz-header">
             <div class="quiz-nav">
-                <button class="back-btn" onclick="backToDashboard()">← Back</button>
+                <button class="back-btn" onclick="backFromQuiz()">← Back</button>
                 <h2 class="quiz-title" id="quizTitle"></h2>
             </div>
             
@@ -3821,13 +4023,43 @@
             reasoningBtn.disabled = false;
         }
 
-        // Start Quiz Pack (Updated for Year 5/6 Structure)
+        // Variables for quiz type selection
+        let selectedYearLevel = '';
+        let selectedSubject = '';
+
+        // Show Quiz Type Selection (Updated for Quick Quiz vs Full Practice)
         function startQuizPack(yearLevel, subject) {
-            currentTopic = yearLevel;
+            selectedYearLevel = yearLevel;
+            selectedSubject = subject;
             
-            // Get questions from the specific year and subject
-            currentQuestions = [...questionBank[yearLevel][subject]];
-            shuffleArray(currentQuestions);
+            // Hide pack selection and show quiz type selection
+            document.getElementById('packSelectionContainer').style.display = 'none';
+            document.getElementById('quizTypeContainer').style.display = 'block';
+            
+            // Update title with subject info
+            const subjectNames = {
+                'reading': 'Reading',
+                'grammar': 'Grammar & Spelling',
+                'arithmetic': 'Arithmetic',
+                'reasoning': 'Mathematical Reasoning'
+            };
+            document.getElementById('quizTypeTitle').textContent = `${subjectNames[subject]} Practice`;
+        }
+
+        // Start Quiz with Selected Type (Quick or Full)
+        function startQuiz(quizType) {
+            currentTopic = selectedYearLevel;
+            
+            // Get all questions from the specific year and subject
+            const allQuestions = [...questionBank[selectedYearLevel][selectedSubject]];
+            shuffleArray(allQuestions);
+            
+            // Select questions based on quiz type
+            if (quizType === 'quick') {
+                currentQuestions = allQuestions.slice(0, 10); // First 10 questions for quick quiz
+            } else {
+                currentQuestions = allQuestions; // All 25 questions for full practice
+            }
             
             currentQuestionIndex = 0;
             userAnswers = new Array(currentQuestions.length).fill('');
@@ -3835,8 +4067,8 @@
             quizStartTime = Date.now();
             hintsUsed = 0;
             
-            // Hide pack selection and show quiz
-            document.getElementById('packSelectionContainer').style.display = 'none';
+            // Hide quiz type selection and show quiz
+            document.getElementById('quizTypeContainer').style.display = 'none';
             document.getElementById('quizContainer').style.display = 'block';
             
             // Update quiz title with year and subject info
@@ -3847,11 +4079,19 @@
             const subjectNames = {
                 'reading': 'Reading',
                 'grammar': 'Grammar & Spelling',
-                'mathematics': 'Mathematics'
+                'arithmetic': 'Arithmetic',
+                'reasoning': 'Mathematical Reasoning'
             };
-            document.getElementById('quizTitle').textContent = `${yearNames[yearLevel]} - ${subjectNames[subject]}`;
+            const quizTypeText = quizType === 'quick' ? 'Quick Quiz' : 'Full Practice';
+            document.getElementById('quizTitle').textContent = `${yearNames[selectedYearLevel]} - ${subjectNames[selectedSubject]} (${quizTypeText})`;
             
             displayQuestion();
+        }
+
+        // Back to Pack Selection from Quiz Type Selection
+        function backToPackSelection() {
+            document.getElementById('quizTypeContainer').style.display = 'none';
+            document.getElementById('packSelectionContainer').style.display = 'block';
         }
 
         // Utility function to shuffle array
@@ -4146,12 +4386,26 @@
             }
         }
 
+        // Back from Quiz (smart navigation)
+        function backFromQuiz() {
+            // Hide quiz container
+            document.getElementById('quizContainer').style.display = 'none';
+            
+            // Show quiz type selection if we have selected year/subject, otherwise go to dashboard
+            if (selectedYearLevel && selectedSubject) {
+                document.getElementById('quizTypeContainer').style.display = 'block';
+            } else {
+                showDashboard();
+            }
+        }
+
         // Back to Dashboard
         function backToDashboard() {
             // Hide all containers
             document.getElementById('quizContainer').style.display = 'none';
             document.getElementById('resultsContainer').style.display = 'none';
             document.getElementById('packSelectionContainer').style.display = 'none';
+            document.getElementById('quizTypeContainer').style.display = 'none';
             
             // Show dashboard
             showDashboard();
