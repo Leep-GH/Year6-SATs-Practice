@@ -2202,15 +2202,26 @@
                 <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'grammar')" id="grammarBtn">Start Grammar</button>
             </div>
             
-            <div class="pack-card" id="mathsCard">
+            <div class="pack-card" id="arithmeticCard">
                 <div class="pack-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🧮</div>
-                <div class="pack-icon">📐</div>
-                <div class="pack-title">Mathematics</div>
-                <div class="pack-description">Arithmetic & reasoning problems</div>
+                <div class="pack-icon">🔢</div>
+                <div class="pack-title">Arithmetic</div>
+                <div class="pack-description">Quick calculations & number skills</div>
                 <div class="pack-stats">
-                    <span>50 questions</span>
+                    <span>25 questions</span>
                 </div>
-                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'mathematics')" id="mathsBtn">Start Maths</button>
+                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'arithmetic')" id="arithmeticBtn">Start Arithmetic</button>
+            </div>
+            
+            <div class="pack-card" id="reasoningCard">
+                <div class="pack-badge" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🧩</div>
+                <div class="pack-icon">🤔</div>
+                <div class="pack-title">Mathematical Reasoning</div>
+                <div class="pack-description">Problem solving & logic</div>
+                <div class="pack-stats">
+                    <span>25 questions</span>
+                </div>
+                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'reasoning')" id="reasoningBtn">Start Reasoning</button>
             </div>
         </div>
     </div>
@@ -2684,7 +2695,7 @@
                         answer: "pair",
                         hint: "This word sounds like 'pear' (the fruit) but has a different spelling."
                     }],
-                'mathematics': [
+                'arithmetic': [
                     // Year 5 Arithmetic (25 questions)
                     {
                         question: "5,432 + 384 = ?",
@@ -2835,7 +2846,8 @@
                         type: "input",
                         answer: "84",
                         hint: "When dividing by 100, move the decimal point 2 places to the left."
-                    },
+                    }],
+                'reasoning': [
                     // Year 5 Reasoning (25 questions)
                     {
                         question: "Round 1,485 to the nearest hundred.",
@@ -3386,7 +3398,7 @@
                         answer: "The old house – which had been empty for years – was finally sold.",
                         hint: "Dashes can replace commas or brackets around extra information."
                     }],
-                'mathematics': [
+                'arithmetic': [
                     // Year 6 Arithmetic (25 questions)
                     {
                         question: "1,582 × 24 = ?",
@@ -3537,7 +3549,8 @@
                         type: "input",
                         answer: "15",
                         hint: "1 1/4 = 1.25, so 12 × 1.25 = 15."
-                    },
+                    }],
+                'reasoning': [
                     // Year 6 Reasoning (25 questions)
                     {
                         question: "If a = 4, what is the value of 3a + 5?",
@@ -3785,23 +3798,27 @@
         function updateSubjectButtons(yearLevel) {
             const readingBtn = document.getElementById('readingBtn');
             const grammarBtn = document.getElementById('grammarBtn');
-            const mathsBtn = document.getElementById('mathsBtn');
+            const arithmeticBtn = document.getElementById('arithmeticBtn');
+            const reasoningBtn = document.getElementById('reasoningBtn');
             
             // Update button text based on year level
             if (yearLevel === 'year5') {
                 readingBtn.textContent = 'Start Year 5 Reading';
                 grammarBtn.textContent = 'Start Year 5 Grammar';
-                mathsBtn.textContent = 'Start Year 5 Maths';
+                arithmeticBtn.textContent = 'Start Year 5 Arithmetic';
+                reasoningBtn.textContent = 'Start Year 5 Reasoning';
             } else if (yearLevel === 'year6') {
                 readingBtn.textContent = 'Start Year 6 Reading';
                 grammarBtn.textContent = 'Start Year 6 Grammar';
-                mathsBtn.textContent = 'Start Year 6 Maths';
+                arithmeticBtn.textContent = 'Start Year 6 Arithmetic';
+                reasoningBtn.textContent = 'Start Year 6 Reasoning';
             }
             
             // All subjects are always available (no lock/unlock system)
             readingBtn.disabled = false;
             grammarBtn.disabled = false;
-            mathsBtn.disabled = false;
+            arithmeticBtn.disabled = false;
+            reasoningBtn.disabled = false;
         }
 
         // Start Quiz Pack (Updated for Year 5/6 Structure)
