@@ -2080,96 +2080,30 @@
         </div>
 
         <div class="topics-section glass-card">
-            <h2 class="section-title">Choose Your Practice Topic</h2>
+            <h2 class="section-title">Choose Your Year Level</h2>
             
-            <div class="subject-section">
-                <h3 class="subject-title">
-                    <div class="subject-icon">📐</div>
-                    Mathematics
-                </h3>
-                <div class="topic-grid">
-                    <button class="topic-card" data-topic="arithmetic" onclick="showPackSelection('arithmetic')">
-                        <div class="completion-badge" id="arithmetic-badge">NEW</div>
-                        <div class="topic-icon">🧮</div>
-                        <div class="topic-title">Arithmetic</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="arithmetic-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="number-place-value" onclick="showPackSelection('number-place-value')">
-                        <div class="completion-badge" id="number-place-value-badge">NEW</div>
-                        <div class="topic-icon">🔢</div>
-                        <div class="topic-title">Number and Place Value</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="number-place-value-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="fractions-decimals" onclick="showPackSelection('fractions-decimals')">
-                        <div class="completion-badge" id="fractions-decimals-badge">NEW</div>
-                        <div class="topic-icon">🍕</div>
-                        <div class="topic-title">Fractions, Decimals & %</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="fractions-decimals-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="geometry" onclick="showPackSelection('geometry')">
-                        <div class="completion-badge" id="geometry-badge">NEW</div>
-                        <div class="topic-icon">📐</div>
-                        <div class="topic-title">Geometry</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="geometry-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="measurement" onclick="showPackSelection('measurement')">
-                        <div class="completion-badge" id="measurement-badge">NEW</div>
-                        <div class="topic-icon">📏</div>
-                        <div class="topic-title">Measurement</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="measurement-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-            <div class="subject-section">
-                <h3 class="subject-title">
-                    <div class="subject-icon">📚</div>
-                    English
-                </h3>
-                <div class="topic-grid">
-                    <button class="topic-card" data-topic="grammar-punctuation" onclick="showPackSelection('grammar-punctuation')">
-                        <div class="completion-badge" id="grammar-punctuation-badge">NEW</div>
-                        <div class="topic-icon">✏️</div>
-                        <div class="topic-title">Grammar & Punctuation</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="grammar-punctuation-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="spelling" onclick="showPackSelection('spelling')">
-                        <div class="completion-badge" id="spelling-badge">NEW</div>
-                        <div class="topic-icon">🔤</div>
-                        <div class="topic-title">Spelling</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="spelling-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="reading-comprehension" onclick="showPackSelection('reading-comprehension')">
-                        <div class="completion-badge" id="reading-comprehension-badge">NEW</div>
-                        <div class="topic-icon">📖</div>
-                        <div class="topic-title">Reading Comprehension</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="reading-comprehension-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                </div>
+            <div class="topic-grid">
+                <button class="topic-card" data-topic="year5" onclick="showPackSelection('year5')">
+                    <div class="completion-badge" id="year5-badge">NEW</div>
+                    <div class="topic-icon">🌟</div>
+                    <div class="topic-title">Year 5 Foundation</div>
+                    <div class="topic-description">Build confidence with familiar concepts</div>
+                    <div class="topic-stats">
+                        <span>100 questions (Reading + Grammar + Maths)</span>
+                        <span class="topic-best-score" id="year5-score">Start Building</span>
+                    </div>
+                </button>
+                
+                <button class="topic-card" data-topic="year6" onclick="showPackSelection('year6')">
+                    <div class="completion-badge" id="year6-badge">NEW</div>
+                    <div class="topic-icon">🎯</div>
+                    <div class="topic-title">Year 6 SATs Ready</div>
+                    <div class="topic-description">Prepare for your SATs with confidence</div>
+                    <div class="topic-stats">
+                        <span>100 questions (Reading + Grammar + Maths)</span>
+                        <span class="topic-best-score" id="year6-score">Get SATs Ready</span>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
@@ -2178,52 +2112,41 @@
     <div id="packSelectionContainer" class="container pack-selection-container" style="display: none;">
         <div class="pack-selection-header">
             <button class="back-btn" onclick="backToDashboard()">← Back</button>
-            <h2 class="pack-title" id="packSelectionTitle">Choose Your Pack</h2>
+            <h2 class="pack-title" id="packSelectionTitle">Choose Your Subject</h2>
         </div>
         
         <div class="pack-grid">
-            <div class="pack-card" id="pack1Card">
-                <div class="pack-badge bronze">🥉</div>
+            <div class="pack-card" id="readingCard">
+                <div class="pack-badge" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">📖</div>
                 <div class="pack-icon">📚</div>
-                <div class="pack-title">Pack 1: Foundation</div>
-                <div class="pack-description">Basic concepts & confidence building</div>
-                <div class="pack-progress">
-                    <div class="pack-progress-bar">
-                        <div class="pack-progress-fill" id="pack1Progress"></div>
-                    </div>
-                    <span class="pack-progress-text" id="pack1ProgressText">0/10 completed</span>
+                <div class="pack-title">Reading</div>
+                <div class="pack-description">Comprehension & Inference</div>
+                <div class="pack-stats">
+                    <span>25 questions</span>
                 </div>
-                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'pack1')" id="pack1Btn">Start Foundation</button>
+                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'reading')" id="readingBtn">Start Reading</button>
             </div>
             
-            <div class="pack-card locked" id="pack2Card">
-                <div class="pack-badge silver">🥈</div>
-                <div class="pack-icon">🎯</div>
-                <div class="pack-title">Pack 2: Development</div>
-                <div class="pack-description">Intermediate skills & challenges</div>
-                <div class="pack-requirement" id="pack2Requirement">Complete Pack 1 with 70%+ to unlock</div>
-                <div class="pack-progress">
-                    <div class="pack-progress-bar">
-                        <div class="pack-progress-fill" id="pack2Progress"></div>
-                    </div>
-                    <span class="pack-progress-text" id="pack2ProgressText">0/10 completed</span>
+            <div class="pack-card" id="grammarCard">
+                <div class="pack-badge" style="background: linear-gradient(135deg, #10b981, #059669);">✏️</div>
+                <div class="pack-icon">📝</div>
+                <div class="pack-title">Grammar & Spelling</div>
+                <div class="pack-description">Punctuation, spelling, and grammar</div>
+                <div class="pack-stats">
+                    <span>25 questions</span>
                 </div>
-                <button class="pack-btn locked" onclick="startQuizPack(currentPackTopic, 'pack2')" id="pack2Btn" disabled>🔒 Locked</button>
+                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'grammar')" id="grammarBtn">Start Grammar</button>
             </div>
             
-            <div class="pack-card locked" id="pack3Card">
-                <div class="pack-badge gold">🥇</div>
-                <div class="pack-icon">🏆</div>
-                <div class="pack-title">Pack 3: Mastery</div>
-                <div class="pack-description">Advanced SATs-level questions</div>
-                <div class="pack-requirement" id="pack3Requirement">Complete Pack 2 with 70%+ to unlock</div>
-                <div class="pack-progress">
-                    <div class="pack-progress-bar">
-                        <div class="pack-progress-fill" id="pack3Progress"></div>
-                    </div>
-                    <span class="pack-progress-text" id="pack3ProgressText">0/10 completed</span>
+            <div class="pack-card" id="mathsCard">
+                <div class="pack-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🧮</div>
+                <div class="pack-icon">📐</div>
+                <div class="pack-title">Mathematics</div>
+                <div class="pack-description">Arithmetic & reasoning problems</div>
+                <div class="pack-stats">
+                    <span>50 questions</span>
                 </div>
-                <button class="pack-btn locked" onclick="startQuizPack(currentPackTopic, 'pack3')" id="pack3Btn" disabled>🔒 Locked</button>
+                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'mathematics')" id="mathsBtn">Start Maths</button>
             </div>
         </div>
     </div>
@@ -2333,62 +2256,1347 @@
             { topic: 'spelling', target: 6, description: 'Unlock 6 spelling treasures today!' }
         ];
 
-        // Updated Question Bank with 3-Pack System (240 Total Questions)
+        // Year 5 Foundation & Year 6 SATs Ready Question Bank
         const questionBank = {
-            'arithmetic': {
-                pack1: [
-                    // PACK 1: Foundation (Bronze) - Basic Operations
+            'year5': {
+                'reading': [
+                    // Year 5 Reading Questions (25 total) - Fox passage
                     {
-                        question: "Calculate: 234 + 156",
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "Find and copy one word that means the fox 'moved quickly'.",
                         type: "input",
-                        answer: "390",
-                        hint: "Line up the numbers in columns. Add from right to left, starting with the units."
+                        answer: "darted",
+                        hint: "Look at the first sentence. Which word describes how the fox moved across the lawn?"
                     },
                     {
-                        question: "What is 7 × 8?",
-                        type: "multiple",
-                        options: ["48", "54", "56", "63"],
-                        answer: "56",
-                        hint: "This is a times table fact. Try counting in 7s or 8s to check your answer."
-                    },
-                    {
-                        question: "Calculate: 543 - 178",
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What had the fox been described as?",
                         type: "input",
-                        answer: "365",
-                        hint: "Line up by place value. When the top digit is smaller, borrow from the next column."
+                        answer: "A silent hunter",
+                        hint: "Look for the phrase that tells us what type of animal the fox is."
                     },
                     {
-                        question: "What is 10% of 80?",
-                        type: "multiple",
-                        options: ["4", "8", "10", "18"],
-                        answer: "8",
-                        hint: "10% means 10 out of 100. What's an easy way to find 10% of any number?"
-                    },
-                    {
-                        question: "Calculate: 84 ÷ 4",
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What colour were the fox's eyes?",
                         type: "input",
-                        answer: "21",
-                        hint: "Think: how many groups of 4 make 84? Use your 4 times table to help."
+                        answer: "amber",
+                        hint: "Look for the word that describes the fox's eyes in the passage."
                     },
                     {
-                        question: "What is 1/2 of 24?",
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What does the word focused mean in this passage?",
                         type: "multiple",
-                        options: ["6", "12", "18", "24"],
+                        options: ["scared", "sleepy", "concentrating"],
+                        answer: "concentrating",
+                        hint: "Think about what the fox is doing - it's paying close attention to something."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What did the fox do beneath the oak tree?",
+                        type: "input",
+                        answer: "It paused",
+                        hint: "Look at what happened when the fox reached the tree."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "The text suggests the fox was hunting. What is the main clue for this?",
+                        type: "input",
+                        answer: "It was \"searching for any sign of movement\"",
+                        hint: "Look for what the fox was doing with its eyes."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "\"...a statue in the moonlight.\" What does this tell you about how the fox was standing?",
+                        type: "multiple",
+                        options: ["It was shivering.", "It was very still.", "It was made of stone."],
+                        answer: "It was very still.",
+                        hint: "Think about how a statue looks - does it move?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "Which of the following best describes the atmosphere?",
+                        type: "multiple",
+                        options: ["noisy and busy", "quiet and tense", "happy and relaxed"],
+                        answer: "quiet and tense",
+                        hint: "Think about the mood - is it peaceful and calm or is there tension in the air?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "Find and copy the group of words that tells you what the fox was looking for.",
+                        type: "input",
+                        answer: "any sign of movement",
+                        hint: "What was the fox searching for? Look for the exact phrase."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "The word distant tells us the car was...",
+                        type: "input",
+                        answer: "far away",
+                        hint: "What does 'distant' mean? Think about how close or far the car was."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What was the only sound mentioned in the passage?",
+                        type: "input",
+                        answer: "A distant car",
+                        hint: "Listen carefully - what sound is described in the passage?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "Why do you think the author described the fox as 'silent'?",
+                        type: "input",
+                        answer: "Because it needed to be quiet to avoid scaring away its prey",
+                        hint: "Think about why hunters need to be quiet."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "True or False: The fox was scared of the car.",
+                        type: "multiple",
+                        options: ["True", "False"],
+                        answer: "False",
+                        hint: "Did the fox run away when the car went past? What does this tell you?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What time of day is it in the passage?",
+                        type: "input",
+                        answer: "Night",
+                        hint: "Look for clues about light in the passage."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "Look at the first sentence. Which word is closest in meaning to 'darted'?",
+                        type: "multiple",
+                        options: ["crawled", "jumped", "zipped"],
+                        answer: "zipped",
+                        hint: "All these words mean 'moved quickly' but which one is most similar to 'darted'?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What type of tree did the fox pause beneath?",
+                        type: "input",
+                        answer: "An oak tree",
+                        hint: "Look for the type of tree mentioned in the passage."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What sense was the fox using the most?",
+                        type: "multiple",
+                        options: ["hearing", "sight", "smell"],
+                        answer: "sight",
+                        hint: "What was the fox doing with its eyes? This tells you which sense it was using."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "Find and copy one word that is a colour.",
+                        type: "input",
+                        answer: "orange",
+                        hint: "Look through the passage for any words that describe colours."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "\"A distant car rumbled past...\" What does this suggest about the sound of the car?",
+                        type: "input",
+                        answer: "It was a low, deep sound",
+                        hint: "What does 'rumbled' tell you about the type of sound the car made?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "The author is trying to make the fox seem...",
+                        type: "multiple",
+                        options: ["clumsy and loud", "graceful and focused", "playful and friendly"],
+                        answer: "graceful and focused",
+                        hint: "Think about how the fox is described - what impression does the author want to give?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What was the source of light in the passage?",
+                        type: "input",
+                        answer: "The moonlight",
+                        hint: "What type of light is mentioned at the end of the passage?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "How do you know the fox was not a pet?",
+                        type: "input",
+                        answer: "It is described as a \"hunter\" in a garden, suggesting it is wild",
+                        hint: "Think about where the fox is and what it's doing. Would a pet fox behave this way?"
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "The fox is described as a 'creature'. Find and copy another word used to describe the fox.",
+                        type: "input",
+                        answer: "hunter",
+                        hint: "Look for other words in the passage that tell us what the fox is."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "What might the fox have been hunting for? Give one example.",
+                        type: "input",
+                        answer: "A mouse",
+                        hint: "Think about what small animals foxes like to hunt for food."
+                    },
+                    {
+                        passage: "A flash of orange fur darted across the lawn. The fox, a silent hunter, paused beneath the old oak tree. Its amber eyes scanned the darkness, searching for any sign of movement. A distant car rumbled past, but the creature remained focused, a statue in the moonlight.",
+                        question: "The overall mood of the passage is...",
+                        type: "multiple",
+                        options: ["peaceful", "chaotic", "joyful"],
+                        answer: "peaceful",
+                        hint: "Despite the tension of hunting, what is the general feeling of the scene?"
+                    }],
+                'grammar': [
+                    // Year 5 Grammar Questions (25 total)
+                    {
+                        question: "Which sentence is a command?",
+                        type: "multiple",
+                        options: ["Please can you shut the door?", "I am shutting the door.", "Shut the door quietly."],
+                        answer: "Shut the door quietly.",
+                        hint: "A command tells someone to do something. It usually starts with a verb and doesn't ask - it tells."
+                    },
+                    {
+                        question: "Insert a comma in the correct place: After the rain stopped the sun came out.",
+                        type: "input",
+                        answer: "After the rain stopped, the sun came out.",
+                        hint: "Put a comma after the first part of the sentence, before 'the sun came out'."
+                    },
+                    {
+                        question: "Circle the two adjectives in the sentence: The little cat had very sharp claws.",
+                        type: "multiple",
+                        options: ["little and sharp", "little and very", "cat and claws"],
+                        answer: "little and sharp",
+                        hint: "Adjectives describe nouns. Which words describe the cat and its claws?"
+                    },
+                    {
+                        question: "Rewrite the underlined verb in the simple past tense: I think it is a good idea.",
+                        type: "input",
+                        answer: "I thought it was a good idea.",
+                        hint: "Change 'think' to past tense and 'is' to past tense too."
+                    },
+                    {
+                        question: "Add the correct apostrophe to show that the bikes belong to the boys: The boys bikes were leaning against the wall.",
+                        type: "input",
+                        answer: "The boys' bikes were leaning against the wall.",
+                        hint: "The bikes belong to more than one boy, so the apostrophe goes after the 's'."
+                    },
+                    {
+                        question: "Which of these words should have a capital letter?",
+                        type: "multiple",
+                        options: ["river", "street", "monday"],
+                        answer: "monday",
+                        hint: "Days of the week always start with a capital letter."
+                    },
+                    {
+                        question: "Underline the modal verb in the sentence: We will go to the beach tomorrow.",
+                        type: "multiple",
+                        options: ["We", "will", "go", "beach"],
+                        answer: "will",
+                        hint: "Modal verbs show possibility, necessity, or ability. They come before main verbs."
+                    },
+                    {
+                        question: "Correct the spelling of the underlined word: We had a party to celebrayt my birthday.",
+                        type: "input",
+                        answer: "celebrate",
+                        hint: "This word ends in '-ate', not '-ayt'."
+                    },
+                    {
+                        question: "Which sentence uses 'their' correctly?",
+                        type: "multiple",
+                        options: ["They're going to the park.", "Their dog is very friendly.", "The shops are over there."],
+                        answer: "Their dog is very friendly.",
+                        hint: "'Their' shows ownership. 'They're' means 'they are'. 'There' shows a place."
+                    },
+                    {
+                        question: "Circle the conjunction in the sentence: He was tired, so he went to bed.",
+                        type: "multiple",
+                        options: ["He", "was", "so", "bed"],
+                        answer: "so",
+                        hint: "A conjunction joins two parts of a sentence together."
+                    },
+                    {
+                        question: "Add the missing full stop to this sentence: The school trip was fun",
+                        type: "input",
+                        answer: "The school trip was fun.",
+                        hint: "Every sentence needs a full stop at the end."
+                    },
+                    {
+                        question: "The plural of leaf is ______.",
+                        type: "input",
+                        answer: "leaves",
+                        hint: "When a word ends in 'f', we usually change it to 'ves' for the plural."
+                    },
+                    {
+                        question: "Underline the preposition in the sentence: The cat slept under the bed.",
+                        type: "multiple",
+                        options: ["cat", "slept", "under", "bed"],
+                        answer: "under",
+                        hint: "A preposition shows the position of something - where it is."
+                    },
+                    {
+                        question: "Circle the verb in the sentence: The horses galloped across the field.",
+                        type: "multiple",
+                        options: ["horses", "galloped", "across", "field"],
+                        answer: "galloped",
+                        hint: "A verb is a doing word - what action are the horses doing?"
+                    },
+                    {
+                        question: "Which sentence is punctuated correctly?",
+                        type: "multiple",
+                        options: ["\"What's for dinner? asked Ben.\"", "\"What's for dinner?\" asked Ben.", "\"Whats for dinner?\" asked Ben."],
+                        answer: "\"What's for dinner?\" asked Ben.",
+                        hint: "Speech marks go around the spoken words, and there should be an apostrophe in 'What's'."
+                    },
+                    {
+                        question: "Add a suffix to make the verb 'enjoy' a noun.",
+                        type: "input",
+                        answer: "enjoyment",
+                        hint: "Add '-ment' to the end of 'enjoy' to make it a noun."
+                    },
+                    {
+                        question: "Tick the correct pronoun to complete the sentence: Tom and ___ went to the cinema.",
+                        type: "multiple",
+                        options: ["me", "I"],
+                        answer: "I",
+                        hint: "Say the sentence without 'Tom and' - which sounds right: 'I went' or 'me went'?"
+                    },
+                    {
+                        question: "Insert the correct determiner (a/an): He is ___ honest man.",
+                        type: "input",
+                        answer: "an",
+                        hint: "Use 'an' before words that start with a vowel sound, even if they start with 'h'."
+                    },
+                    {
+                        question: "Underline the relative clause: The park, which is near my house, is lovely.",
+                        type: "input",
+                        answer: "which is near my house",
+                        hint: "A relative clause gives extra information and usually starts with 'which', 'who', or 'that'."
+                    },
+                    {
+                        question: "Change this sentence to the present tense: She walked to the shop.",
+                        type: "input",
+                        answer: "She walks to the shop.",
+                        hint: "Change the past tense verb 'walked' to present tense 'walks'."
+                    },
+                    {
+                        question: "Circle the two nouns: The teacher put the books on the table.",
+                        type: "multiple",
+                        options: ["teacher and books", "teacher and put", "books and table"],
+                        answer: "teacher and books",
+                        hint: "Nouns are naming words - they name people, places, or things."
+                    },
+                    {
+                        question: "Which word is an adverb?",
+                        type: "multiple",
+                        options: ["quick", "quickly", "quicken"],
+                        answer: "quickly",
+                        hint: "Adverbs often end in '-ly' and describe how something is done."
+                    },
+                    {
+                        question: "Add commas to the list: I need bread eggs and milk.",
+                        type: "input",
+                        answer: "I need bread, eggs, and milk.",
+                        hint: "Put commas between items in a list."
+                    },
+                    {
+                        question: "What is the contraction for 'do not'?",
+                        type: "input",
+                        answer: "don't",
+                        hint: "Join the two words and replace the 'o' with an apostrophe."
+                    },
+                    {
+                        question: "Correct the spelling of the underlined word: I have a new pare of shoes.",
+                        type: "input",
+                        answer: "pair",
+                        hint: "This word sounds like 'pear' (the fruit) but has a different spelling."
+                    }],
+                'mathematics': [
+                    // Year 5 Arithmetic (25 questions)
+                    {
+                        question: "5,432 + 384 = ?",
+                        type: "input",
+                        answer: "5816",
+                        hint: "Line up the numbers by place value. Add from right to left, carrying when needed."
+                    },
+                    {
+                        question: "2,035 - 500 = ?",
+                        type: "input",
+                        answer: "1535",
+                        hint: "When subtracting hundreds, take away 5 from the hundreds column."
+                    },
+                    {
+                        question: "60 × 8 = ?",
+                        type: "input",
+                        answer: "480",
+                        hint: "Think 6 × 8 = 48, then add the zero to make 480."
+                    },
+                    {
+                        question: "450 ÷ 9 = ?",
+                        type: "input",
+                        answer: "50",
+                        hint: "Think: 9 times what number equals 450? Try your 9 times table."
+                    },
+                    {
+                        question: "6.2 + 3.9 = ?",
+                        type: "input",
+                        answer: "10.1",
+                        hint: "Line up the decimal points and add. 6.2 + 3.9 = 10.1"
+                    },
+                    {
+                        question: "100 × 0.54 = ?",
+                        type: "input",
+                        answer: "54",
+                        hint: "When multiplying by 100, move the decimal point 2 places to the right."
+                    },
+                    {
+                        question: "5/8 + 1/8 = ?",
+                        type: "input",
+                        answer: "6/8",
+                        hint: "When the bottom numbers are the same, just add the top numbers."
+                    },
+                    {
+                        question: "50% of 120 = ?",
+                        type: "input",
+                        answer: "60",
+                        hint: "50% means half. What's 120 ÷ 2?"
+                    },
+                    {
+                        question: "7² = ?",
+                        type: "input",
+                        answer: "49",
+                        hint: "7² means 7 × 7. What's 7 times 7?"
+                    },
+                    {
+                        question: "1,200 ÷ 10 = ?",
+                        type: "input",
+                        answer: "120",
+                        hint: "When dividing by 10, move all digits one place to the right."
+                    },
+                    {
+                        question: "4 × 250 = ?",
+                        type: "input",
+                        answer: "1000",
+                        hint: "Think 4 × 25 = 100, then add the zero to make 1000."
+                    },
+                    {
+                        question: "2 - 0.5 = ?",
+                        type: "input",
+                        answer: "1.5",
+                        hint: "Think of 2 as 2.0, then subtract 0.5."
+                    },
+                    {
+                        question: "2,848 ÷ 8 = ?",
+                        type: "input",
+                        answer: "356",
+                        hint: "Use long division. How many 8s go into 28? Then 4? Then 8?"
+                    },
+                    {
+                        question: "1/3 of 36 = ?",
+                        type: "input",
                         answer: "12",
-                        hint: "Half of something means divide by 2. What's 24 ÷ 2?"
+                        hint: "To find 1/3, divide by 3. What's 36 ÷ 3?"
                     },
                     {
-                        question: "Calculate: 1.5 + 2.3",
+                        question: "10 - 4.2 = ?",
                         type: "input",
-                        answer: "3.8",
-                        hint: "Line up the decimal points. Add normally, keeping the decimal point in the same position."
+                        answer: "5.8",
+                        hint: "Think of 10 as 10.0, then subtract 4.2."
                     },
                     {
-                        question: "What is 25% of 100?",
-                        type: "multiple",
-                        options: ["20", "25", "50", "75"],
+                        question: "1,234 + 5,678 = ?",
+                        type: "input",
+                        answer: "6912",
+                        hint: "Line up the numbers and add each column, carrying when needed."
+                    },
+                    {
+                        question: "3,000 - 1 = ?",
+                        type: "input",
+                        answer: "2999",
+                        hint: "When subtracting 1 from a round number, the last digit becomes 9."
+                    },
+                    {
+                        question: "125 × 3 = ?",
+                        type: "input",
+                        answer: "375",
+                        hint: "Break it down: 125 × 3 = (100 × 3) + (25 × 3) = 300 + 75."
+                    },
+                    {
+                        question: "360 ÷ 6 = ?",
+                        type: "input",
+                        answer: "60",
+                        hint: "Think: 6 times what number equals 360? Try your 6 times table."
+                    },
+                    {
+                        question: "7.1 - 0.4 = ?",
+                        type: "input",
+                        answer: "6.7",
+                        hint: "Line up the decimal points and subtract carefully."
+                    },
+                    {
+                        question: "10 × 45.6 = ?",
+                        type: "input",
+                        answer: "456",
+                        hint: "When multiplying by 10, move the decimal point 1 place to the right."
+                    },
+                    {
+                        question: "1/4 + 1/2 = ?",
+                        type: "input",
+                        answer: "3/4",
+                        hint: "Change 1/2 to 2/4, then add: 1/4 + 2/4 = 3/4."
+                    },
+                    {
+                        question: "10% of 250 = ?",
+                        type: "input",
                         answer: "25",
-                        hint: "25% means 25 out of 100. What fraction is this equivalent to?"
+                        hint: "10% means divide by 10. What's 250 ÷ 10?"
+                    },
+                    {
+                        question: "5 × 6 × 7 = ?",
+                        type: "input",
+                        answer: "210",
+                        hint: "Multiply two numbers first: 5 × 6 = 30, then 30 × 7 = 210."
+                    },
+                    {
+                        question: "8,400 ÷ 100 = ?",
+                        type: "input",
+                        answer: "84",
+                        hint: "When dividing by 100, move the decimal point 2 places to the left."
+                    },
+                    // Year 5 Reasoning (25 questions)
+                    {
+                        question: "Round 1,485 to the nearest hundred.",
+                        type: "input",
+                        answer: "1500",
+                        hint: "Look at the tens digit. If it's 5 or more, round up to 1500."
+                    },
+                    {
+                        question: "Here are four angles. Which one is obtuse?",
+                        type: "multiple",
+                        options: ["45°", "90°", "110°", "180°"],
+                        answer: "110°",
+                        hint: "An obtuse angle is more than 90° but less than 180°."
+                    },
+                    {
+                        question: "A film starts at 1:45 PM and lasts for 90 minutes. What time does it finish?",
+                        type: "input",
+                        answer: "3:15 PM",
+                        hint: "90 minutes = 1 hour 30 minutes. Add this to 1:45 PM."
+                    },
+                    {
+                        question: "What is the area of a rectangle with sides 7cm and 5cm?",
+                        type: "input",
+                        answer: "35cm²",
+                        hint: "Area = length × width. So 7 × 5 = 35cm²."
+                    },
+                    {
+                        question: "Write down all the factors of 12.",
+                        type: "input",
+                        answer: "1, 2, 3, 4, 6, 12",
+                        hint: "Factors are numbers that divide exactly into 12."
+                    },
+                    {
+                        question: "How many millilitres are in 2.5 litres?",
+                        type: "input",
+                        answer: "2500ml",
+                        hint: "1 litre = 1000ml, so 2.5 litres = 2.5 × 1000."
+                    },
+                    {
+                        question: "What is the next number in the sequence? 3, 7, 11, 15, ___",
+                        type: "input",
+                        answer: "19",
+                        hint: "Look at the pattern: each number goes up by 4."
+                    },
+                    {
+                        question: "A book costs £4.50. How much do 3 books cost?",
+                        type: "input",
+                        answer: "£13.50",
+                        hint: "Multiply the cost of one book by 3: £4.50 × 3."
+                    },
+                    {
+                        question: "What is 1/4 as a percentage?",
+                        type: "input",
+                        answer: "25%",
+                        hint: "1/4 = 25/100 = 25%."
+                    },
+                    {
+                        question: "How many vertices does a cube have?",
+                        type: "input",
+                        answer: "8",
+                        hint: "A cube has 8 corners. Each corner is called a vertex."
+                    },
+                    {
+                        question: "A bus has 40 seats. 15 are empty. What fraction of the seats are full?",
+                        type: "input",
+                        answer: "25/40",
+                        hint: "Full seats = 40 - 15 = 25. So the fraction is 25/40."
+                    },
+                    {
+                        question: "Which of these is a prime number?",
+                        type: "multiple",
+                        options: ["9", "10", "11", "12"],
+                        answer: "11",
+                        hint: "A prime number only divides by 1 and itself. Check which number fits this."
+                    },
+                    {
+                        question: "A bag of sweets contains 10 red sweets and 5 blue sweets. What percentage of the sweets are blue?",
+                        type: "input",
+                        answer: "33.3%",
+                        hint: "Total sweets = 15. Blue sweets = 5. So 5/15 = 1/3 = 33.3%."
+                    },
+                    {
+                        question: "A train leaves Whitley Bay at 09:30 and arrives in Newcastle at 10:05. How long is the journey?",
+                        type: "input",
+                        answer: "35 minutes",
+                        hint: "Count from 09:30 to 10:05. That's 35 minutes."
+                    },
+                    {
+                        question: "Write the number 52,084 in words.",
+                        type: "input",
+                        answer: "Fifty-two thousand and eighty-four",
+                        hint: "Break it down: 52,000 = fifty-two thousand, 84 = eighty-four."
+                    },
+                    {
+                        question: "What number is halfway between 10 and 40?",
+                        type: "input",
+                        answer: "25",
+                        hint: "Add 10 and 40, then divide by 2: (10 + 40) ÷ 2 = 25."
+                    },
+                    {
+                        question: "A square has a perimeter of 44cm. What is the length of one side?",
+                        type: "input",
+                        answer: "11cm",
+                        hint: "A square has 4 equal sides. So one side = 44 ÷ 4 = 11cm."
+                    },
+                    {
+                        question: "How many seconds are there in 5 minutes?",
+                        type: "input",
+                        answer: "300 seconds",
+                        hint: "1 minute = 60 seconds. So 5 minutes = 5 × 60 = 300 seconds."
+                    },
+                    {
+                        question: "Which is larger? 0.5 or 0.45?",
+                        type: "input",
+                        answer: "0.5",
+                        hint: "Compare the tenths: 0.5 has 5 tenths, 0.45 has 4 tenths."
+                    },
+                    {
+                        question: "A bar chart shows 50 children were asked their favourite colour. 25 chose blue. What percentage is this?",
+                        type: "input",
+                        answer: "50%",
+                        hint: "25 out of 50 = 25/50 = 1/2 = 50%."
+                    },
+                    {
+                        question: "What are the coordinates of the point (2,3) translated 3 squares right and 1 square up?",
+                        type: "input",
+                        answer: "(5,4)",
+                        hint: "Right means add to x-coordinate: 2+3=5. Up means add to y-coordinate: 3+1=4."
+                    },
+                    {
+                        question: "A box contains 30 chocolates. 1/5 are eaten. How many are left?",
+                        type: "input",
+                        answer: "24",
+                        hint: "1/5 of 30 = 6 eaten. So 30 - 6 = 24 left."
+                    },
+                    {
+                        question: "Write down two numbers that are multiples of 8.",
+                        type: "input",
+                        answer: "16, 24",
+                        hint: "Multiples of 8: 8, 16, 24, 32, 40... Pick any two."
+                    },
+                    {
+                        question: "What is the name of a triangle with two equal sides?",
+                        type: "input",
+                        answer: "Isosceles",
+                        hint: "An isosceles triangle has two sides the same length."
+                    },
+                    {
+                        question: "A bag of flour weighs 1kg. If 250g is used, how many grams are left?",
+                        type: "input",
+                        answer: "750g",
+                        hint: "1kg = 1000g. So 1000g - 250g = 750g."
+                    }]
+            },
+            'year6': {
+                'reading': [
+                    // Year 6 Reading Questions (25 total) - Honeybee passage
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What is the bee's 'vital' role?",
+                        type: "input",
+                        answer: "As a pollinator",
+                        hint: "Look at the beginning of the passage. What important job do bees do?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "According to the text, what are two threats that bees face?",
+                        type: "input",
+                        answer: "Pesticides and habitat loss",
+                        hint: "Look for the list of dangers mentioned near the end of the passage."
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "\"...a matter of urgent global importance.\" What does urgent mean here?",
+                        type: "multiple",
+                        options: ["unimportant", "needs immediate attention", "interesting"],
+                        answer: "needs immediate attention",
+                        hint: "Urgent means something needs to be done quickly. Which option matches this?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Why is the bee's act of pollination so important for humans?",
+                        type: "input",
+                        answer: "Because it is responsible for a huge proportion of the food we eat",
+                        hint: "What does the text say about the connection between bee pollination and our food?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What does the word foraging mean?",
+                        type: "multiple",
+                        options: ["sleeping", "searching for food", "building a hive"],
+                        answer: "searching for food",
+                        hint: "Think about what bees do when they visit flowers. What are they looking for?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Find and copy a word that means the same as 'essential' or 'very important'.",
+                        type: "input",
+                        answer: "vital",
+                        hint: "Look for a word early in the passage that describes how important the bee's role is."
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "The main purpose of this text is to...",
+                        type: "input",
+                        answer: "Inform the reader about the importance of bees and the threats they face",
+                        hint: "What is the writer trying to tell us? What do they want us to understand about bees?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Which word tells you that the threats to bees are a worldwide issue?",
+                        type: "input",
+                        answer: "global",
+                        hint: "Which word in the passage suggests this problem affects the whole world?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What is being transferred between flowers?",
+                        type: "input",
+                        answer: "Pollen",
+                        hint: "What do the bees carry from flower to flower? Look carefully at the process described."
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "The tone of the final sentence can best be described as...",
+                        type: "multiple",
+                        options: ["humorous", "concerned", "confusing"],
+                        answer: "concerned",
+                        hint: "How does the writer feel about the threats to bees? What emotion comes through in their words?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What does the word conservation mean in this context?",
+                        type: "input",
+                        answer: "Protection",
+                        hint: "If bees are under threat, what would conservation mean? What do we need to do for them?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What does the text say enables fertilisation in flowers?",
+                        type: "input",
+                        answer: "The transfer of pollen between them",
+                        hint: "What process allows flowers to be fertilised? What do the bees do that makes this happen?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Which of these is a fact from the text?",
+                        type: "multiple",
+                        options: ["Bees are the most interesting insects.", "Everyone should keep bees.", "Bees face numerous threats."],
+                        answer: "Bees face numerous threats.",
+                        hint: "Which statement is directly supported by information in the text?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Find and copy the word that means 'many'.",
+                        type: "input",
+                        answer: "numerous",
+                        hint: "Look for a word that means the same as 'many' or 'lots of'."
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "The text suggests that if bee populations decline further...",
+                        type: "input",
+                        answer: "Our food supply could be at risk",
+                        hint: "If bees are responsible for much of our food, what might happen if there are fewer bees?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What does 'habitat loss' mean for the bees?",
+                        type: "input",
+                        answer: "They are losing the places where they live",
+                        hint: "A habitat is where an animal lives. What would habitat loss mean?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "The word proportion means...",
+                        type: "multiple",
+                        options: ["a small number.", "a part or share of a whole.", "a problem."],
+                        answer: "a part or share of a whole.",
+                        hint: "Think about what 'a huge proportion' means. Is it talking about a part of something?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "This text is an example of...",
+                        type: "input",
+                        answer: "Non-fiction",
+                        hint: "Is this text telling a made-up story or giving real information about something?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Why has the author used the word \"single act\"?",
+                        type: "input",
+                        answer: "To emphasise how important one simple action by a bee is",
+                        hint: "Why might the writer want to stress that this is just 'one' action? What point are they making?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What is a pesticide?",
+                        type: "input",
+                        answer: "A chemical used to kill pests",
+                        hint: "Break down the word: 'pest' + 'cide'. What do you think this means?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Find and copy a word that describes the bee population.",
+                        type: "input",
+                        answer: "populations",
+                        hint: "What word is used to describe groups of bees?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Who is the intended audience for this text?",
+                        type: "input",
+                        answer: "The general public",
+                        hint: "Who do you think the writer wants to read this? Is it written for experts or everyday people?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "The text is organised to first explain the importance of bees, then...",
+                        type: "input",
+                        answer: "to explain the dangers they face",
+                        hint: "Look at the structure: first the text talks about what bees do, then it talks about what?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "What is the function of the word 'However'?",
+                        type: "input",
+                        answer: "It introduces a contrasting idea",
+                        hint: "The text talks about good things bees do, then says 'However...' What type of information comes next?"
+                    },
+                    {
+                        passage: "The honeybee's role as a pollinator is vital for global ecosystems. While foraging, a bee collects pollen on its legs, transferring it between flowers and enabling fertilisation. This single act is responsible for a huge proportion of the food we eat. However, bee populations face numerous threats, from pesticides to habitat loss, making their conservation a matter of urgent global importance.",
+                        question: "Summarise the main point of the text in one sentence.",
+                        type: "input",
+                        answer: "Bees are vital for our food supply but are under threat and need protecting",
+                        hint: "Try to capture both the importance of bees and the problems they face in one sentence."
+                    }],
+                'grammar': [
+                    // Year 6 Grammar Questions (25 total)
+                    {
+                        question: "Rewrite this sentence in the passive voice: Alexander Fleming discovered penicillin.",
+                        type: "input",
+                        answer: "Penicillin was discovered by Alexander Fleming.",
+                        hint: "In passive voice, the object becomes the subject. Start with 'Penicillin was...'."
+                    },
+                    {
+                        question: "Which sentence uses a semi-colon correctly?",
+                        type: "multiple",
+                        options: ["He was late; for the bus.", "He was late; the bus had already gone.", "He was late; and missed the bus."],
+                        answer: "He was late; the bus had already gone.",
+                        hint: "A semi-colon joins two complete sentences that could stand alone."
+                    },
+                    {
+                        question: "Insert a colon in the correct place: She had one main goal to win the race.",
+                        type: "input",
+                        answer: "She had one main goal: to win the race.",
+                        hint: "A colon introduces an explanation or list. Put it after 'goal'."
+                    },
+                    {
+                        question: "Tick the sentence written in the subjunctive mood.",
+                        type: "multiple",
+                        options: ["If I was the captain, I would be happy.", "If I were the captain, I would be happy."],
+                        answer: "If I were the captain, I would be happy.",
+                        hint: "In subjunctive mood, we use 'were' instead of 'was' in 'if' clauses."
+                    },
+                    {
+                        question: "Add hyphens to the sentence: The ten year old girl bought a well written book.",
+                        type: "input",
+                        answer: "The ten-year-old girl bought a well-written book.",
+                        hint: "Use hyphens to join words that work together to describe something."
+                    },
+                    {
+                        question: "Which sentence is active?",
+                        type: "multiple",
+                        options: ["The window was broken by the ball.", "The ball broke the window."],
+                        answer: "The ball broke the window.",
+                        hint: "In active voice, the subject does the action. Who/what did the breaking?"
+                    },
+                    {
+                        question: "Correct the spelling of the underlined word: The school trip was an amazing oppertunity.",
+                        type: "input",
+                        answer: "opportunity",
+                        hint: "This word has two 'p's and one 'r'. Think: opp-or-tun-ity."
+                    },
+                    {
+                        question: "Insert brackets for parenthesis: The new teacher who was from Whitley Bay was very friendly.",
+                        type: "input",
+                        answer: "The new teacher (who was from Whitley Bay) was very friendly.",
+                        hint: "Brackets go around extra information that could be removed from the sentence."
+                    },
+                    {
+                        question: "Which is the correct plural of analysis?",
+                        type: "input",
+                        answer: "analyses",
+                        hint: "Words ending in '-sis' change to '-ses' in the plural."
+                    },
+                    {
+                        question: "Is the language in a legal document usually formal or informal?",
+                        type: "input",
+                        answer: "Formal",
+                        hint: "Think about how lawyers and judges speak and write."
+                    },
+                    {
+                        question: "Insert a dash for parenthesis: My favourite food pizza was on the menu.",
+                        type: "input",
+                        answer: "My favourite food – pizza – was on the menu.",
+                        hint: "Dashes can be used like brackets to add extra information."
+                    },
+                    {
+                        question: "Correct the spelling of the underlined word: He was very consciencious about his work.",
+                        type: "input",
+                        answer: "conscientious",
+                        hint: "This word has 'science' in the middle: con-science-tious."
+                    },
+                    {
+                        question: "Which sentence is passive?",
+                        type: "multiple",
+                        options: ["The dog chased the cat.", "The cat was chased by the dog."],
+                        answer: "The cat was chased by the dog.",
+                        hint: "In passive voice, the action is done 'by' someone or something."
+                    },
+                    {
+                        question: "Add a colon: He gave a simple instruction Wait here.",
+                        type: "input",
+                        answer: "He gave a simple instruction: \"Wait here.\"",
+                        hint: "A colon introduces direct speech or instructions."
+                    },
+                    {
+                        question: "Add a semi-colon: Some like hot weather others prefer the cold.",
+                        type: "input",
+                        answer: "Some like hot weather; others prefer the cold.",
+                        hint: "Use a semi-colon to join two related sentences."
+                    },
+                    {
+                        question: "Rewrite this sentence in the active voice: The prize was won by our team.",
+                        type: "input",
+                        answer: "Our team won the prize.",
+                        hint: "Move the subject doing the action to the front of the sentence."
+                    },
+                    {
+                        question: "Tick the sentence that uses a colon correctly to introduce a clause.",
+                        type: "multiple",
+                        options: ["She knew what to do: run.", "The answer was simple: he had forgotten."],
+                        answer: "The answer was simple: he had forgotten.",
+                        hint: "A colon can introduce a complete explanation or clause."
+                    },
+                    {
+                        question: "Correct the spelling: It is a real priviledge.",
+                        type: "input",
+                        answer: "privilege",
+                        hint: "Remember: priv-i-lege (not -ledge)."
+                    },
+                    {
+                        question: "What is the verb in this passive sentence? The message was sent yesterday.",
+                        type: "input",
+                        answer: "was sent",
+                        hint: "In passive sentences, the verb includes a form of 'be' plus the past participle."
+                    },
+                    {
+                        question: "Use a hyphen to avoid ambiguity: I saw a man eating shark.",
+                        type: "input",
+                        answer: "I saw a man-eating shark.",
+                        hint: "Without the hyphen, it sounds like a man is eating a shark!"
+                    },
+                    {
+                        question: "Which word is a synonym for 'vital'?",
+                        type: "multiple",
+                        options: ["unnecessary", "essential", "boring"],
+                        answer: "essential",
+                        hint: "A synonym means the same thing. Which word means the same as 'vital'?"
+                    },
+                    {
+                        question: "Change this to the subjunctive mood: It is important that he is on time.",
+                        type: "input",
+                        answer: "It is important that he be on time.",
+                        hint: "In subjunctive mood after 'that', use the base form of the verb."
+                    },
+                    {
+                        question: "The words 'practice' (noun) and 'practise' (verb) are examples of...",
+                        type: "input",
+                        answer: "Homophones",
+                        hint: "These words sound the same but have different spellings and meanings."
+                    },
+                    {
+                        question: "Which is more formal?",
+                        type: "multiple",
+                        options: ["I think...", "It is considered that..."],
+                        answer: "It is considered that...",
+                        hint: "Formal language avoids personal pronouns like 'I'."
+                    },
+                    {
+                        question: "Add dashes for parenthesis: The old house which had been empty for years was finally sold.",
+                        type: "input",
+                        answer: "The old house – which had been empty for years – was finally sold.",
+                        hint: "Dashes can replace commas or brackets around extra information."
+                    }],
+                'mathematics': [
+                    // Year 6 Arithmetic (25 questions)
+                    {
+                        question: "1,582 × 24 = ?",
+                        type: "input",
+                        answer: "37968",
+                        hint: "Use long multiplication. Multiply by 4 first, then by 20, then add the results."
+                    },
+                    {
+                        question: "1,872 ÷ 12 = ?",
+                        type: "input",
+                        answer: "156",
+                        hint: "Use long division. How many 12s go into 18? Then 7? Then 2?"
+                    },
+                    {
+                        question: "20% of 1,500 = ?",
+                        type: "input",
+                        answer: "300",
+                        hint: "20% = 1/5. Divide 1,500 by 5."
+                    },
+                    {
+                        question: "2/5 + 1/4 = ?",
+                        type: "input",
+                        answer: "13/20",
+                        hint: "Find a common denominator. 2/5 = 8/20 and 1/4 = 5/20."
+                    },
+                    {
+                        question: "3/4 ÷ 2 = ?",
+                        type: "input",
+                        answer: "3/8",
+                        hint: "Dividing by 2 is the same as multiplying by 1/2."
+                    },
+                    {
+                        question: "10 - (4 × 1.5) = ?",
+                        type: "input",
+                        answer: "4",
+                        hint: "Do the brackets first: 4 × 1.5 = 6, then 10 - 6 = 4."
+                    },
+                    {
+                        question: "1 1/2 × 20 = ?",
+                        type: "input",
+                        answer: "30",
+                        hint: "1 1/2 = 1.5, so 1.5 × 20 = 30."
+                    },
+                    {
+                        question: "99% of 300 = ?",
+                        type: "input",
+                        answer: "297",
+                        hint: "99% is nearly 100%. 100% of 300 = 300, so 99% = 300 - 3 = 297."
+                    },
+                    {
+                        question: "1,596 ÷ 28 = ?",
+                        type: "input",
+                        answer: "57",
+                        hint: "Use long division or think: 28 × 50 = 1,400, so 28 × 57 = ?"
+                    },
+                    {
+                        question: "25 × 1.4 = ?",
+                        type: "input",
+                        answer: "35",
+                        hint: "25 × 1.4 = 25 × 1 + 25 × 0.4 = 25 + 10 = 35."
+                    },
+                    {
+                        question: "30 × (2.5 + 0.5) = ?",
+                        type: "input",
+                        answer: "90",
+                        hint: "Do the brackets first: 2.5 + 0.5 = 3, then 30 × 3 = 90."
+                    },
+                    {
+                        question: "2/3 × 1/4 = ?",
+                        type: "input",
+                        answer: "1/6",
+                        hint: "Multiply the top numbers together and the bottom numbers together."
+                    },
+                    {
+                        question: "1,234 × 31 = ?",
+                        type: "input",
+                        answer: "38254",
+                        hint: "Use long multiplication: 1,234 × 30 + 1,234 × 1."
+                    },
+                    {
+                        question: "30 - 5 × 4 + 2 = ?",
+                        type: "input",
+                        answer: "12",
+                        hint: "Follow BODMAS: 5 × 4 = 20, then 30 - 20 + 2 = 12."
+                    },
+                    {
+                        question: "2.5 ÷ 100 = ?",
+                        type: "input",
+                        answer: "0.025",
+                        hint: "Dividing by 100 moves the decimal point 2 places left."
+                    },
+                    {
+                        question: "3,472 ÷ 16 = ?",
+                        type: "input",
+                        answer: "217",
+                        hint: "Use long division or work out 16 × 200 first."
+                    },
+                    {
+                        question: "2.5 × 28 = ?",
+                        type: "input",
+                        answer: "70",
+                        hint: "2.5 × 28 = 2.5 × 4 × 7 = 10 × 7 = 70."
+                    },
+                    {
+                        question: "15% of 600 = ?",
+                        type: "input",
+                        answer: "90",
+                        hint: "10% of 600 = 60, so 15% = 60 + 30 = 90."
+                    },
+                    {
+                        question: "2 1/4 - 1 1/2 = ?",
+                        type: "input",
+                        answer: "3/4",
+                        hint: "Convert to quarters: 2 1/4 - 1 2/4 = 3/4."
+                    },
+                    {
+                        question: "1/5 ÷ 4 = ?",
+                        type: "input",
+                        answer: "1/20",
+                        hint: "Dividing by 4 is the same as multiplying by 1/4."
+                    },
+                    {
+                        question: "25 × 36 = ?",
+                        type: "input",
+                        answer: "900",
+                        hint: "25 × 36 = 25 × 4 × 9 = 100 × 9 = 900."
+                    },
+                    {
+                        question: "1,000 × 0.06 = ?",
+                        type: "input",
+                        answer: "60",
+                        hint: "Multiplying by 1,000 moves the decimal point 3 places right."
+                    },
+                    {
+                        question: "40 × 29 = ?",
+                        type: "input",
+                        answer: "1160",
+                        hint: "40 × 29 = 40 × 30 - 40 × 1 = 1,200 - 40 = 1,160."
+                    },
+                    {
+                        question: "1 - 0.01 = ?",
+                        type: "input",
+                        answer: "0.99",
+                        hint: "1 - 0.01 = 1.00 - 0.01 = 0.99."
+                    },
+                    {
+                        question: "12 × 1 1/4 = ?",
+                        type: "input",
+                        answer: "15",
+                        hint: "1 1/4 = 1.25, so 12 × 1.25 = 15."
+                    },
+                    // Year 6 Reasoning (25 questions)
+                    {
+                        question: "If a = 4, what is the value of 3a + 5?",
+                        type: "input",
+                        answer: "17",
+                        hint: "Replace 'a' with 4: 3 × 4 + 5 = 12 + 5 = 17."
+                    },
+                    {
+                        question: "The ratio of cats to dogs is 2:5. If there are 10 dogs, how many cats are there?",
+                        type: "input",
+                        answer: "4",
+                        hint: "If 5 parts = 10 dogs, then 1 part = 2. So 2 parts = 4 cats."
+                    },
+                    {
+                        question: "What is the mean of these three numbers: 8, 12, 13?",
+                        type: "input",
+                        answer: "11",
+                        hint: "Add them up: 8 + 12 + 13 = 33. Then divide by 3: 33 ÷ 3 = 11."
+                    },
+                    {
+                        question: "A jacket costing £120 is in a 25% off sale. What is the sale price?",
+                        type: "input",
+                        answer: "£90",
+                        hint: "25% of £120 = £30. So sale price = £120 - £30 = £90."
+                    },
+                    {
+                        question: "What is the volume of a cuboid with sides 2cm, 5cm and 10cm?",
+                        type: "input",
+                        answer: "100cm³",
+                        hint: "Volume = length × width × height = 2 × 5 × 10 = 100cm³."
+                    },
+                    {
+                        question: "Here are four statements about a parallelogram. Which is true?",
+                        type: "multiple",
+                        options: ["It has four right angles.", "It has two pairs of parallel sides.", "All four sides are always equal."],
+                        answer: "It has two pairs of parallel sides.",
+                        hint: "A parallelogram has opposite sides that are parallel and equal."
+                    },
+                    {
+                        question: "A map scale is 1cm to 5km. A path on the map is 3.5cm long. How long is the real path?",
+                        type: "input",
+                        answer: "17.5km",
+                        hint: "Multiply the map distance by the scale: 3.5 × 5 = 17.5km."
+                    },
+                    {
+                        question: "A painter mixes blue and white paint in a 1:3 ratio. If she uses 2 litres of blue paint, how much white paint does she use?",
+                        type: "input",
+                        answer: "6 litres",
+                        hint: "If 1 part blue = 2 litres, then 3 parts white = 3 × 2 = 6 litres."
+                    },
+                    {
+                        question: "Simplify the ratio 16:24.",
+                        type: "input",
+                        answer: "2:3",
+                        hint: "Find the highest common factor: both divide by 8. 16÷8 : 24÷8 = 2:3."
+                    },
+                    {
+                        question: "A car travels 90 miles in 1 hour and 30 minutes. What is its average speed in mph?",
+                        type: "input",
+                        answer: "60 mph",
+                        hint: "1.5 hours = 90 minutes. Speed = distance ÷ time = 90 ÷ 1.5 = 60 mph."
+                    },
+                    {
+                        question: "A number sequence is described by the rule '2n + 1'. What is the 5th term in the sequence?",
+                        type: "input",
+                        answer: "11",
+                        hint: "Replace n with 5: 2 × 5 + 1 = 10 + 1 = 11."
+                    },
+                    {
+                        question: "The area of a triangle is 18cm². The base is 6cm. What is the height?",
+                        type: "input",
+                        answer: "6cm",
+                        hint: "Area = ½ × base × height. So 18 = ½ × 6 × height. Height = 6cm."
+                    },
+                    {
+                        question: "I think of a number, divide it by 2, and then add 7. My answer is 15. What was my number?",
+                        type: "input",
+                        answer: "16",
+                        hint: "Work backwards: 15 - 7 = 8, then 8 × 2 = 16."
+                    },
+                    {
+                        question: "Increase £80 by 15%.",
+                        type: "input",
+                        answer: "£92",
+                        hint: "15% of £80 = £12. So £80 + £12 = £92."
+                    },
+                    {
+                        question: "A pie chart shows 240 children. The angle for 'Swimming' is 90°. How many children chose swimming?",
+                        type: "input",
+                        answer: "60",
+                        hint: "90° is ¼ of 360°. So ¼ of 240 = 60 children."
+                    },
+                    {
+                        question: "What is the value of x in 20 = 2x + 10?",
+                        type: "input",
+                        answer: "5",
+                        hint: "Subtract 10 from both sides: 10 = 2x. Then divide by 2: x = 5."
+                    },
+                    {
+                        question: "A circle has a diameter of 10cm. What is its circumference? (Use π ≈ 3.14)",
+                        type: "input",
+                        answer: "31.4cm",
+                        hint: "Circumference = π × diameter = 3.14 × 10 = 31.4cm."
+                    },
+                    {
+                        question: "A recipe for 8 people needs 300g of flour. How much flour is needed for 12 people?",
+                        type: "input",
+                        answer: "450g",
+                        hint: "Scale factor = 12 ÷ 8 = 1.5. So 300g × 1.5 = 450g."
+                    },
+                    {
+                        question: "Two numbers have a product of 48 and a sum of 14. What are the numbers?",
+                        type: "input",
+                        answer: "6 and 8",
+                        hint: "Try factor pairs of 48: 6 × 8 = 48 and 6 + 8 = 14."
+                    },
+                    {
+                        question: "A phone bill is £15 per month plus 10p per minute for calls. What is the bill if you use 50 minutes of calls?",
+                        type: "input",
+                        answer: "£20",
+                        hint: "50 × 10p = 500p = £5. Total = £15 + £5 = £20."
+                    },
+                    {
+                        question: "Find the size of angle 'a'. (A point with angles 100°, 90°, and 'a')",
+                        type: "input",
+                        answer: "170°",
+                        hint: "Angles around a point = 360°. So a = 360° - 100° - 90° = 170°."
+                    },
+                    {
+                        question: "Which is better value for money?",
+                        type: "multiple",
+                        options: ["3 apples for 90p", "5 apples for £1.40"],
+                        answer: "5 apples for £1.40",
+                        hint: "Work out the cost per apple: 90p ÷ 3 = 30p each vs £1.40 ÷ 5 = 28p each."
+                    },
+                    {
+                        question: "The mean age of 3 people is 20. Two of them are 18 and 22. How old is the third person?",
+                        type: "input",
+                        answer: "20",
+                        hint: "Total age = 3 × 20 = 60. Third person = 60 - 18 - 22 = 20."
+                    },
+                    {
+                        question: "A cube has a volume of 27cm³. What is the length of one of its sides?",
+                        type: "input",
+                        answer: "3cm",
+                        hint: "Volume = side³. So side = ∛27 = 3cm."
+                    },
+                    {
+                        question: "A bag has red and blue marbles. The probability of picking a red marble is 0.4. What is the probability of picking a blue one?",
+                        type: "input",
+                        answer: "0.6",
+                        hint: "All probabilities add up to 1. So blue = 1 - 0.4 = 0.6."
+                    }]
+            }
+        };
+
+        // Enhanced User Data Management
+        let userData = {
+            name: '',
+            totalPoints: 0,
+            quizzesCompleted: 0,
+            bestStreak: 0,
+            currentStreak: 0,
+            topicScores: {},
+            achievements: [],
+            level: 1,
+            startTime: null,
+            lastLoginDate: null,
+            dailyStreak: 0
+        };
+
+        // Quest Rank System
+        function getQuestRank(level) {
+            const ranks = {
+                1: "🌟 Apprentice Scholar",
+                2: "⚔️ Brave Questor", 
+                3: "🛡️ Skilled Explorer",
+                4: "👑 Master Adventurer",
+                5: "🏆 SATs Champion"
+            };
+            
+            if (level <= 5) {
+                return ranks[level];
+            } else {
+                return `🌟 Legendary Scholar ${level - 5}`;
+            }
+        }
+        
+        function getNextQuestRank(level) {
                     },
                     {
                         question: "Calculate: 6.2 - 3.7",
