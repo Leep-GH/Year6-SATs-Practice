@@ -2597,10 +2597,16 @@
                         hint: "Adverbs often end in '-ly' and describe how something is done."
                     },
                     {
-                        question: "Add commas to the list: I need bread eggs and milk.",
-                        type: "input",
+                        question: "Which sentence has the correct commas?",
+                        type: "multiple",
+                        options: [
+                            "I need bread eggs and milk.",
+                            "I need bread, eggs and milk.",
+                            "I need bread, eggs, and milk.",
+                            "I need, bread eggs and milk."
+                        ],
                         answer: "I need bread, eggs, and milk.",
-                        hint: "Put commas between items in a list."
+                        hint: "Put commas between each item in a list, including before 'and'."
                     },
                     {
                         question: "What is the contraction for 'do not'?",
@@ -3188,22 +3194,40 @@
                         hint: "In passive voice, the action is done 'by' someone or something."
                     },
                     {
-                        question: "Add a colon: He gave a simple instruction Wait here.",
-                        type: "input",
-                        answer: "He gave a simple instruction: \"Wait here.\"",
+                        question: "Where should the colon go? 'He gave a simple instruction Wait here.'",
+                        type: "multiple",
+                        options: [
+                            "He: gave a simple instruction Wait here.",
+                            "He gave a simple: instruction Wait here.",
+                            "He gave a simple instruction: Wait here.",
+                            "He gave a simple instruction Wait: here."
+                        ],
+                        answer: "He gave a simple instruction: Wait here.",
                         hint: "A colon introduces direct speech or instructions."
                     },
                     {
-                        question: "Add a semi-colon: Some like hot weather others prefer the cold.",
-                        type: "input",
+                        question: "Where should the semi-colon go in this sentence? 'Some like hot weather others prefer the cold.'",
+                        type: "multiple",
+                        options: [
+                            "Some; like hot weather others prefer the cold.",
+                            "Some like hot weather; others prefer the cold.",
+                            "Some like hot; weather others prefer the cold.",
+                            "Some like hot weather others; prefer the cold."
+                        ],
                         answer: "Some like hot weather; others prefer the cold.",
-                        hint: "Use a semi-colon to join two related sentences."
+                        hint: "A semi-colon joins two complete sentences that are closely related."
                     },
                     {
-                        question: "Rewrite this sentence in the active voice: The prize was won by our team.",
-                        type: "input",
+                        question: "Which sentence is in the active voice? 'The prize was won by our team.'",
+                        type: "multiple",
+                        options: [
+                            "The prize was won by our team.",
+                            "Our team won the prize.",
+                            "The prize has been won by our team.",
+                            "By our team, the prize was won."
+                        ],
                         answer: "Our team won the prize.",
-                        hint: "Move the subject doing the action to the front of the sentence."
+                        hint: "In active voice, the subject doing the action comes first."
                     },
                     {
                         question: "Tick the sentence that uses a colon correctly to introduce a clause.",
