@@ -2080,153 +2080,46 @@
         </div>
 
         <div class="topics-section glass-card">
-            <h2 class="section-title">Choose Your Practice Topic</h2>
+            <h2 class="section-title">Choose Your SATs Practice</h2>
             
-            <div class="subject-section">
-                <h3 class="subject-title">
-                    <div class="subject-icon">📐</div>
-                    Mathematics
-                </h3>
-                <div class="topic-grid">
-                    <button class="topic-card" data-topic="arithmetic" onclick="showPackSelection('arithmetic')">
-                        <div class="completion-badge" id="arithmetic-badge">NEW</div>
-                        <div class="topic-icon">🧮</div>
-                        <div class="topic-title">Arithmetic</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="arithmetic-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="number-place-value" onclick="showPackSelection('number-place-value')">
-                        <div class="completion-badge" id="number-place-value-badge">NEW</div>
-                        <div class="topic-icon">🔢</div>
-                        <div class="topic-title">Number and Place Value</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="number-place-value-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="fractions-decimals" onclick="showPackSelection('fractions-decimals')">
-                        <div class="completion-badge" id="fractions-decimals-badge">NEW</div>
-                        <div class="topic-icon">🍕</div>
-                        <div class="topic-title">Fractions, Decimals & %</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="fractions-decimals-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="geometry" onclick="showPackSelection('geometry')">
-                        <div class="completion-badge" id="geometry-badge">NEW</div>
-                        <div class="topic-icon">📐</div>
-                        <div class="topic-title">Geometry</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="geometry-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="measurement" onclick="showPackSelection('measurement')">
-                        <div class="completion-badge" id="measurement-badge">NEW</div>
-                        <div class="topic-icon">📏</div>
-                        <div class="topic-title">Measurement</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="measurement-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-            <div class="subject-section">
-                <h3 class="subject-title">
-                    <div class="subject-icon">📚</div>
-                    English
-                </h3>
-                <div class="topic-grid">
-                    <button class="topic-card" data-topic="grammar-punctuation" onclick="showPackSelection('grammar-punctuation')">
-                        <div class="completion-badge" id="grammar-punctuation-badge">NEW</div>
-                        <div class="topic-icon">✏️</div>
-                        <div class="topic-title">Grammar & Punctuation</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="grammar-punctuation-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="spelling" onclick="showPackSelection('spelling')">
-                        <div class="completion-badge" id="spelling-badge">NEW</div>
-                        <div class="topic-icon">🔤</div>
-                        <div class="topic-title">Spelling</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="spelling-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                    <button class="topic-card" data-topic="reading-comprehension" onclick="showPackSelection('reading-comprehension')">
-                        <div class="completion-badge" id="reading-comprehension-badge">NEW</div>
-                        <div class="topic-icon">📖</div>
-                        <div class="topic-title">Reading Comprehension</div>
-                        <div class="topic-stats">
-                            <span>30 questions (3 packs)</span>
-                            <span class="topic-best-score" id="reading-comprehension-score">Tap to choose pack</span>
-                        </div>
-                    </button>
-                </div>
+            <div class="topic-grid">
+                <button class="topic-card" data-topic="mathematics" onclick="startQuiz('mathematics')">
+                    <div class="completion-badge" id="mathematics-badge">NEW</div>
+                    <div class="topic-icon">📐</div>
+                    <div class="topic-title">Mathematics</div>
+                    <div class="topic-description">Arithmetic & Reasoning</div>
+                    <div class="topic-stats">
+                        <span>150 questions (75 Arithmetic + 75 Reasoning)</span>
+                        <span class="topic-best-score" id="mathematics-score">Start Practice</span>
+                    </div>
+                </button>
+                
+                <button class="topic-card" data-topic="grammar-spelling" onclick="startQuiz('grammar-spelling')">
+                    <div class="completion-badge" id="grammar-spelling-badge">NEW</div>
+                    <div class="topic-icon">✏️</div>
+                    <div class="topic-title">Grammar, Punctuation & Spelling</div>
+                    <div class="topic-description">GaPS Test Practice</div>
+                    <div class="topic-stats">
+                        <span>150 questions (100 Grammar + 50 Spelling)</span>
+                        <span class="topic-best-score" id="grammar-spelling-score">Start Practice</span>
+                    </div>
+                </button>
+                
+                <button class="topic-card" data-topic="reading" onclick="startQuiz('reading')">
+                    <div class="completion-badge" id="reading-badge">NEW</div>
+                    <div class="topic-icon">📖</div>
+                    <div class="topic-title">Reading</div>
+                    <div class="topic-description">Comprehension & Inference</div>
+                    <div class="topic-stats">
+                        <span>50 questions (Coming Soon)</span>
+                        <span class="topic-best-score" id="reading-score">Coming Soon</span>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Pack Selection Interface -->
-    <div id="packSelectionContainer" class="container pack-selection-container" style="display: none;">
-        <div class="pack-selection-header">
-            <button class="back-btn" onclick="backToDashboard()">← Back</button>
-            <h2 class="pack-title" id="packSelectionTitle">Choose Your Pack</h2>
-        </div>
-        
-        <div class="pack-grid">
-            <div class="pack-card" id="pack1Card">
-                <div class="pack-badge bronze">🥉</div>
-                <div class="pack-icon">📚</div>
-                <div class="pack-title">Pack 1: Foundation</div>
-                <div class="pack-description">Basic concepts & confidence building</div>
-                <div class="pack-progress">
-                    <div class="pack-progress-bar">
-                        <div class="pack-progress-fill" id="pack1Progress"></div>
-                    </div>
-                    <span class="pack-progress-text" id="pack1ProgressText">0/10 completed</span>
-                </div>
-                <button class="pack-btn" onclick="startQuizPack(currentPackTopic, 'pack1')" id="pack1Btn">Start Foundation</button>
-            </div>
-            
-            <div class="pack-card locked" id="pack2Card">
-                <div class="pack-badge silver">🥈</div>
-                <div class="pack-icon">🎯</div>
-                <div class="pack-title">Pack 2: Development</div>
-                <div class="pack-description">Intermediate skills & challenges</div>
-                <div class="pack-requirement" id="pack2Requirement">Complete Pack 1 with 70%+ to unlock</div>
-                <div class="pack-progress">
-                    <div class="pack-progress-bar">
-                        <div class="pack-progress-fill" id="pack2Progress"></div>
-                    </div>
-                    <span class="pack-progress-text" id="pack2ProgressText">0/10 completed</span>
-                </div>
-                <button class="pack-btn locked" onclick="startQuizPack(currentPackTopic, 'pack2')" id="pack2Btn" disabled>🔒 Locked</button>
-            </div>
-            
-            <div class="pack-card locked" id="pack3Card">
-                <div class="pack-badge gold">🥇</div>
-                <div class="pack-icon">🏆</div>
-                <div class="pack-title">Pack 3: Mastery</div>
-                <div class="pack-description">Advanced SATs-level questions</div>
-                <div class="pack-requirement" id="pack3Requirement">Complete Pack 2 with 70%+ to unlock</div>
-                <div class="pack-progress">
-                    <div class="pack-progress-bar">
-                        <div class="pack-progress-fill" id="pack3Progress"></div>
-                    </div>
-                    <span class="pack-progress-text" id="pack3ProgressText">0/10 completed</span>
-                </div>
-                <button class="pack-btn locked" onclick="startQuizPack(currentPackTopic, 'pack3')" id="pack3Btn" disabled>🔒 Locked</button>
-            </div>
-        </div>
-    </div>
+    <!-- Pack Selection Interface Removed - Direct Quiz Access Now -->
 
     <!-- Quiz Interface -->
     <div id="quizContainer" class="container quiz-container">
@@ -2333,62 +2226,258 @@
             { topic: 'spelling', target: 6, description: 'Unlock 6 spelling treasures today!' }
         ];
 
-        // Updated Question Bank with 3-Pack System (240 Total Questions)
+        // Year 6 SATs Question Bank - Authentic Difficulty Level
         const questionBank = {
-            'arithmetic': {
-                pack1: [
-                    // PACK 1: Foundation (Bronze) - Basic Operations
-                    {
-                        question: "Calculate: 234 + 156",
-                        type: "input",
-                        answer: "390",
-                        hint: "Line up the numbers in columns. Add from right to left, starting with the units."
-                    },
-                    {
-                        question: "What is 7 × 8?",
-                        type: "multiple",
-                        options: ["48", "54", "56", "63"],
-                        answer: "56",
-                        hint: "This is a times table fact. Try counting in 7s or 8s to check your answer."
-                    },
-                    {
-                        question: "Calculate: 543 - 178",
-                        type: "input",
-                        answer: "365",
-                        hint: "Line up by place value. When the top digit is smaller, borrow from the next column."
-                    },
-                    {
-                        question: "What is 10% of 80?",
-                        type: "multiple",
-                        options: ["4", "8", "10", "18"],
-                        answer: "8",
-                        hint: "10% means 10 out of 100. What's an easy way to find 10% of any number?"
-                    },
-                    {
-                        question: "Calculate: 84 ÷ 4",
-                        type: "input",
-                        answer: "21",
-                        hint: "Think: how many groups of 4 make 84? Use your 4 times table to help."
-                    },
-                    {
-                        question: "What is 1/2 of 24?",
-                        type: "multiple",
-                        options: ["6", "12", "18", "24"],
-                        answer: "12",
-                        hint: "Half of something means divide by 2. What's 24 ÷ 2?"
-                    },
-                    {
-                        question: "Calculate: 1.5 + 2.3",
-                        type: "input",
-                        answer: "3.8",
-                        hint: "Line up the decimal points. Add normally, keeping the decimal point in the same position."
-                    },
-                    {
-                        question: "What is 25% of 100?",
-                        type: "multiple",
-                        options: ["20", "25", "50", "75"],
-                        answer: "25",
-                        hint: "25% means 25 out of 100. What fraction is this equivalent to?"
+            'mathematics': [
+                // ARITHMETIC SECTION (75 questions)
+                {
+                    question: "Calculate: 838 + 284",
+                    type: "input",
+                    answer: "1122",
+                    hint: "Line up the numbers carefully. Add each column from right to left, starting with the ones."
+                },
+                {
+                    question: "Calculate: 1,043 - 572",
+                    type: "input", 
+                    answer: "471",
+                    hint: "When the top number is smaller, you need to borrow from the next column."
+                },
+                {
+                    question: "What is 9 × 12?",
+                    type: "multiple",
+                    options: ["98", "108", "118", "128"],
+                    answer: "108",
+                    hint: "This is from your times tables. Try counting in 9s: 9, 18, 27... or think 9 × 10 + 9 × 2."
+                },
+                {
+                    question: "Calculate: 84 ÷ 7",
+                    type: "input",
+                    answer: "12",
+                    hint: "Think about your 7 times table. What number times 7 equals 84?"
+                },
+                {
+                    question: "Calculate: 6.3 + 1.8",
+                    type: "input",
+                    answer: "8.1",
+                    hint: "Line up the decimal points. Add just like whole numbers, keeping the decimal point in place."
+                },
+                {
+                    question: "Calculate: 3,070 - 482",
+                    type: "input",
+                    answer: "2588",
+                    hint: "Start from the ones column. When you can't subtract, borrow from the next column."
+                },
+                {
+                    question: "What is 5 × 4 × 9?",
+                    type: "input",
+                    answer: "180",
+                    hint: "You can multiply in any order. Try 5 × 4 first, then multiply that answer by 9."
+                },
+                {
+                    question: "Calculate: 42 + 10",
+                    type: "input",
+                    answer: "26",
+                    hint: "Remember, 42 means 4 × 4, which equals 16. Then add 10."
+                },
+                {
+                    question: "Calculate: 560 ÷ 8",
+                    type: "input",
+                    answer: "70",
+                    hint: "Think: 8 times what number equals 560? Try using your 8 times table."
+                },
+                {
+                    question: "What is 93.2 × 10?",
+                    type: "input",
+                    answer: "932",
+                    hint: "When multiplying by 10, move all digits one place to the left (or move decimal point right)."
+                },
+                {
+                    question: "Calculate: 20% of 1,800",
+                    type: "input",
+                    answer: "360",
+                    hint: "20% means 20 out of 100. What's an easy way to find 20% of any number?"
+                },
+                {
+                    question: "What is 1/5 + 3/5?",
+                    type: "multiple",
+                    options: ["4/10", "4/5", "3/5", "1/5"],
+                    answer: "4/5",
+                    hint: "When fractions have the same bottom number, just add the top numbers."
+                },
+                {
+                    question: "Calculate: 10 - 5.7",
+                    type: "input",
+                    answer: "4.3",
+                    hint: "Think of 10 as 10.0. Line up the decimal points and subtract."
+                },
+                {
+                    question: "What is 25% of 360?",
+                    type: "input",
+                    answer: "90",
+                    hint: "25% is the same as 1/4. What's 360 ÷ 4?"
+                },
+                // REASONING SECTION (75 questions)
+                {
+                    question: "Round 256,472 to the nearest 10,000.",
+                    type: "input",
+                    answer: "260000",
+                    hint: "Look at the thousands digit. If it's 5 or more, round up. If it's less than 5, round down."
+                },
+                {
+                    question: "A shop sells T-shirts for £8.50 each. How much do 5 T-shirts cost?",
+                    type: "input",
+                    answer: "42.50",
+                    hint: "Multiply the price of one T-shirt by the number of T-shirts: £8.50 × 5."
+                },
+                {
+                    question: "Pencils are sold in packs of 12. A school needs 150 pencils. How many packs must the school buy?",
+                    type: "input",
+                    answer: "13",
+                    hint: "Divide 150 by 12. You'll need to round up because you can't buy part of a pack!"
+                },
+                {
+                    question: "A rectangle has a length of 12cm and a width of 6cm. What is its perimeter?",
+                    type: "input",
+                    answer: "36",
+                    hint: "Perimeter means all the way around. Add up all four sides: 12 + 6 + 12 + 6."
+                },
+                {
+                    question: "A square has an area of 49cm². What is the length of one side?",
+                    type: "input",
+                    answer: "7",
+                    hint: "Area of a square = side × side. What number times itself equals 49?"
+                },
+                {
+                    question: "A class has 32 children. 3/8 of the children are boys. How many girls are in the class?",
+                    type: "input",
+                    answer: "20",
+                    hint: "First find how many boys there are (3/8 of 32), then subtract from 32 to find girls."
+                },
+                {
+                    question: "A recipe for 4 people requires 200g of flour. How much flour is needed for 6 people?",
+                    type: "input",
+                    answer: "300",
+                    hint: "If 4 people need 200g, how much does 1 person need? Then multiply by 6."
+                },
+                {
+                    question: "What is the value of the digit 7 in 5,742,109?",
+                    type: "multiple",
+                    options: ["700", "7,000", "70,000", "700,000"],
+                    answer: "700,000",
+                    hint: "Look at the position of the 7. Count the place values from right to left."
+                }],
+            'grammar-spelling': [
+                // GRAMMAR & PUNCTUATION (100 questions)
+                {
+                    question: "Circle the adverb in this sentence: The dog barked loudly at the postman.",
+                    type: "multiple",
+                    options: ["dog", "barked", "loudly", "postman"],
+                    answer: "loudly",
+                    hint: "An adverb describes how something is done. Which word tells us HOW the dog barked?"
+                },
+                {
+                    question: "Which sentence is a command?",
+                    type: "multiple",
+                    options: ["Can you open the window?", "Open the window.", "The window is open.", "I will open the window."],
+                    answer: "Open the window.",
+                    hint: "A command tells someone to do something. It usually starts with a verb."
+                },
+                {
+                    question: "Which sentence uses an apostrophe correctly?",
+                    type: "multiple",
+                    options: ["The childrens' toys were everywhere.", "The children's toys were everywhere.", "The childrens toys were everywhere.", "The children toys were everywhere."],
+                    answer: "The children's toys were everywhere.",
+                    hint: "Children is already plural, so add 's to show possession."
+                },
+                {
+                    question: "Which word is a synonym for 'happy'?",
+                    type: "multiple",
+                    options: ["sad", "joyful", "angry", "tired"],
+                    answer: "joyful",
+                    hint: "A synonym means the same thing. Which word means the same as happy?"
+                },
+                {
+                    question: "Which sentence should end with a question mark?",
+                    type: "multiple",
+                    options: ["I wonder what time it is", "What time is it", "The time is three o'clock", "Please tell me the time"],
+                    answer: "What time is it",
+                    hint: "A question asks for information. Which sentence is asking something?"
+                },
+                // SPELLING (50 questions)
+                {
+                    question: "The doctor wrote a _____ for the medicine.",
+                    type: "input",
+                    answer: "prescription",
+                    hint: "This word starts with 'pre' and is what doctors give you to get medicine."
+                },
+                {
+                    question: "The school _____ is a very strict but fair person.",
+                    type: "input",
+                    answer: "principal",
+                    hint: "Remember: the PRINCIPAL is your PAL. Don't confuse with 'principle' (a rule)."
+                },
+                {
+                    question: "It is not _____ to talk with your mouth full.",
+                    type: "input",
+                    answer: "polite",
+                    hint: "This word means having good manners. It starts with 'pol'."
+                },
+                {
+                    question: "My favourite subject at school is _____.",
+                    type: "input", 
+                    answer: "science",
+                    hint: "This subject studies how things work. Be careful with the 'sc' at the beginning."
+                },
+                {
+                    question: "The _____ was cold and windy.",
+                    type: "input",
+                    answer: "weather",
+                    hint: "This describes what it's like outside. Don't confuse with 'whether' (if)."
+                }],
+            'reading': [
+                // COMING SOON - Reading comprehension questions will be added
+                {
+                    question: "Reading comprehension questions coming soon!",
+                    type: "multiple",
+                    options: ["OK", "Great", "Looking forward to it", "Awesome"],
+                    answer: "OK",
+                    hint: "We're working on adding reading passages and questions. Check back soon!"
+                }]
+        };
+
+        // Enhanced User Data Management
+        let userData = {
+            name: '',
+            totalPoints: 0,
+            quizzesCompleted: 0,
+            bestStreak: 0,
+            currentStreak: 0,
+            topicScores: {},
+            achievements: [],
+            level: 1,
+            startTime: null,
+            lastLoginDate: null,
+            dailyStreak: 0
+        };
+
+        // Quest Rank System
+        function getQuestRank(level) {
+            const ranks = {
+                1: "🌟 Apprentice Scholar",
+                2: "⚔️ Brave Questor", 
+                3: "🛡️ Skilled Explorer",
+                4: "👑 Master Adventurer",
+                5: "🏆 SATs Champion"
+            };
+            
+            if (level <= 5) {
+                return ranks[level];
+            } else {
+                return `🌟 Legendary Scholar ${level - 5}`;
+            }
+        }
+        
+        function getNextQuestRank(level) {
                     },
                     {
                         question: "Calculate: 6.2 - 3.7",
