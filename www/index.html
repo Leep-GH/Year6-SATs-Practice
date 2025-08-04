@@ -6,6 +6,12 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <!-- FORCE CACHE CLEAR v3.0 - MOBILE UPDATE -->
+    <meta name="version" content="3.0-mobile-force-refresh">
+    <meta http-equiv="Expires" content="Mon, 01 Jan 1990 00:00:00 GMT">
+    <meta http-equiv="Last-Modified" content="Mon, 01 Jan 1990 00:00:00 GMT">
+    <meta name="cache-control" content="no-cache, no-store, must-revalidate, post-check=0, pre-check=0">
+    <meta name="pragma" content="no-cache">
     <title>Interactive SATs Practice</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=OpenDyslexic:wght@400;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -286,7 +292,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
             border: none;
             width: 50px;
@@ -297,7 +303,7 @@
             font-weight: 400;
             z-index: 1001;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -307,7 +313,7 @@
 
         .settings-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         .settings-title {
@@ -668,7 +674,7 @@
         }
 
         .start-btn {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
             border: none;
             padding: 16px 32px;
@@ -677,13 +683,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
             width: 100%;
         }
 
         .start-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         /* Dashboard */
@@ -1328,23 +1335,32 @@
         }
 
         .back-btn {
-            background: #f9fafb;
-            border: 1px solid #f1f5f9;
-            color: #1f2937;
-            padding: 12px 20px;
-            border-radius: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            color: #475569;
+            padding: 12px 24px;
+            border-radius: 16px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
         }
 
         .back-btn:hover {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
-            border-color: #fbbf24;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .back-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
         }
 
         .quiz-title {
@@ -1355,7 +1371,7 @@
         }
 
         .hint-btn {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             border: none;
             color: white;
             padding: 12px 20px;
@@ -1363,12 +1379,13 @@
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
         }
 
         .hint-btn:hover {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
         }
 
         .quiz-progress {
@@ -1387,7 +1404,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
             transition: width 0.3s ease;
             border-radius: 3px;
         }
@@ -1684,6 +1701,91 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+        }
+
+        /* Tappable Sentence Component - Optimized for Single Word Selection */
+        .tappable-sentence-container {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .tappable-instruction {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            background: #eff6ff;
+            border-radius: 10px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .tappable-sentence {
+            font-size: 1.4rem;
+            line-height: 2.2;
+            text-align: left;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .tappable-word {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            user-select: none;
+            border: 2px solid transparent;
+            background: white;
+            color: #374151;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .tappable-word:hover {
+            background: #e0e7ff;
+            border-color: #3b82f6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .tappable-word.selected {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .tappable-word.selected:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .tappable-punctuation {
+            color: #6b7280;
+            font-weight: normal;
+            cursor: default;
+            padding: 0 2px;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            min-height: auto;
+        }
+
+        .tappable-punctuation:hover {
+            background: none !important;
+            border: none !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         /* Feedback Interface */
@@ -3840,6 +3942,10 @@
     </main>
 
     <script>
+        // 🔥 MOBILE FORCE REFRESH v3.0 - If you see this message, the new JavaScript loaded!
+        console.log('🔥 MOBILE CACHE CLEAR v3.0 - NEW JAVASCRIPT LOADED!');
+        console.log('📱 If you see this in mobile console, the tappable sentence should work!');
+        
         // Enhanced JavaScript with Accessibility, Settings, and Updated SATs Questions (2024-2025)
         
         // Sound settings
@@ -4175,10 +4281,11 @@
                 hint: "Subtract 10 from 1,000."
             },
             {
-                question: "Circle the adjective: The tall man walked away.",
-                type: "highlight",
+                question: "Tap the adjective: The tall man walked away.",
+                type: "tappable-sentence",
                 sentence: "The tall man walked away.",
-                correctWords: ["tall"],
+                instruction: "Tap the adjective:",
+                correctWord: "tall",
                 subject: "grammar",
                 yearLevel: "year5",
                 hint: "An adjective describes a noun. Which word describes the man?"
@@ -4277,7 +4384,7 @@
                 hint: "Add them up: 2 + 4 + 9 = 15. Then divide by 3."
             },
             {
-                question: "Circle the two pronouns: I gave the pen to him.",
+                question: "Tap the two pronouns: I gave the pen to him.",
                 type: "highlight",
                 sentence: "I gave the pen to him.",
                 correctWords: ["I", "him"],
@@ -4350,9 +4457,10 @@
             'grammar': [
                 {
                     question: "Underline the modal verb: You should try your best.",
-                    type: "highlight",
+                    type: "tappable-sentence",
                     sentence: "You should try your best.",
-                    correctWords: ["should"],
+                    instruction: "Tap the modal verb:",
+                    correctWord: "should",
                     hint: "Modal verbs express possibility, necessity, or ability."
                 }
             ],
@@ -4643,7 +4751,7 @@
                         hint: "'Their' shows ownership. 'They're' means 'they are'. 'There' shows a place."
                     },
                     {
-                        question: "Circle the conjunction in the sentence: He was tired, so he went to bed.",
+                        question: "Tap the conjunction in the sentence: He was tired, so he went to bed.",
                         type: "multiple",
                         options: ["He", "was", "so", "bed"],
                         answer: "so",
@@ -4675,7 +4783,7 @@
                         hint: "A preposition shows the position of something - where it is."
                     },
                     {
-                        question: "Circle the verb in the sentence: The horses galloped across the field.",
+                        question: "Tap the verb in the sentence: The horses galloped across the field.",
                         type: "multiple",
                         options: ["horses", "galloped", "across", "field"],
                         answer: "galloped",
@@ -4728,7 +4836,7 @@
                         hint: "Present tense tells us what is happening now."
                     },
                     {
-                        question: "Circle the two nouns: The teacher put the books on the table.",
+                        question: "Tap the two nouns: The teacher put the books on the table.",
                         type: "multiple",
                         options: ["teacher and books", "teacher and put", "books and table"],
                         answer: "teacher and books",
@@ -6420,6 +6528,10 @@
             
             const question = currentQuestions[currentQuestionIndex];
             console.log('🔍 Current question:', question);
+            console.log('🚨 QUESTION TYPE:', question?.type);
+            console.log('🚨 IS TAPPABLE-SENTENCE?', question?.type === 'tappable-sentence');
+            console.log('🚨 QUESTION TEXT:', question?.question);
+            console.log('🚨 INCLUDES TAP?', question?.question?.includes('Tap the adjective'));
             
             if (!question) {
                 console.error('❌ No question found at index', currentQuestionIndex);
@@ -6448,8 +6560,12 @@
             console.log('❓ Displaying question:', question.question);
             document.getElementById('questionText').textContent = question.question;
             
-            // Hide hint box
-            document.getElementById('hintBox').classList.remove('show');
+            // Hide hint box and clear hint text
+            const hintBox = document.getElementById('hintBox');
+            const hintText = document.getElementById('hintText');
+            hintBox.classList.remove('show');
+            hintBox.style.display = 'none';
+            hintText.textContent = ''; // Clear previous hint text
             
             // Create answer interface
             const optionsContainer = document.getElementById('optionsContainer');
@@ -6699,7 +6815,91 @@
                 `;
                 optionsContainer.appendChild(instructionDiv);
                 
+            } else if (question.type === 'tappable-sentence' || question.question?.includes('Tap the adjective')) {
+                // Create optimized "Tappable Sentence" component for single-word identification
+                console.log('🎯 Creating tappable-sentence for:', question.question);
+                const container = document.createElement('div');
+                container.className = 'tappable-sentence-container';
+                
+                // Add instruction
+                const instructionDiv = document.createElement('div');
+                instructionDiv.className = 'tappable-instruction';
+                instructionDiv.textContent = question.instruction || 'Tap the correct word:';
+                
+                // Create sentence with clickable words
+                const sentenceDiv = document.createElement('div');
+                sentenceDiv.className = 'tappable-sentence';
+                
+                // Initialize user selection if not exists
+                if (userAnswers[currentQuestionIndex] === undefined) {
+                    userAnswers[currentQuestionIndex] = null;
+                }
+                
+                // Split sentence into words and punctuation
+                const tokens = question.sentence.split(/(\s+|[,.!?;:'"()])/);
+                
+                tokens.forEach((token, index) => {
+                    if (!token.trim()) {
+                        // Just whitespace
+                        sentenceDiv.appendChild(document.createTextNode(token));
+                        return;
+                    }
+                    
+                    if (/^[,.!?;:'"()]$/.test(token)) {
+                        // Punctuation - not clickable
+                        const punctSpan = document.createElement('span');
+                        punctSpan.className = 'tappable-punctuation';
+                        punctSpan.textContent = token;
+                        sentenceDiv.appendChild(punctSpan);
+                        return;
+                    }
+                    
+                    // Regular word - make it clickable
+                    const cleanWord = token.replace(/[,.!?;:'"()]/g, ''); // Remove punctuation for matching
+                    if (!cleanWord) return;
+                    
+                    const wordButton = document.createElement('button');
+                    wordButton.type = 'button';
+                    wordButton.className = 'tappable-word';
+                    wordButton.textContent = token;
+                    wordButton.setAttribute('data-word', cleanWord.toLowerCase());
+                    
+                    // Check if this word is currently selected
+                    const isSelected = userAnswers[currentQuestionIndex] === cleanWord.toLowerCase();
+                    if (isSelected) {
+                        wordButton.classList.add('selected');
+                    }
+                    
+                    // Handle word selection (only one word can be selected)
+                    wordButton.addEventListener('click', function() {
+                        const word = this.getAttribute('data-word');
+                        
+                        // Remove selection from all words
+                        const allWords = sentenceDiv.querySelectorAll('.tappable-word');
+                        allWords.forEach(w => w.classList.remove('selected'));
+                        
+                        // If this word was already selected, deselect it
+                        if (userAnswers[currentQuestionIndex] === word) {
+                            userAnswers[currentQuestionIndex] = null;
+                        } else {
+                            // Select this word
+                            userAnswers[currentQuestionIndex] = word;
+                            this.classList.add('selected');
+                        }
+                        
+                        playSound('click');
+                    });
+                    
+                    sentenceDiv.appendChild(wordButton);
+                });
+                
+                container.appendChild(instructionDiv);
+                container.appendChild(sentenceDiv);
+                optionsContainer.appendChild(container);
+                
             } else {
+                console.log('🚨 FALLING TO ELSE - CREATING TEXT INPUT');
+                console.log('🚨 Final question check:', question);
                 const input = document.createElement('input');
                 input.type = 'text';
                 input.className = 'text-input';
@@ -7129,6 +7329,16 @@
                 return userSelection === correctIndex;
             }
             
+            // Handle tappable-sentence questions - Single word selection
+            if (question && question.type === 'tappable-sentence') {
+                const userSelection = userAnswer ? userAnswer.toLowerCase().trim() : '';
+                const correctWord = question.correctWord ? question.correctWord.toLowerCase().trim() : '';
+                
+                console.log('🎯 Tappable sentence check - User selected:', userSelection, 'Correct word:', correctWord);
+                
+                return userSelection === correctWord;
+            }
+            
             // Convert both to lowercase and trim whitespace
             const user = userAnswer.toString().toLowerCase().trim();
             const correct = correctAnswer.toString().toLowerCase().trim();
@@ -7388,6 +7598,14 @@
                     return;
                 }
                 userAnswer = selectedPositions; // Array of selected positions
+            } else if (currentQuestion.type === 'tappable-sentence') {
+                // For tappable-sentence questions, the userAnswer is stored as a single word
+                const selectedWord = userAnswers[currentQuestionIndex];
+                if (!selectedWord) {
+                    alert('Please tap a word before submitting.');
+                    return;
+                }
+                userAnswer = selectedWord; // Selected word
             } else {
                 const inputElement = document.querySelector('.text-input');
                 if (!inputElement || !inputElement.value.trim()) {
@@ -7527,78 +7745,7 @@
             }
         }
 
-        // Modified displayQuestion to show submit button instead of navigation
-        function displayQuestion() {
-            const question = currentQuestions[currentQuestionIndex];
-            
-            // Update question number and progress
-            document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1}`;
-            document.getElementById('quizProgressText').textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
-            const progressPercentage = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
-            document.getElementById('quizProgressFill').style.width = `${progressPercentage}%`;
-            
-            // Show passage if exists
-            const passageElement = document.getElementById('passageText');
-            if (question.passage) {
-                passageElement.textContent = question.passage;
-                passageElement.style.display = 'block';
-            } else {
-                passageElement.style.display = 'none';
-            }
-            
-            // Display question text
-            document.getElementById('questionText').textContent = question.question;
-            
-            // Clear previous answers and show options
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            if (question.type === 'multiple') {
-                question.options.forEach((option, index) => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.className = 'option';
-                    optionDiv.innerHTML = `
-                        <input type="radio" id="option${index}" name="answer" value="${option}">
-                        <label for="option${index}">${option}</label>
-                    `;
-                    optionsContainer.appendChild(optionDiv);
-                });
-            } else {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.className = 'text-input';
-                input.placeholder = 'Enter your answer here...';
-                input.value = userAnswers[currentQuestionIndex] || '';
-                optionsContainer.appendChild(input);
-            }
-            
-            // Reset submit button
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Answer';
-            
-            // Show submit section
-            document.getElementById('submitSection').style.display = 'block';
-            
-            // Hide hint initially and reset hint button
-            const hintBox = document.getElementById('hintBox');
-            hintBox.style.display = 'none';
-            hintBox.classList.remove('show');
-            document.getElementById('hintText').textContent = ''; // Clear hint text
-            
-            // Reset hint button for new question
-            const hintBtn = document.getElementById('hintBtn');
-            const hintsLeft = MAX_HINTS - hintsUsed;
-            if (hintsLeft > 0) {
-                hintBtn.textContent = `💡 Hint (${hintsLeft})`;
-                hintBtn.disabled = false;
-                hintBtn.style.opacity = '1';
-            } else {
-                hintBtn.textContent = '💡 No Hints Left';
-                hintBtn.disabled = true;
-                hintBtn.style.opacity = '0.3';
-            }
-        }
+
 
         // Test function for keyword matching system (for development/debugging)
         function testKeywordSystem() {

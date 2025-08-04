@@ -1,0 +1,6 @@
+[core]
+	pager = 
+[pager]
+	status = false
+	log = false
+	diff = false
