@@ -2418,6 +2418,8 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            min-height: 100px;
+            width: 100%;
         }
 
         .main-nav-btn:hover {
@@ -3306,7 +3308,7 @@
             <button class="main-nav-btn quest-btn" onclick="showQuestMap()" title="Start your main learning journey">
                 <div class="nav-icon">🗺️</div>
                 <div class="nav-content">
-                    <h3>Continue Main Quest</h3>
+                    <h3 id="questButtonText">Start Main Quest</h3>
                     <p>Begin your learning adventure</p>
                 </div>
                 <div class="nav-arrow">→</div>
@@ -5963,7 +5965,11 @@
             // Update quiz title based on mode
             if (quizType === 'mixed-quest') {
                 document.getElementById('quizTitle').textContent = `Quest Level ${selectedQuestLevel}: Scholar's Adventure`;
+            } else if (quizType === 'quest-mixed' || currentTopic === 'quest-mixed') {
+                // Quest mode with mixed questions
+                document.getElementById('quizTitle').textContent = `Quest Level ${selectedQuestLevel}: Scholar's Adventure`;
             } else {
+                // Practice Zone mode
                 const yearNames = {
                     'year5': 'Year 5 Foundation',
                     'year6': 'Year 6 SATs Ready'
@@ -5975,7 +5981,12 @@
                     'reasoning': 'Mathematical Reasoning'
                 };
                 const quizTypeText = quizType === 'quick' ? 'Quick Quiz' : 'Full Workout';
-                document.getElementById('quizTitle').textContent = `${yearNames[selectedYearLevel]} - ${subjectNames[selectedSubject]} (${quizTypeText})`;
+                
+                // Ensure variables are defined before using them
+                const yearName = yearNames[selectedYearLevel] || 'Unknown Year';
+                const subjectName = subjectNames[selectedSubject] || 'Mixed Subjects';
+                
+                document.getElementById('quizTitle').textContent = `${yearName} - ${subjectName} (${quizTypeText})`;
             }
             
             displayQuestion();
@@ -6107,12 +6118,33 @@
                 // Update adventure points display
                 updateAdventurePointsDisplay();
                 
-
+                // Update dynamic quest button text
+                updateQuestButtonText();
                 
                 // Update stats for Hub Screen
                 updateHubStats();
                 
                 console.log('✅ Hub Display updated with BLUEPRINT gamification system');
+            }
+        }
+
+        // Update Quest Button Text (Start vs Continue)
+        function updateQuestButtonText() {
+            const questButtonElement = document.getElementById('questButtonText');
+            if (questButtonElement) {
+                // Check if user has completed any quest levels
+                const completedLevels = userData.completedQuestLevels || [];
+                
+                // Check if user has any XP (indicating they've started the journey)
+                const hasStarted = (userData.xp && userData.xp > 0) || completedLevels.length > 0;
+                
+                if (hasStarted) {
+                    questButtonElement.textContent = 'Continue Main Quest';
+                } else {
+                    questButtonElement.textContent = 'Start Main Quest';
+                }
+                
+                console.log(`🔄 Quest button text updated: ${questButtonElement.textContent}`);
             }
         }
 
@@ -6326,6 +6358,32 @@
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('quizContainer').style.display = 'none';
             document.getElementById('resultsContainer').style.display = 'none';
+        }
+
+        // Hide All Screens
+        function hideAllScreens() {
+            console.log('🙈 hideAllScreens() called');
+            
+            // Hide all possible containers
+            const containers = [
+                'welcomeScreen',
+                'quizContainer', 
+                'resultsContainer',
+                'packSelectionContainer',
+                'quizTypeContainer', 
+                'feedbackContainer',
+                'questMapContainer',
+                'yearLevelContainer',
+                'rankProgressionContainer',
+                'rewardsShopContainer'
+            ];
+            
+            containers.forEach(containerId => {
+                const element = document.getElementById(containerId);
+                if (element) {
+                    element.style.display = 'none';
+                }
+            });
         }
 
         // BLUEPRINT: Show Hub Screen - Central navigation point
