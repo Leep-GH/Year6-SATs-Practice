@@ -5933,9 +5933,9 @@
             console.log(`🎯 Starting ${quizType} quiz for ${selectedYearLevel} ${selectedSubject}`);
             
             // Handle Quest Mode vs Practice Zone
-            if (quizType === 'mixed-quest') {
-                // Quest Mode: Already handled by generateMixedQuestQuestions()
-                currentTopic = 'mixed-quest';
+            if (quizType === 'mixed-quest' || quizType.startsWith('quest-level-')) {
+                // Quest Mode: Questions already set by startQuestLevel() or generateMixedQuestQuestions()
+                currentTopic = quizType;
             } else {
                 // Practice Zone: Use separate question bank
                 currentTopic = selectedYearLevel;
