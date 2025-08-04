@@ -2202,6 +2202,7 @@
             margin-bottom: 10px;
             color: var(--text-color);
             background: none;
+            background-clip: unset;
             -webkit-background-clip: unset;
             -webkit-text-fill-color: unset;
         }
@@ -2393,81 +2394,7 @@
             50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
         }
 
-        /* Daily Quest Card */
-        .daily-quest-card {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #fbbf24;
-            position: relative;
-            overflow: hidden;
-        }
 
-        .daily-quest-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.3);
-        }
-
-        .quest-icon {
-            font-size: 2.5rem;
-            margin-right: 20px;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
-        }
-
-        .quest-content {
-            flex: 1;
-        }
-
-        .quest-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #1f2937;
-        }
-
-        .quest-description {
-            color: #6b7280;
-            margin-bottom: 12px;
-            font-size: 1rem;
-        }
-
-        .quest-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .quest-bar {
-            flex: 1;
-            background: #e5e7eb;
-            border-radius: 10px;
-            height: 8px;
-            overflow: hidden;
-        }
-
-        .quest-fill {
-            background: linear-gradient(90deg, #fbbf24, #f59e0b);
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.3s ease;
-        }
-
-        .quest-count {
-            font-weight: 600;
-            color: #1f2937;
-            font-size: 0.9rem;
-        }
-
-        .quest-arrow {
-            font-size: 1.5rem;
-            color: #fbbf24;
-            font-weight: bold;
-        }
 
         /* Main Navigation Grid */
         .main-navigation-grid {
@@ -3372,21 +3299,7 @@
             </div>
         </div>
 
-        <!-- Daily Quest Card -->
-        <div class="daily-quest-card glass-card" id="dailyQuestCard" onclick="startDailyQuest()" title="Click to start your daily quest">
-            <div class="quest-icon">📜</div>
-            <div class="quest-content">
-                <h3 class="quest-title">Daily Quest</h3>
-                <p class="quest-description" id="questDescription">Answer 10 more questions to finish today's quest!</p>
-                <div class="quest-progress">
-                    <div class="quest-bar">
-                        <div class="quest-fill" id="questFill" style="width: 0%"></div>
-                    </div>
-                    <span class="quest-count" id="questCount">0/10</span>
-                </div>
-            </div>
-            <div class="quest-arrow">→</div>
-        </div>
+
 
         <!-- Main Navigation Buttons -->
         <div class="main-navigation-grid">
@@ -4239,217 +4152,7 @@
             return itemNames[itemId] || itemId;
         }
 
-        // Start Daily Quest with Time-Aware Educational Logic
-        function startDailyQuest() {
-            console.log('📜 Starting daily quest');
-            
-            // Check how many questions left for today
-            const questionsToday = userData.dailyQuestionsAnswered || 0;
-            const questTarget = 10;
-            const questionsRemaining = questTarget - questionsToday;
-            
-            if (questionsRemaining <= 0) {
-                alert('🎉 Daily quest already completed! Come back tomorrow for more!');
-                return;
-            }
-            
-            // Determine session size (max 5 questions, but not more than remaining)
-            const sessionSize = Math.min(5, questionsRemaining);
-            
-            console.log(`🎯 Starting daily quest session: ${sessionSize} questions (${questionsToday}/${questTarget} completed today)`);
-            
-            // Time-aware question selection based on UK school year
-            const { year5Weight, year6Weight, termName } = getDailyQuestWeights();
-            console.log(`📅 Current term: ${termName} (Year 5: ${year5Weight}%, Year 6: ${year6Weight}%)`);
-            
-            // Generate questions for this session with appropriate weighting
-            const subjects = ['reading', 'grammar', 'arithmetic', 'reasoning'];
-            const allQuestions = [];
-            
-            // Calculate how many questions from each year level
-            const year5Count = Math.round(sessionSize * (year5Weight / 100));
-            const year6Count = sessionSize - year5Count;
-            
-            console.log(`🎲 Generating ${year5Count} Year 5 + ${year6Count} Year 6 questions`);
-            
-                            // Get Year 5 questions (if needed)
-            if (year5Count > 0) {
-                const year5Questions = [];
-                subjects.forEach(subject => {
-                    const questions = getPracticeZoneQuestions('year5', subject);
-                    console.log(`📚 Year 5 ${subject}:`, questions ? questions.length : 0, 'questions');
-                    if (questions && questions.length > 0) {
-                        questions.forEach(q => {
-                            if (q && q.question) {
-                                year5Questions.push(q);
-                            }
-                        });
-                    }
-                });
-                
-                console.log('📚 Total Year 5 questions collected:', year5Questions.length);
-                
-                // Shuffle and take the required number
-                shuffleArray(year5Questions);
-                allQuestions.push(...year5Questions.slice(0, year5Count));
-            }
-            
-            // Get Year 6 questions (if needed)
-            if (year6Count > 0) {
-                const year6Questions = [];
-                subjects.forEach(subject => {
-                    const questions = getPracticeZoneQuestions('year6', subject);
-                    console.log(`📚 Year 6 ${subject}:`, questions ? questions.length : 0, 'questions');
-                    if (questions && questions.length > 0) {
-                        questions.forEach(q => {
-                            if (q && q.question) {
-                                year6Questions.push(q);
-                            }
-                        });
-                    }
-                });
-                
-                console.log('📚 Total Year 6 questions collected:', year6Questions.length);
-                
-                // Shuffle and take the required number
-                shuffleArray(year6Questions);
-                allQuestions.push(...year6Questions.slice(0, year6Count));
-            }
-            
-            console.log('🔍 Debug - Generated questions pool:', allQuestions.length);
-            console.log('🔍 Debug - All questions:', allQuestions);
-            
-            if (allQuestions.length === 0) {
-                console.error('❌ No questions found for daily quest!');
-                alert('Error: No questions available for daily quest');
-                return;
-            }
-            
-            if (allQuestions.length < sessionSize) {
-                console.warn('⚠️ Not enough questions in pool. Requested:', sessionSize, 'Available:', allQuestions.length);
-            }
-            
-            // Final shuffle of the mixed questions
-            shuffleArray(allQuestions);
-            
-            currentQuestions = allQuestions.slice(0, sessionSize);
-            currentTopic = 'daily-quest';
-            selectedQuestLevel = 0; // Special indicator for daily quest
-            
-            console.log('🔍 Debug - Session questions:', currentQuestions.length, currentQuestions);
-            console.log('🔍 Debug - First question:', currentQuestions[0]);
-            
-            // Hide dashboard and start quiz directly
-            document.getElementById('dashboard').style.display = 'none';
-            startQuiz('daily-quest');
-            
-            playSound('click');
-        }
 
-        // Get Daily Quest question weights based on time of year
-        function getDailyQuestWeights() {
-            const now = new Date();
-            const month = now.getMonth() + 1; // 1-12
-            const day = now.getDate();
-            
-            // UK School Year Calendar:
-            // September - December: Autumn Term (Year 5 revision + early Year 6)
-            // January - Easter: Spring Term (Mix of Year 5 & 6)
-            // Easter - May: Summer Term (Heavy Year 6 focus for SATs)
-            
-            // Autumn Term: September 1 - December 31
-            if (month >= 9 || month <= 12) {
-                return {
-                    year5Weight: 100,
-                    year6Weight: 0,
-                    termName: 'Autumn Term'
-                };
-            }
-            
-            // Spring Term: January 1 - Easter (roughly March/April)
-            if (month >= 1 && month <= 3) {
-                return {
-                    year5Weight: 50,
-                    year6Weight: 50,
-                    termName: 'Spring Term'
-                };
-            }
-            
-            // Summer Term: April 1 - May 31 (SATs preparation)
-            if (month >= 4 && month <= 5) {
-                return {
-                    year5Weight: 25,
-                    year6Weight: 75,
-                    termName: 'Summer Term (SATs Prep)'
-                };
-            }
-            
-            // Summer holidays: June - August (lighter revision)
-            if (month >= 6 && month <= 8) {
-                return {
-                    year5Weight: 70,
-                    year6Weight: 30,
-                    termName: 'Summer Holidays'
-                };
-            }
-            
-            // Default fallback
-            return {
-                year5Weight: 50,
-                year6Weight: 50,
-                termName: 'Mixed Term'
-            };
-        }
-
-        // Update quest progress (call this when questions are answered)
-        function updateQuestProgress() {
-            // Track individual questions answered today
-            if (!userData.dailyQuestionsAnswered) {
-                userData.dailyQuestionsAnswered = 0;
-            }
-            
-            // Check if it's a new day and reset counter
-            const today = new Date().toDateString();
-            if (userData.lastQuestDate !== today) {
-                userData.dailyQuestionsAnswered = 0;
-                userData.lastQuestDate = today;
-            }
-            
-            const questionsToday = userData.dailyQuestionsAnswered || 0;
-            const questTarget = 10; // Answer 10 questions per day
-            
-            const progress = Math.min(questionsToday / questTarget * 100, 100);
-            document.getElementById('questFill').style.width = `${progress}%`;
-            document.getElementById('questCount').textContent = `${Math.min(questionsToday, questTarget)}/${questTarget}`;
-            
-            // Update quest description
-            if (questionsToday >= questTarget) {
-                document.getElementById('questDescription').textContent = '✅ Daily quest completed! Come back tomorrow for more!';
-            } else {
-                const remaining = questTarget - questionsToday;
-                document.getElementById('questDescription').textContent = `Answer ${remaining} more question${remaining > 1 ? 's' : ''} to finish today's quest!`;
-            }
-        }
-
-        // Increment daily questions counter (call this after each question is answered)
-        function incrementDailyQuestions() {
-            if (!userData.dailyQuestionsAnswered) {
-                userData.dailyQuestionsAnswered = 0;
-            }
-            
-            // Check if it's a new day
-            const today = new Date().toDateString();
-            if (userData.lastQuestDate !== today) {
-                userData.dailyQuestionsAnswered = 0;
-                userData.lastQuestDate = today;
-            }
-            
-            userData.dailyQuestionsAnswered++;
-            saveUserData();
-            updateQuestProgress();
-            
-            console.log(`📊 Daily questions answered: ${userData.dailyQuestionsAnswered}/10`);
-        }
 
         // Daily Quests (Updated for Year 5/6 Structure)
 
@@ -6227,13 +5930,10 @@
         function startQuiz(quizType) {
             console.log(`🎯 Starting ${quizType} quiz for ${selectedYearLevel} ${selectedSubject}`);
             
-            // Handle Quest Mode vs Practice Zone vs Daily Quest
+            // Handle Quest Mode vs Practice Zone
             if (quizType === 'mixed-quest') {
                 // Quest Mode: Already handled by generateMixedQuestQuestions()
                 currentTopic = 'mixed-quest';
-            } else if (quizType === 'daily-quest') {
-                // Daily Quest: Already handled by startDailyQuest()
-                currentTopic = 'daily-quest';
             } else {
                 // Practice Zone: Use separate question bank
                 currentTopic = selectedYearLevel;
@@ -6263,10 +5963,6 @@
             // Update quiz title based on mode
             if (quizType === 'mixed-quest') {
                 document.getElementById('quizTitle').textContent = `Quest Level ${selectedQuestLevel}: Scholar's Adventure`;
-            } else if (quizType === 'daily-quest') {
-                const questionsToday = userData.dailyQuestionsAnswered || 0;
-                const sessionNumber = Math.floor(questionsToday / 5) + 1;
-                document.getElementById('quizTitle').textContent = `📜 Daily Quest: Session ${sessionNumber}`;
             } else {
                 const yearNames = {
                     'year5': 'Year 5 Foundation',
@@ -6411,8 +6107,7 @@
                 // Update adventure points display
                 updateAdventurePointsDisplay();
                 
-                // Update quest progress if needed
-                updateQuestProgress();
+
                 
                 // Update stats for Hub Screen
                 updateHubStats();
@@ -7462,11 +7157,7 @@
             // Hide quiz container
             document.getElementById('quizContainer').style.display = 'none';
             
-            // Check if this is a daily quest session
-            if (currentTopic === 'daily-quest') {
-                showDailyQuestSessionSummary();
-                return;
-            }
+
             
             // Regular quiz results
             document.getElementById('resultsContainer').style.display = 'block';
@@ -7490,7 +7181,7 @@
             userData.quizzesCompleted++;
             
             // BLUEPRINT: Award XP and Adventure Points ONLY in Quest mode
-            const isQuestMode = userData.mode === 'quest' || currentTopic === 'quest-mixed' || currentTopic === 'daily-quest';
+            const isQuestMode = userData.mode === 'quest' || currentTopic === 'quest-mixed';
             
             if (isQuestMode) {
                 console.log('🎯 Quest Mode: Awarding XP and Adventure Points');
@@ -7522,112 +7213,7 @@
             showQuestionReview();
         }
 
-        // Show Daily Quest Session Summary
-        function showDailyQuestSessionSummary() {
-            console.log('📜 Showing daily quest session summary');
-            
-            // Calculate session results
-            const sessionQuestions = currentQuestions.length;
-            const sessionScore = score;
-            const percentage = Math.round((sessionScore / sessionQuestions) * 100);
-            
-            // Calculate rewards for this session
-            const correctAnswerXP = sessionScore * 10;
-            const completionXP = sessionQuestions * 5;
-            const totalXP = correctAnswerXP + completionXP;
-            
-            const correctAnswerPoints = sessionScore * 5;
-            const completionAdventurePoints = sessionQuestions * 2;
-            const totalAdventurePoints = correctAnswerPoints + completionAdventurePoints;
-            
-            // Update totals
-            addXP(totalXP);
-            addAdventurePoints(totalAdventurePoints);
-            
-            // Update user data
-            userData.totalPoints = (userData.totalPoints || 0) + (sessionScore * 10);
-            saveUserData();
-            
-            // Update daily progress (this was already done during question answering)
-            const questionsToday = userData.dailyQuestionsAnswered || 0;
-            const questTarget = 10;
-            
-            // Create session summary modal
-            const modalHTML = `
-                <div id="sessionSummaryModal" style="
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0,0,0,0.8);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                ">
-                    <div style="
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        border-radius: 20px;
-                        padding: 40px;
-                        text-align: center;
-                        color: white;
-                        max-width: 400px;
-                        width: 90%;
-                        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                    ">
-                        <h2 style="margin: 0 0 20px 0; font-size: 1.8rem;">📜 Session Complete!</h2>
-                        <div style="background: rgba(255,255,255,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
-                            <h3 style="margin: 0 0 10px 0; color: #ffd700;">Session Score</h3>
-                            <div style="font-size: 2rem; font-weight: bold;">${sessionScore}/${sessionQuestions}</div>
-                            <div style="font-size: 1.2rem; opacity: 0.9;">${percentage}% Accuracy</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
-                            <h3 style="margin: 0 0 10px 0; color: #90EE90;">Rewards Earned</h3>
-                            <div style="font-size: 1.3rem;">+${totalXP} XP</div>
-                            <div style="font-size: 1.3rem;">+${totalAdventurePoints} Gems 💎</div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
-                            <h3 style="margin: 0 0 10px 0; color: #87CEEB;">Daily Progress</h3>
-                            <div style="font-size: 1.3rem;">${questionsToday}/${questTarget} Questions</div>
-                            <div style="font-size: 1rem; opacity: 0.9;">
-                                ${questionsToday >= questTarget ? '🎉 Daily quest completed!' : `${questTarget - questionsToday} more to go today!`}
-                            </div>
-                        </div>
-                        <button onclick="closeDailyQuestSummary()" style="
-                            background: rgba(255,255,255,0.9);
-                            color: #333;
-                            border: none;
-                            border-radius: 15px;
-                            padding: 15px 30px;
-                            font-size: 1.2rem;
-                            font-weight: bold;
-                            cursor: pointer;
-                            margin-top: 20px;
-                            transition: all 0.3s ease;
-                        " onmouseover="this.style.background='white'" onmouseout="this.style.background='rgba(255,255,255,0.9)'">
-                            🏠 Return to Hub
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            playSound('success');
-        }
 
-        // Close Daily Quest Session Summary
-        function closeDailyQuestSummary() {
-            const modal = document.getElementById('sessionSummaryModal');
-            if (modal) {
-                modal.remove();
-            }
-            
-            // Return to dashboard and update daily quest progress
-            updateQuestProgress();
-            updateDashboard();
-            backToDashboard();
-        }
 
         // Show Question Review
         function showQuestionReview() {
@@ -7727,8 +7313,7 @@
             userAnswers[currentQuestionIndex] = userAnswer;
             questionsAnswered++;
             
-            // Update daily quest progress
-            incrementDailyQuestions();
+
             
             // Check if answer is correct
             const isCorrect = isAnswerCorrect(userAnswer, currentQuestion.answer, currentQuestion);
