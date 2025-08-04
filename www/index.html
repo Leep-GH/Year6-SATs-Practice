@@ -3705,7 +3705,7 @@
                         <span class="detail-text">Quick wins</span>
                     </div>
                 </div>
-                <button class="quiz-type-btn primary" onclick="startQuiz('quick')" id="quickQuizBtn">Start Quick Quiz</button>
+                <button class="quiz-type-btn primary" onclick="startQuiz('quick')" id="quickQuizBtn">Quick Quiz (10 Questions)</button>
             </div>
             
             <div class="quiz-type-card full-practice">
@@ -3726,7 +3726,7 @@
                         <span class="detail-text">Maximum points</span>
                     </div>
                 </div>
-                <button class="quiz-type-btn secondary" onclick="startQuiz('full')" id="fullPracticeBtn">Start Full Practice</button>
+                <button class="quiz-type-btn secondary" onclick="startQuiz('full')" id="fullPracticeBtn">Full Workout (25 Questions)</button>
             </div>
         </div>
     </div>
@@ -5963,11 +5963,14 @@
             document.getElementById('quizContainer').style.display = 'block';
             
             // Update quiz title based on mode
-            if (quizType === 'mixed-quest') {
-                document.getElementById('quizTitle').textContent = `Quest Level ${selectedQuestLevel}: Scholar's Adventure`;
+            if (quizType === 'mixed-quest' || quizType.startsWith('quest-level-')) {
+                // Quest mode - use actual level name
+                const levelName = questLevelNames[selectedQuestLevel - 1] || 'Scholar\'s Adventure';
+                document.getElementById('quizTitle').textContent = `Level ${selectedQuestLevel}: ${levelName}`;
             } else if (quizType === 'quest-mixed' || currentTopic === 'quest-mixed') {
                 // Quest mode with mixed questions
-                document.getElementById('quizTitle').textContent = `Quest Level ${selectedQuestLevel}: Scholar's Adventure`;
+                const levelName = questLevelNames[selectedQuestLevel - 1] || 'Scholar\'s Adventure';
+                document.getElementById('quizTitle').textContent = `Level ${selectedQuestLevel}: ${levelName}`;
             } else {
                 // Practice Zone mode
                 const yearNames = {
@@ -6892,6 +6895,40 @@
             
             playSound('click');
         }
+
+        // Quest Level Names Array
+        const questLevelNames = [
+            'Scholar\'s Beginning',        // Level 1
+            'Knowledge Explorer',          // Level 2
+            'Skill Builder',              // Level 3
+            'Wisdom Seeker',              // Level 4
+            'Mind Challenger',            // Level 5
+            'Pattern Master',             // Level 6
+            'Logic Apprentice',           // Level 7
+            'Problem Solver',             // Level 8
+            'Critical Thinker',           // Level 9
+            'Foundation Graduate',        // Level 10
+            'Advanced Explorer',          // Level 11
+            'Concept Master',             // Level 12
+            'Strategy Builder',           // Level 13
+            'Analysis Expert',            // Level 14
+            'Reasoning Scholar',          // Level 15
+            'Synthesis Master',           // Level 16
+            'Evaluation Expert',          // Level 17
+            'Creative Thinker',           // Level 18
+            'Advanced Problem Solver',    // Level 19
+            'Intermediate Graduate',      // Level 20
+            'Expert Challenger',          // Level 21
+            'Master Analyst',             // Level 22
+            'Strategic Thinker',          // Level 23
+            'Complex Solver',             // Level 24
+            'Advanced Reasoner',          // Level 25
+            'Master Synthesizer',         // Level 26
+            'Expert Evaluator',           // Level 27
+            'Advanced Creator',           // Level 28
+            'Master Problem Solver',      // Level 29
+            'SATs Master'                 // Level 30
+        ];
 
         // Start Quest Level (from Quest Map) - FULL VERSION: All 30 Levels Active
         function startQuestLevel(level) {
