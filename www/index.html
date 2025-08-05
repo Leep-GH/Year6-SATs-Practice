@@ -3989,8 +3989,15 @@
             return scholarRanks[0];
         }
 
-        // Add XP and handle level ups
-        function addXP(points) {
+        // OLD XP SYSTEM - DISABLED to prevent conflicts
+        function addXP_OLD_DISABLED(points) {
+            console.log(`⚠️ OLD XP SYSTEM CALLED - This function is disabled`);
+            console.log(`🔄 Redirecting to new state management XP system`);
+            // Don't do anything - the new addXP function will handle it
+            return;
+            
+            // OLD CODE KEPT FOR REFERENCE:
+            /*
             console.log(`✨ Adding ${points} XP`);
             
             // Add XP to userData
@@ -4021,22 +4028,19 @@
             saveUserData();
             
             return userData.level > oldLevel; // Return true if leveled up
+            */
         }
 
-        // Update XP progress bar and numbers
+        // Update XP progress bar - REDIRECT TO NEW SYSTEM
         function updateXPDisplay() {
-            const currentXP = userData.totalXP || 0;
-            const currentLevel = userData.level || 1;
+            const currentXP = userState.currentXP || 0;
+            const currentLevel = userState.currentLevel || 1;
             
-            // Use rank data for XP thresholds (more accurate)
-            const currentRank = getCurrentRank(currentLevel);
-            const nextRankIndex = scholarRanks.findIndex(rank => rank.level > currentLevel);
-            const nextRank = nextRankIndex !== -1 ? scholarRanks[nextRankIndex] : { level: currentLevel + 1, xpRequired: getXPRequiredForLevel(currentLevel + 1) };
-            
-            const xpForCurrentLevel = currentRank.xpRequired;
-            const xpForNextLevel = nextRank.xpRequired;
-            const xpInCurrentLevel = Math.max(0, currentXP - xpForCurrentLevel); // Ensure never negative
-            const xpNeededForNext = xpForNextLevel - xpForCurrentLevel;
+            // Simplified XP calculation using new system
+            const currentLevelXP = getXPRequiredForLevel(currentLevel);
+            const nextLevelXP = getXPRequiredForLevel(currentLevel + 1);
+            const xpInCurrentLevel = Math.max(0, currentXP - currentLevelXP);
+            const xpNeededForNext = nextLevelXP - currentLevelXP;
             const progressPercent = Math.min(100, (xpInCurrentLevel / xpNeededForNext) * 100);
             
             // Update XP numbers
@@ -4050,7 +4054,7 @@
 
         // Update rank display with current rank info
         function updateRankDisplay() {
-            const currentLevel = userData.level || 1;
+            const currentLevel = userState.currentLevel || 1;
             const rank = getCurrentRank(currentLevel);
             
             document.getElementById('rankLevel').textContent = `Level ${currentLevel}`;
@@ -4316,12 +4320,12 @@
             },
             {
                 passage: "The ancient lighthouse stood on the rocky cliff, its beacon cutting through the foggy night. Ships relied on its steady light to navigate safely to harbor.",
-                question: "Find and copy a word that means 'jumped'.",
+                question: "Find and copy a word that means 'light signal'.",
                 type: "input",
-                answer: "pounced",
+                answer: "beacon",
                 subject: "reading",
                 yearLevel: "year5",
-                hint: "Look for an action word that shows sudden movement."
+                hint: "Look for a word that describes the light that helps ships navigate."
             },
             {
                 question: "Simplify the ratio 8:12.",
@@ -5897,20 +5901,41 @@
             }
         };
 
-        // Enhanced User Data Management
-        let userData = {
-            name: '',
-            totalPoints: 0,
-            quizzesCompleted: 0,
+        // COMPREHENSIVE USER STATE OBJECT for SATs Quest App
+        let userState = {
+            // Core User Information
+            userName: '',
+            currentLevel: 1,
+            currentXP: 0,
+            xpForNextLevel: 100,
+            adventurePoints: 0,
+            lastCompletedQuestLevel: 0,
+            unlockedRewards: [],
+            
+            // Extended Progress Tracking
+            totalQuizzesCompleted: 0,
             topicScores: {},
             achievements: [],
-            level: 1,
             startTime: null,
             lastLoginDate: null,
-            // New Gamification Fields
-            totalXP: 0,
-            adventurePoints: 0,
-            ownedItems: []
+            
+            // App State Flags
+            hasCompletedOnboarding: false,
+            isReturningUser: false
+        };
+
+        // Legacy userData object for backward compatibility - maps to userState
+        let userData = {
+            get name() { return userState.userName; },
+            set name(value) { userState.userName = value; },
+            get level() { return userState.currentLevel; },
+            set level(value) { userState.currentLevel = value; },
+            get totalXP() { return userState.currentXP; },
+            set totalXP(value) { userState.currentXP = value; },
+            get adventurePoints() { return userState.adventurePoints; },
+            set adventurePoints(value) { userState.adventurePoints = value; },
+            get ownedItems() { return userState.unlockedRewards; },
+            set ownedItems(value) { userState.unlockedRewards = value; }
         };
 
         // Quest Rank System
@@ -6171,22 +6196,175 @@
             initializeApp();
         });
 
-        // Initialize App
+        // APP LIFECYCLE LOGIC - Initialize App with State Management
         function initializeApp() {
-            // Load user data from localStorage
-            const savedUserData = localStorage.getItem('userData');
-            if (savedUserData) {
-                Object.assign(userData, JSON.parse(savedUserData));
-            }
+            console.log('🚀 SATs Quest App Initializing...');
             
-            // Load settings from localStorage
+            // STEP 1: Load user state from localStorage
+            const isReturningUser = loadState();
+            
+            // STEP 2: Load app settings
             loadSettings();
             
-            // Setup custom logo
+            // STEP 3: Setup custom logo
             setupCustomLogo();
             
-            // Update dashboard
-            updateDashboard();
+            // STEP 4: Handle returning vs new user experience
+            if (isReturningUser && userState.hasCompletedOnboarding && userState.userName) {
+                // RETURNING USER FLOW
+                console.log(`🎮 Welcome back, ${userState.userName}! Level ${userState.currentLevel}`);
+                
+                // Skip onboarding, go straight to hub
+                handleReturningUserExperience();
+                
+            } else {
+                // NEW USER FLOW
+                console.log('👋 New user - showing onboarding experience');
+                
+                // Show the welcome screen for name input
+                showWelcomeScreen();
+                
+                // Show onboarding experience
+                handleNewUserExperience();
+            }
+            
+            // STEP 5: Update all UI components with loaded state
+            updateAllUIComponents();
+        }
+
+        // Handle returning user experience
+        function handleReturningUserExperience() {
+            // Hide welcome screen and show hub
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            
+            // Update quest button to "Continue Main Quest"
+            updateQuestButtonForReturningUser();
+            
+            // Show personalized greeting
+            updatePersonalizedGreeting();
+            
+            // Update all progress displays
+            updateProgressDisplays();
+            
+            console.log('🎉 Returning user experience loaded successfully');
+        }
+
+        // Handle new user experience
+        function handleNewUserExperience() {
+            // Make sure welcome screen is visible for name input
+            // (showWelcomeScreen() is already called in initializeApp)
+            
+            // Update quest button to "Start Main Quest" (for when they get to hub)
+            updateQuestButtonForNewUser();
+            
+            // Show default greeting (for when they get to hub)
+            updateDefaultGreeting();
+            
+            console.log('👋 New user experience prepared - showing welcome screen');
+        }
+
+        // Update quest button for returning users
+        function updateQuestButtonForReturningUser() {
+            const questButtonElement = document.getElementById('questButtonText');
+            if (questButtonElement) {
+                questButtonElement.textContent = 'Continue Main Quest';
+                console.log('🔄 Quest button updated for returning user: Continue Main Quest');
+            }
+        }
+
+        // Update quest button for new users
+        function updateQuestButtonForNewUser() {
+            const questButtonElement = document.getElementById('questButtonText');
+            if (questButtonElement) {
+                questButtonElement.textContent = 'Start Main Quest';
+                console.log('🔄 Quest button updated for new user: Start Main Quest');
+            }
+        }
+
+        // Update personalized greeting for returning users
+        function updatePersonalizedGreeting() {
+            const greetingElement = document.getElementById('userName-display');
+            if (greetingElement && userState.userName) {
+                greetingElement.textContent = `Hi ${userState.userName}!`;
+                console.log(`👋 Updated greeting: Hi ${userState.userName}!`);
+            }
+        }
+
+        // Update default greeting for new users
+        function updateDefaultGreeting() {
+            const greetingElement = document.getElementById('userName-display');
+            if (greetingElement) {
+                greetingElement.textContent = 'Hi there!';
+                console.log('👋 Updated greeting: Hi there!');
+            }
+        }
+
+        // Update all progress displays
+        function updateProgressDisplays() {
+            // Update level display
+            const levelElement = document.getElementById('currentLevel');
+            if (levelElement) {
+                levelElement.textContent = `Level ${userState.currentLevel}`;
+            }
+            
+            // Update rank display
+            const rankElement = document.getElementById('currentRank');
+            if (rankElement) {
+                rankElement.textContent = getQuestRank(userState.currentLevel);
+            }
+            
+            // Update XP display
+            const xpElement = document.getElementById('currentXP');
+            if (xpElement) {
+                xpElement.textContent = userState.currentXP;
+            }
+            
+            // Update Adventure Points display
+            const apElement = document.getElementById('adventurePointsDisplay');
+            if (apElement) {
+                apElement.textContent = userState.adventurePoints;
+            }
+            
+            // Update XP progress bar
+            updateXPProgressBar();
+        }
+
+        // Update XP progress bar
+        function updateXPProgressBar() {
+            const progressFill = document.getElementById('xpProgressFill');
+            if (progressFill) {
+                const currentLevelXP = getXPRequiredForLevel(userState.currentLevel);
+                const nextLevelXP = getXPRequiredForLevel(userState.currentLevel + 1);
+                const xpInCurrentLevel = userState.currentXP - currentLevelXP;
+                const xpNeededForNextLevel = nextLevelXP - currentLevelXP;
+                const progressPercentage = (xpInCurrentLevel / xpNeededForNextLevel) * 100;
+                
+                progressFill.style.width = `${Math.min(progressPercentage, 100)}%`;
+            }
+        }
+
+        // Show specific screen
+        function showScreen(screenName) {
+            // Hide all screens first
+            const screens = ['welcome', 'hub', 'quest', 'practice'];
+            screens.forEach(screen => {
+                const element = document.getElementById(`${screen}Container`);
+                if (element) element.style.display = 'none';
+            });
+            
+            // Show requested screen
+            const targetElement = document.getElementById(`${screenName}Container`);
+            if (targetElement) {
+                targetElement.style.display = 'block';
+            }
+        }
+
+        // Update all UI components with current state
+        function updateAllUIComponents() {
+            updateProgressDisplays();
+            updateHubDisplay(); // Legacy function
+            updateDashboard(); // Legacy function
         }
 
         // Setup custom logo (owl image if available, star if not)
@@ -6247,7 +6425,7 @@
                 const completedLevels = userData.completedQuestLevels || [];
                 
                 // Check if user has any XP (indicating they've started the journey)
-                const hasStarted = (userData.xp && userData.xp > 0) || completedLevels.length > 0;
+                const hasStarted = (userState.currentXP && userState.currentXP > 0) || completedLevels.length > 0;
                 
                 if (hasStarted) {
                     questButtonElement.textContent = 'Continue Main Quest';
@@ -6264,21 +6442,139 @@
             updateHubDisplay();
         }
 
-        // Save User Data to localStorage
+        // STATE MANAGEMENT FUNCTIONS
+
+        // Save complete user state to localStorage
+        function saveState() {
+            try {
+                // Update timestamps
+                userState.lastLoginDate = new Date().toISOString();
+                userState.hasCompletedOnboarding = true;
+                
+                // Calculate XP for next level
+                userState.xpForNextLevel = getXPRequiredForLevel(userState.currentLevel + 1);
+                
+                // Save to localStorage with comprehensive key
+                localStorage.setItem('satsQuestUserState', JSON.stringify(userState));
+                
+                console.log('💾 Complete user state saved:', {
+                    userName: userState.userName,
+                    currentLevel: userState.currentLevel,
+                    currentXP: userState.currentXP,
+                    adventurePoints: userState.adventurePoints,
+                    lastCompletedQuestLevel: userState.lastCompletedQuestLevel
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('❌ Failed to save user state:', error);
+                return false;
+            }
+        }
+
+        // Load complete user state from localStorage
+        function loadState() {
+            try {
+                const savedState = localStorage.getItem('satsQuestUserState');
+                
+                if (savedState) {
+                    const parsed = JSON.parse(savedState);
+                    
+                    // Merge saved state with current userState object
+                    Object.assign(userState, parsed);
+                    userState.isReturningUser = true;
+                    
+                    console.log('📥 User state loaded - RETURNING USER:', {
+                        userName: userState.userName,
+                        currentLevel: userState.currentLevel,
+                        currentXP: userState.currentXP,
+                        adventurePoints: userState.adventurePoints,
+                        isReturningUser: userState.isReturningUser
+                    });
+                    
+                    return true; // Successfully loaded returning user
+                } else {
+                    console.log('👋 No saved state found - NEW USER detected');
+                    userState.isReturningUser = false;
+                    return false; // New user
+                }
+            } catch (error) {
+                console.error('❌ Failed to load user state:', error);
+                userState.isReturningUser = false;
+                return false;
+            }
+        }
+
+        // Legacy saveUserData function for backward compatibility
         function saveUserData() {
-            localStorage.setItem('satsUserData', JSON.stringify(userData));
+            return saveState();
+        }
+
+        // Handle name input for new users - Enhanced with State Management
+        function setUserName(name) {
+            if (!name || name.trim() === '') {
+                console.log('❌ Invalid name provided');
+                return false;
+            }
+            
+            userState.userName = name.trim();
+            userState.hasCompletedOnboarding = true;
+            userState.startTime = new Date().toISOString();
+            
+            console.log(`👋 User name set: ${userState.userName}`);
+            
+            // Update UI with personalized greeting
+            updatePersonalizedGreeting();
+            
+            // Update quest button for returning user experience
+            updateQuestButtonForReturningUser();
+            
+            // Save state after name is set
+            saveState();
+            
+            return true;
+        }
+
+        // Clear all user data (for testing or reset)
+        function clearUserState() {
+            localStorage.removeItem('satsQuestUserState');
+            
+            // Reset userState to defaults
+            userState.userName = '';
+            userState.currentLevel = 1;
+            userState.currentXP = 0;
+            userState.xpForNextLevel = 100;
+            userState.adventurePoints = 0;
+            userState.lastCompletedQuestLevel = 0;
+            userState.unlockedRewards = [];
+            userState.totalQuizzesCompleted = 0;
+            userState.topicScores = {};
+            userState.achievements = [];
+            userState.hasCompletedOnboarding = false;
+            userState.isReturningUser = false;
+            
+            console.log('🗑️ User state cleared - reset to new user');
+            
+            // Refresh the app
+            location.reload();
         }
 
         // BLUEPRINT: Core Gamification Functions
         
-        // Update Hub Stats Display
+        // Update Hub Stats Display (Enhanced with State Management)
         function updateHubStats() {
             // Update quests completed and current level
             const questsElement = document.getElementById('questsCompleted');
             const levelElement = document.getElementById('currentLevelStat');
             
-            if (questsElement) questsElement.textContent = userData.quizzesCompleted || 0;
-            if (levelElement) levelElement.textContent = userData.level || 1;
+            if (questsElement) questsElement.textContent = userState.totalQuizzesCompleted;
+            if (levelElement) levelElement.textContent = userState.currentLevel;
+            
+            // Update other displays
+            updateProgressDisplays();
+            
+            // Save state after any updates
+            saveState();
         }
         
         // Calculate XP required for a specific level
@@ -6286,46 +6582,54 @@
             return Math.floor(100 * Math.pow(1.2, level - 1));
         }
         
-        // Add XP (only in Quest mode)
+        // Add XP (only in Quest mode) - Enhanced with State Management
         function addXP(points) {
-            if (!userData.level) userData.level = 1;
-            if (!userData.xp) userData.xp = 0;
+            if (!userState.currentLevel) userState.currentLevel = 1;
+            if (!userState.currentXP) userState.currentXP = 0;
             
-            userData.xp += points;
-            console.log(`🎯 Added ${points} XP. Total: ${userData.xp}`);
+            userState.currentXP += points;
+            console.log(`🎯 Added ${points} XP. Total: ${userState.currentXP}`);
             
             checkLevelUp();
             updateXPDisplay();
-            saveUserData();
+            updateProgressDisplays();
+            saveState(); // Save state after XP change
         }
         
-        // Check for level up
+        // Check for level up - Enhanced with State Management
         function checkLevelUp() {
-            const currentLevel = userData.level || 1;
+            const currentLevel = userState.currentLevel || 1;
             const requiredXP = getXPRequiredForLevel(currentLevel + 1);
             
-            if (userData.xp >= requiredXP) {
-                userData.level = currentLevel + 1;
-                console.log(`🎉 LEVEL UP! Now Level ${userData.level}`);
+            if (userState.currentXP >= requiredXP) {
+                userState.currentLevel = currentLevel + 1;
+                console.log(`🎉 LEVEL UP! Now Level ${userState.currentLevel}`);
                 
                 // Show level up animation/notification
                 setTimeout(() => {
-                    alert(`🎉 Level Up! You are now Level ${userData.level}!`);
+                    alert(`🎉 Level Up! You are now Level ${userState.currentLevel}!`);
                 }, 300);
                 
                 updateRankDisplay();
+                saveState(); // Save state after level up
             }
         }
         
-        // Add Adventure Points (only in Quest mode)
+        // Add Adventure Points (only in Quest mode) - Enhanced with State Management
         function addAdventurePoints(points) {
-            if (!userData.adventurePoints) userData.adventurePoints = 0;
+            // Only award adventure points in Quest mode
+            if (userData.mode === 'practice') {
+                console.log('🚫 Skipping adventure points in practice mode');
+                return;
+            }
             
-            userData.adventurePoints += points;
-            console.log(`💎 Added ${points} Adventure Points. Total: ${userData.adventurePoints}`);
+            if (!userState.adventurePoints) userState.adventurePoints = 0;
+            
+            userState.adventurePoints += points;
+            console.log(`💎 Added ${points} Adventure Points. Total: ${userState.adventurePoints}`);
             
             updateAdventurePointsDisplay();
-            saveUserData();
+            saveState(); // Save state after adventure points change
         }
         
         // Spend Adventure Points
@@ -6388,9 +6692,9 @@
             showHubScreen();
         }
 
-        // Start User Journey - FIXED VERSION
+        // Start User Journey - STATE MANAGEMENT VERSION
         function startJourney() {
-            console.log('🚀 startJourney() called - FIXED VERSION');
+            console.log('🚀 startJourney() called - STATE MANAGEMENT VERSION');
             
             try {
                 const nameInput = document.getElementById('userName');
@@ -6413,46 +6717,30 @@
                     return;
                 }
                 
-                // Simple, safe userData initialization
-                if (typeof userData === 'undefined') {
-                    window.userData = {};
+                console.log('🎯 Setting user name using STATE MANAGEMENT...');
+                
+                // Use the proper state management function
+                const success = setUserName(name);
+                
+                if (success) {
+                    console.log('✅ User name set successfully, navigating to hub...');
+                    
+                    // Navigate to hub
+                    document.getElementById('welcomeScreen').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    
+                    // Update hub with user's data
+                    updateAllUIComponents();
+                    
+                    console.log('🎉 Successfully completed onboarding with STATE MANAGEMENT');
+                } else {
+                    console.error('❌ Failed to set user name');
+                    alert('Error setting user name. Please try again.');
                 }
-                
-                userData.name = name;
-                userData.startTime = new Date().toISOString();
-                userData.level = userData.level || 1;
-                userData.xp = userData.xp || 0;
-                userData.adventurePoints = userData.adventurePoints || 0;
-                userData.unlockedLevels = userData.unlockedLevels || 1;
-                userData.ownedItems = userData.ownedItems || [];
-                
-                console.log('💾 Saving user data:', userData);
-                
-                // Try to save - but don't fail if it doesn't work
-                try {
-                    saveUserData();
-                } catch (saveError) {
-                    console.warn('⚠️ Save failed, but continuing:', saveError);
-                }
-                
-                console.log('📱 Calling showHubScreen() - FIXED NAVIGATION');
-                
-                // Simple, direct navigation
-                document.getElementById('welcomeScreen').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                
-                // Try to update dashboard
-                try {
-                    updateHubDisplay();
-                } catch (updateError) {
-                    console.warn('⚠️ Hub update failed, but navigated:', updateError);
-                }
-                
-                console.log('✅ Navigation completed successfully!');
                 
             } catch (error) {
-                console.error('❌ Critical error in startJourney:', error);
-                alert('Something went wrong. Please refresh the page and try again.');
+                console.error('❌ Error in startJourney:', error);
+                alert('An error occurred. Please try again.');
             }
         }
 
@@ -7226,12 +7514,14 @@
             const practiceSubject = subjectMap[subject];
             let questions = [];
             
-            if (practiceSubject && practiceBank[practiceSubject]) {
-                questions = practiceBank[practiceSubject];
+            // TEMPORARY FIX: Use main questionBank since practiceBank is incomplete
+            if (questionBank[yearLevel] && questionBank[yearLevel][subject]) {
+                questions = questionBank[yearLevel][subject];
+                console.log(`✅ Using main questionBank: found ${questions.length} questions for ${yearLevel} ${subject}`);
             } else {
-                console.warn(`⚠️ No questions found for subject: ${subject}`);
-                // Fallback to a random mix from practiceBank
-                questions = Object.values(practiceBank).flat();
+                console.warn(`⚠️ No questions found for ${yearLevel} ${subject}`);
+                // Fallback to Year 5 reading if nothing found
+                questions = questionBank['year5']['reading'] || [];
             }
             
             // Set Practice Mode (no XP/Adventure Points)
@@ -7248,8 +7538,19 @@
             console.log(`📝 Generated ${currentQuestions.length} practice zone questions (no XP/Adventure Points)`);
         }
 
-        // Finish Quiz
+        // Finish Quiz - Enhanced with State Management  
         function finishQuiz() {
+            // Update quiz completion count
+            userState.totalQuizzesCompleted++;
+            
+            // Update last completed quest level if in quest mode
+            if (userData.mode === 'quest' && selectedQuestLevel) {
+                userState.lastCompletedQuestLevel = Math.max(userState.lastCompletedQuestLevel, selectedQuestLevel);
+            }
+            
+            // Save state after quiz completion
+            saveState();
+            
             // Score already calculated during immediate feedback
             showResults();
         }
@@ -7576,12 +7877,15 @@
             
             // Get user answer based on question type
             if (currentQuestion.type === 'multiple') {
-                const selectedOption = document.querySelector('input[name="answer"]:checked');
-                if (!selectedOption) {
+                // Multiple choice: get selected option text and convert to index
+                const selectedText = userAnswers[currentQuestionIndex];
+                if (!selectedText) {
                     alert('Please select an answer before submitting.');
                     return;
                 }
-                userAnswer = selectedOption.value;
+                // Convert text back to index for comparison with answer
+                userAnswer = currentQuestion.options.indexOf(selectedText);
+                console.log('✅ Multiple choice answer:', selectedText, '→ index:', userAnswer);
             } else if (currentQuestion.type === 'highlight') {
                 // For highlight questions, the userAnswer is stored as an array of words
                 const selectedWords = userAnswers[currentQuestionIndex] || [];
@@ -7627,16 +7931,18 @@
                 score++;
                 currentStreak++;
                 
-                // Award XP for correct answer
-                addXP(10); // 10 XP per correct answer
-                
-                // Award adventure points for correct answer
-                addAdventurePoints(5); // 5 adventure points per correct answer
+                // Award XP and Adventure Points ONLY in Quest mode
+                if (userData.mode !== 'practice') {
+                    addXP(10); // 10 XP per correct answer in Quest mode only
+                    addAdventurePoints(5); // 5 adventure points per correct answer in Quest mode only
+                }
             } else {
                 currentStreak = 0;
                 
-                // Still award small XP for attempting (encouragement)
-                addXP(2); // 2 XP for attempting even if wrong
+                // Still award small XP for attempting ONLY in Quest mode
+                if (userData.mode !== 'practice') {
+                    addXP(2); // 2 XP for attempting even if wrong in Quest mode only
+                }
             }
             
             // Show feedback
