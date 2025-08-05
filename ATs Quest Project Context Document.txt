@@ -1,0 +1,83 @@
+ATs Quest Project Context Document - COMPREHENSIVE
+Project Overview
+Project: SATs Quest - Year 5/6 Educational Quiz App
+Platform: Web + Android (Capacitor framework)
+Main Files: www/index.html (source), android/app/src/main/assets/public/index.html (deployed)
+User: Non-technical, prefers step-by-step guidance, gets frustrated with iterative debugging
+File Structure & Workflow
+Critical Files:
+www/index.html - Master source file (~9500+ lines) - EDIT HERE
+android/app/src/main/assets/public/index.html - Android deployed version - DO NOT EDIT DIRECTLY
+Essential Workflow:
+Edit www/index.html
+Run npx cap copy android to sync changes
+Test on web: file:///C:/Code/Year6Sats/www/index.html
+Test on Android: npx cap run android --livereload
+Git Issues: User gets frequent pager interruptions - use VS Code Source Control GUI instead of terminal
+Current Codebase Status (FUNCTIONAL - READY FOR DEPLOYMENT)
+State Management System (COMPLETE):
+let userState = {
+    userName: '', currentLevel: 1, currentXP: 0, xpForNextLevel: 100,
+    adventurePoints: 0, lastCompletedQuestLevel: 0, unlockedRewards: [],
+    totalQuizzesCompleted: 0, isReturningUser: false, hasCompletedOnboarding: false
+};
+saveState() / loadState() functions working
+localStorage persistence working
+Instant resume to Hub Screen for returning users
+Question Bank Structure (210/500 COMPLETE):
+// NEW STRUCTURE (USE THESE):
+practiceBank['year5']['reading'] = 25 questions
+practiceBank['year5']['grammar'] = 25 questions  
+practiceBank['year5']['arithmetic'] = 25 questions
+practiceBank['year5']['reasoning'] = 25 questions
+practiceBank['year6']['reading'] = 25 questions
+practiceBank['year6']['grammar'] = 25 questions
+practiceBank['year6']['arithmetic'] = 25 questions
+practiceBank['year6']['reasoning'] = 25 questions
+questBank[] = array of 10/300 mixed questions (need 290 more)
+
+// OLD STRUCTURE (IGNORE/REMOVE):
+questionBank['year5']['reading'] = legacy data - don't use
+
+Key Functions (WORKING):
+generatePracticeZoneQuestions(yearLevel, subject, questionCount) - updated for new structure
+displayQuestion() - handles all question types
+submitAnswer() - handles all answer validation
+addXP() / addAdventurePoints() - integrated with state management
+Major Bugs FIXED (Don't Re-introduce)
+Duplicate displayQuestion() functions - There was a conflicting function around line 7729 that only handled multiple/input types, causing tappable-sentence to render as text input
+Conflicting XP systems - Old userData.totalXP vs new userState.currentXP - disabled old addXP_OLD_DISABLED
+Mobile cache sync - Android file not updating - always run npx cap copy android
+Multiple choice submission - Fixed to use text value vs index matching
+Practice mode XP - Added if (userData.mode !== 'practice') checks
+Hint clearing - Added hintText.textContent = ''; in displayQuestion()
+Question Types & Implementation
+Working Types:
+"input" - Text input answers
+"multiple" - Multiple choice with options array
+"tappable-sentence" - Click words in sentence (has sentence, instruction, correctWord)
+"highlight" - Select multiple words (has sentence, correctWords array)
+"punctuate" - Add punctuation (has sentence, correctWordIndex, punctuation)
+IMMEDIATE TASKS (In Priority Order)
+GPS Question Updates: Convert interactive questions to multiple choice (user provided exact specifications)
+Complete Quest Bank: Add 290 more questions to questBank[] array for 30-level adventure
+Remove Legacy Code: Clean up old questionBank structure
+Final Testing: Verify all question types work
+User Preferences (CRITICAL)
+Non-technical - Use simple explanations
+Step-by-step approach - Don't make too many changes at once
+Systematic fixes - Prefer comprehensive audits over iterative debugging
+Direct feedback - No sugarcoating
+VS Code workflow - Use GUI for git operations due to pager issues
+Testing Strategy
+Web first: Always test www/index.html in browser first
+Mobile sync: Run npx cap copy android after every change
+Cache clearing: User frequently needs to clear browser/mobile cache
+Debug logging: Extensive console.log messages throughout for troubleshooting
+Common Pitfalls to Avoid
+Don't edit Android file directly - changes will be overwritten
+Always sync to Android - user frequently forgets this step
+File size management - File is very large, make targeted updates
+Question numbering - User provided specific question numbers for GPS updates
+Don't break working features - State management and progression work perfectly
+Current Status: App is fully functional with 210/500 questions. Need to complete 290 Quest Bank questions and convert GPS questions to multiple choice for final deployment.
